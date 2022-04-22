@@ -89,6 +89,13 @@
 /datum/job/quartermaster
 	banned_quirks = list(HEAD_RESTRICTED_QUIRKS)
 
+// Legal
+/datum/job/magistrate
+	banned_quirks = list(HEAD_RESTRICTED_QUIRKS)
+
+/datum/job/internal_affairs_agent
+	banned_quirks = list(SEC_RESTRICTED_QUIRKS)
+
 //Silicon
 /datum/job/ai
 	loadout = FALSE
