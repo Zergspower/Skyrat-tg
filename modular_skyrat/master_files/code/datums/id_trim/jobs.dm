@@ -47,11 +47,9 @@
 	trim_icon = 'modular_skyrat/master_files/icons/obj/card.dmi'
 	trim_state = "trim_blueshield"
 	sechud_icon_state = SECHUD_BLUESHIELD
-	extra_access = list(ACCESS_SECURITY, ACCESS_BRIG, ACCESS_COURT, ACCESS_CARGO, ACCESS_GATEWAY) // Someone needs to come back and order these alphabetically, this is a nightmare
-	minimal_access = list(
-		ACCESS_FORENSICS, ACCESS_BRIG_ENTRANCE, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_ENGINE, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH,
-		ACCESS_RC_ANNOUNCE, ACCESS_HEADS, ACCESS_WEAPONS, ACCESS_ENTER_GENPOP, ACCESS_LEAVE_GENPOP
-		)
+	extra_access = list(ACCESS_BRIG, ACCESS_CARGO, ACCESS_COURT, ACCESS_GATEWAY, ACCESS_SECURITY )
+	minimal_access = list(ACCESS_BRIG_ENTRANCE, ACCESS_CONSTRUCTION, ACCESS_ENGINE,	ACCESS_ENTER_GENPOP, ACCESS_FORENSICS, ACCESS_HEADS,
+					ACCESS_LEAVE_GENPOP, ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL,ACCESS_RC_ANNOUNCE, ACCESS_RESEARCH, ACCESS_WEAPONS) 
 	minimal_wildcard_access = list(ACCESS_CAPTAIN)
 	config_job = "blueshield"
 	template_access = list(ACCESS_CAPTAIN, ACCESS_CHANGE_IDS)
@@ -98,7 +96,7 @@
 	sechud_icon_state = SECHUD_VANGUARD_OPERATIVE
 	extra_access = list()
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TELEPORTER, ACCESS_GATEWAY, ACCESS_TECH_STORAGE,
-		ACCESS_CENT_GENERAL, ACCESS_RESEARCH, ACCESS_RND)
+			ACCESS_CENT_GENERAL, ACCESS_RESEARCH, ACCESS_RND)
 	config_job = "expeditionary_trooper"
 
 /datum/id_trim/job/brigoff
@@ -123,3 +121,28 @@
 	config_job = "barber"
 	template_access = list(ACCESS_CAPTAIN, ACCESS_HOP, ACCESS_CHANGE_IDS)
 	job = /datum/job/barber
+
+/datum/id_trim/job/magistrate
+	assignment = "Magistrate"
+	trim_icon = 'modular_skyrat/master_files/icons/obj/card.dmi'
+	trim_state = "trim_magistrate"
+	sechud_icon_state = SECHUD_MAGISTRATE
+	extra_access = list()
+	minimal_access = list(ACCESS_SECURITY, ACCESS_BRIG_ENTRANCE, ACCESS_BRIG, ACCESS_COURT,
+				ACCESS_MAINT_TUNNELS, ACCESS_ENTER_GENPOP, ACCESS_LEAVE_GENPOP)
+	config_job = "magistrate"
+	template_access = list(ACCESS_CAPTAIN, ACCESS_HOS, ACCESS_CHANGE_IDS)
+	job = /datum/job/magistrate
+
+/datum/id_trim/job/internal_affairs_agent
+	assignment = "Internal Affairs Agent"
+	trim_icon = 'modular_skyrat/master_files/icons/obj/card.dmi'
+	trim_state = "trim_IAA"
+	sechud_icon_state = SECHUD_INTERNAL_AFFAIRS_AGENT
+	extra_access = list()
+	minimal_access = list(ACCESS_INTERNAL_AFFAIRS, ACCESS_ATMOSPHERICS, ACCESS_BRIG_ENTRANCE, ACCESS_CENT_GENERAL, 
+				ACCESS_COURT, ACCESS_LAWYER, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS,
+				ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_SERVICE)
+	config_job = "internal_affairs_agent"
+	template_access = list(ACCESS_CAPTAIN, ACCESS_HOP, ACCESS_CHANGE_IDS)
+	job = /datum/job/internal_affairs_agent

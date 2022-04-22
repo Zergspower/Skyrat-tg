@@ -326,7 +326,8 @@
 	template_access = list(ACCESS_CAPTAIN, ACCESS_HOP, ACCESS_CHANGE_IDS)
 	job = /datum/job/janitor
 
-/datum/id_trim/job/lawyer
+// SkyRat removal - See interal_affairs_agent
+/*/datum/id_trim/job/lawyer
 	assignment = "Lawyer"
 	trim_state = "trim_lawyer"
 	sechud_icon_state = SECHUD_LAWYER
@@ -335,6 +336,7 @@
 	config_job = "lawyer"
 	template_access = list(ACCESS_CAPTAIN, ACCESS_HOP, ACCESS_HOS, ACCESS_CHANGE_IDS)
 	job = /datum/job/lawyer
+*/
 
 /datum/id_trim/job/medical_doctor
 	assignment = "Medical Doctor"
