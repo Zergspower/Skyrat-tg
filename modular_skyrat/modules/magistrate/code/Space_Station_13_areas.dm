@@ -1,4 +1,4 @@
-/area/command/heads_quarters/captain/private/nt_rep
+/area/command/heads_quarters/magistrate
 	name = "Magistrate's Office"
-	icon_state = "centcom"
+	icon_state = "legal"
 

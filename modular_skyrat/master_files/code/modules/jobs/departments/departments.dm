@@ -12,6 +12,6 @@
 	department_bitflags = DEPARTMENT_BITFLAG_LEGAL
 	department_head = /datum/job/magistrate
 	department_experience_type = EXP_TYPE_LEGAL
-	display_order = 3
+	display_order = 2
 	label_class = "legal"
 	latejoin_color = "#fc3d03"

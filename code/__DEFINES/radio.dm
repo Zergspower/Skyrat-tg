@@ -46,6 +46,10 @@
 #define RADIO_KEY_CENTCOM "y"
 #define RADIO_TOKEN_CENTCOM ":y"
 
+#define RADIO_CHANNEL_PROCEDURE "Procedure"
+#define RADIO_KEY_PROCEDURE "x"
+#define RADIO_TOKEN_PROCEDURE ":x"
+
 #define RADIO_CHANNEL_CTF_RED "Red Team"
 #define RADIO_CHANNEL_CTF_BLUE "Blue Team"
 #define RADIO_CHANNEL_CTF_GREEN "Green Team"
@@ -68,6 +72,7 @@
 #define FREQ_MEDICAL 1355  // Medical comms frequency, soft blue
 #define FREQ_ENGINEERING 1357  // Engineering comms frequency, orange
 #define FREQ_SECURITY 1359  // Security comms frequency, red
+#define FREQ_PROCEDURE 1345 // Procedure comms frequency, pale pink
 
 #define FREQ_HOLOGRID_SOLUTION 1433
 #define FREQ_STATUS_DISPLAYS 1435

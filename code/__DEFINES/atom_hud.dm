@@ -130,6 +130,9 @@
 //SR Nanotrasen
 #define SECHUD_BLUESHIELD "hudblueshield"
 #define SECHUD_NT_CONSULTANT "hudnanotrasenconsultant"
+//SR Legal
+#define SECHUD_MAGISTRATE "hudmagistrate"
+#define SECHUD_INTERNAL_AFFAIRS_AGENT "hudinternalaffairsagent"
 //SR SolFed
 #define SECHUD_SPACE_POLICE "hudspacepolice"
 #define SECHUD_SOLFED "hudsolfed"

@@ -90,6 +90,7 @@
 // SKYRAT EDIT: Start - Modular Access (See Blueshield module for theirs)
 #define ACCESS_ENTER_GENPOP 80
 #define ACCESS_LEAVE_GENPOP 81
+#define ACCESS_INTERNAL_AFFAIRS 82
 // SKYRAT EDIT: End - Modular Access
 
 	//BEGIN CENTCOM ACCESS
