@@ -1,12 +1,12 @@
-/datum/job/blueshield
-	title = JOB_BLUESHIELD
+/datum/job/internal_affairs_agent
+	title = JOB_INTERNAL_AFFAIRS_AGENT
 	description = "Protect heads of staff, get your fancy gun stolen, cry as the captain touches the supermatter."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
-	department_head = list(JOB_NT_REP)
+	department_head = list(JOB_INTERNAL_AFFAIRS_AGENT)
 	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Central Command and the Nanotrasen Consultant"
+	supervisors = "Magistrate and the Nanotrasen Consultant"
 	selection_color = "#c6ffe0"
 	minimal_player_age = 7
 	exp_requirements = 2400
@@ -43,9 +43,9 @@
 	veteran_only = TRUE
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS
 
-/datum/outfit/job/blueshield
-	name = "Blueshield"
-	jobtype = /datum/job/blueshield
+/datum/outfit/job/internal_affairs_agent
+	name = "Internal Affairs Agent"
+	jobtype = /datum/job/internal_affairs_agent
 	uniform = /obj/item/clothing/under/rank/security/blueshield
 	suit = /obj/item/clothing/suit/armor/vest/blueshield
 	gloves = /obj/item/clothing/gloves/tackler/combat/insulated
@@ -57,51 +57,17 @@
 		/obj/item/storage/box/gunset/blueshield = 1,
 		/obj/item/melee/baton/security/loaded = 1,)
 	implants = list(/obj/item/implant/mindshield)
-	backpack = /obj/item/storage/backpack/blueshield
-	satchel = /obj/item/storage/backpack/satchel/blueshield
-	duffelbag = /obj/item/storage/backpack/duffel/blueshield
+	backpack = /obj/item/storage/backpack/Legal
+	satchel = /obj/item/storage/backpack/satchel/Legal
+	duffelbag = /obj/item/storage/backpack/duffel/Legal
 	head = /obj/item/clothing/head/beret/blueshield
 	box = /obj/item/storage/box/survival/security
-	belt = /obj/item/modular_computer/tablet/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/internal_affairs_agent
 
-	id_trim = /datum/id_trim/job/blueshield
+	id_trim = /datum/id_trim/job/internal_affairs_agent
 
-/datum/outfit/plasmaman/blueshield
-	name = "Blueshield Plasmaman"
+/datum/outfit/plasmaman/lawyer
+	name = "Internal Affairs Plasmaman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/blueshield
-	uniform = /obj/item/clothing/under/plasmaman/blueshield
-
-/obj/item/storage/box/gunset/blueshield
-	name = "CMG-1 Gunset"
-	w_class = WEIGHT_CLASS_NORMAL
-
-/obj/item/gun/ballistic/automatic/cmg/nomag
-	spawnwithmagazine = FALSE
-
-/obj/item/storage/box/gunset/blueshield/PopulateContents()
-	. = ..()
-	new /obj/item/gun/ballistic/automatic/cmg/nomag(src)
-	new /obj/item/ammo_box/magazine/cmgm45(src)
-	new /obj/item/ammo_box/magazine/cmgm45(src)
-	new /obj/item/ammo_box/magazine/cmgm45/lethal(src)
-	new /obj/item/ammo_box/magazine/cmgm45/lethal(src)
-	new /obj/item/suppressor(src)
-
-/obj/item/ammo_casing/energy/laser/hellfire/bs
-	projectile_type = /obj/projectile/beam/laser/hellfire
-	e_cost = 83 //Lets it squeeze out a few more shots
-	select_name = "maim"
-
-/obj/item/gun/energy/laser/hellgun/blueshield
-	name = "\improper Allstar SC-3 PDW 'Hellfire'"
-	desc = "A prototype energy carbine, despite NT's ban on hellfire weaponry due to negative press. \
-            Allstar continued to work on it, compacting it into a small form-factor for personal defense. \
-            As part of the Asset Retention Program created by Nanotrasen, Allstar's prototype began to be put into use. \
-            It has the <b><span style='color:red'>Allstar Energy Weapons</span></b> logo painted next to the charge display."
-	icon = 'modular_skyrat/modules/aesthetics/guns/icons/guns.dmi'
-	worn_icon = 'modular_skyrat/modules/aesthetics/guns/icons/guns_back.dmi'
-	lefthand_file = 'modular_skyrat/modules/aesthetics/guns/icons/guns_lefthand.dmi'
-	righthand_file = 'modular_skyrat/modules/aesthetics/guns/icons/guns_righthand.dmi'
-	icon_state = "hellfirepdw"
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/hellfire/bs)
+	head = /obj/item/clothing/head/helmet/space/plasmaman/lawyer
+	uniform = /obj/item/clothing/under/plasmaman/lawyer
