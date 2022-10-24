@@ -41,6 +41,11 @@
 /// Intended to be used in the manner of `TEST_FOCUS(/datum/unit_test/math)`
 #define TEST_FOCUS(test_path) ##test_path { focus = TRUE; }
 
+/// Logs a noticable message on GitHub, but will not mark as an error.
+/// Use this when something shouldn't happen and is of note, but shouldn't block CI.
+/// Does not mark the test as failed.
+#define TEST_NOTICE(source, message) source.log_for_test((##message), "notice", __FILE__, __LINE__)
+
 /// Constants indicating unit test completion status
 #define UNIT_TEST_PASSED 0
 #define UNIT_TEST_FAILED 1
@@ -70,6 +75,7 @@
 #include "~skyrat/opposing_force.dm"
 #include "~skyrat/automapper.dm"
 //SKYRAT EDIT END
+#include "ablative_hud.dm"
 #include "achievements.dm"
 #include "anchored_mobs.dm"
 #include "anonymous_themes.dm"
@@ -105,10 +111,12 @@
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
 #include "holidays.dm"
+#include "human_through_recycler.dm"
 #include "hydroponics_extractor_storage.dm"
 #include "hydroponics_harvest.dm"
 #include "hydroponics_self_mutations.dm"
 #include "hydroponics_validate_genes.dm"
+#include "inhands.dm"
 #include "keybinding_init.dm"
 #include "knockoff_component.dm"
 #include "limbsanity.dm"
@@ -124,6 +132,7 @@
 #include "mob_spawn.dm"
 #include "modsuit.dm"
 #include "modular_map_loader.dm"
+#include "mouse_bite_cable.dm"
 #include "novaflower_burn.dm"
 #include "ntnetwork_tests.dm"
 #include "nuke_cinematic.dm"
@@ -132,6 +141,7 @@
 #include "outfit_sanity.dm"
 #include "paintings.dm"
 #include "pills.dm"
+#include "plane_double_transform.dm"
 #include "plane_dupe_detector.dm"
 #include "plantgrowth_tests.dm"
 #include "preference_species.dm"
@@ -160,6 +170,7 @@
 #include "spawn_humans.dm"
 #include "spawn_mobs.dm"
 #include "species_change_clothing.dm"
+#include "species_change_organs.dm"
 #include "species_config_sanity.dm"
 #include "species_unique_id.dm"
 #include "species_whitelists.dm"
@@ -167,6 +178,7 @@
 #include "spell_mindswap.dm"
 #include "spell_names.dm"
 #include "spell_shapeshift.dm"
+#include "spritesheets.dm"
 #include "stack_singular_name.dm"
 #include "stomach.dm"
 #include "strippable.dm"
@@ -177,6 +189,7 @@
 #include "timer_sanity.dm"
 #include "traitor.dm"
 #include "unit_test.dm"
+#include "verify_config_tags.dm"
 #include "wizard_loadout.dm"
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
 #include "find_reference_sanity.dm"

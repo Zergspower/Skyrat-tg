@@ -415,7 +415,7 @@
 
 /datum/outfit/tarkon/ensign //jack of all trades, master of none, spent all his credits, every last one
 	name = "Port Tarkon Ensigns Outfit"
-	uniform = /obj/item/clothing/under/utility
+	uniform = /obj/item/clothing/under/misc/skyrat/utility
 	ears = /obj/item/radio/headset/tarkon/ensign
 	id = /obj/item/card/id/away/tarkon/ensign
 	neck = /obj/item/clothing/neck/security_cape/armplate
@@ -546,11 +546,6 @@
 	name = "Tarkon ensign's access card"
 	desc = "An access card designated for \"Tarkon ensign\". No one has to listen to you... But you're the closest there is for command around here."
 	trim = /datum/id_trim/away/tarkon/ensign
-
-//AREAS//
-/area/ruin/space/has_grav/deepstorage/lostcargo
-	name = "Freighter Ship"
-	icon_state = "yellow"
 
 //CRYO CONSOLES
 /obj/machinery/computer/cryopod/interdyne
