@@ -26,6 +26,18 @@
 /obj/effect/landmark/start/quartermaster,
 /turf/open/floor/carpet/cyan,
 /area/space)
+"aI" = (
+/obj/effect/turf_decal/trimline/yellow/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/herringbone,
+/area/space)
+"aK" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 9
+	},
+/turf/open/misc/grass/jungle/planet,
+/area/space)
 "aN" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -58,6 +70,21 @@
 	},
 /obj/item/storage/box/gloves,
 /turf/open/floor/iron/white,
+/area/space)
+"bi" = (
+/obj/structure/window/reinforced/plasma/spawner/north,
+/obj/machinery/power/shuttle_engine/heater,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/space)
+"bA" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/caution/white{
+	dir = 8
+	},
+/turf/open/floor/iron/shuttle/cargo,
 /area/space)
 "bB" = (
 /obj/effect/turf_decal/tile/brown/fourcorners,
@@ -132,6 +159,12 @@
 	dir = 4
 	},
 /area/space)
+"cD" = (
+/obj/effect/turf_decal/trimline/yellow/corner{
+	dir = 1
+	},
+/turf/open/floor/iron/herringbone,
+/area/space)
 "cF" = (
 /turf/open/indestructible/dark,
 /area/space)
@@ -161,6 +194,9 @@
 	dir = 1
 	},
 /turf/open/floor/iron/grimy,
+/area/space)
+"cU" = (
+/turf/closed/wall/mineral/titanium,
 /area/space)
 "cY" = (
 /obj/structure/window/reinforced/spawner/north,
@@ -249,12 +285,27 @@
 /obj/machinery/mech_bay_recharge_port,
 /turf/open/floor/plating,
 /area/space)
+"ew" = (
+/obj/effect/turf_decal/trimline/yellow/filled/shrink_cw,
+/obj/effect/turf_decal/trimline/yellow/filled/shrink_ccw{
+	dir = 1
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "ex" = (
 /obj/structure/table/glass,
 /obj/machinery/reagentgrinder{
 	pixel_y = 6
 	},
 /turf/open/floor/iron/white,
+/area/space)
+"eE" = (
+/obj/machinery/door/airlock/grunge{
+	name = "Supply Shuttle Airlock";
+	req_access = list("cargo")
+	},
+/obj/effect/turf_decal/delivery/white,
+/turf/open/misc/dirt/jungle/dark,
 /area/space)
 "eI" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -270,6 +321,12 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
+/area/space)
+"eR" = (
+/obj/effect/turf_decal/trimline/yellow/corner{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/herringbone,
 /area/space)
 "eX" = (
 /obj/structure/extinguisher_cabinet/directional/west,
@@ -319,6 +376,12 @@
 	dir = 4
 	},
 /area/space)
+"fJ" = (
+/obj/effect/turf_decal/trimline/yellow/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/herringbone,
+/area/space)
 "gf" = (
 /obj/machinery/light/blacklight/directional/north,
 /turf/open/floor/iron/dark/side,
@@ -367,6 +430,21 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/space)
+"gM" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral/diagonal_edge,
+/obj/effect/turf_decal/tile/neutral/diagonal_centre,
+/obj/effect/turf_decal/box/white/corners{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/diagonal,
+/area/space)
+"gS" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 10
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "gT" = (
 /obj/structure/table,
 /obj/item/crowbar/large,
@@ -406,6 +484,15 @@
 /obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/engine,
 /area/space)
+"hv" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral/diagonal_edge,
+/obj/effect/turf_decal/tile/neutral/diagonal_centre,
+/obj/effect/turf_decal/box/white/corners{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/diagonal,
+/area/space)
 "hx" = (
 /turf/open/floor/iron/white/smooth_edge,
 /area/space)
@@ -426,12 +513,29 @@
 /obj/machinery/smartfridge/extract/preloaded,
 /turf/open/floor/iron/white,
 /area/space)
+"hU" = (
+/obj/effect/turf_decal/trimline/yellow/filled/end{
+	dir = 8
+	},
+/obj/structure/shipping_container/nanotrasen,
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
+"in" = (
+/obj/effect/turf_decal/trimline/yellow/corner,
+/turf/open/floor/iron/herringbone,
+/area/space)
 "io" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "robo2";
 	pixel_y = 21
 	},
 /turf/open/floor/iron/white,
+/area/space)
+"ix" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 5
+	},
+/turf/open/misc/dirt/jungle/dark,
 /area/space)
 "iF" = (
 /obj/machinery/door/window/brigdoor/right/directional/north,
@@ -444,6 +548,10 @@
 /turf/open/floor/iron/dark/textured_edge{
 	dir = 1
 	},
+/area/space)
+"iI" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning,
+/turf/open/misc/dirt/jungle/dark,
 /area/space)
 "iN" = (
 /obj/structure/window/reinforced,
@@ -465,6 +573,16 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/engine,
+/area/space)
+"jj" = (
+/obj/structure/closet/shuttle/engivent{
+	pixel_y = -33
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral/diagonal_edge,
+/obj/effect/turf_decal/tile/neutral/diagonal_centre,
+/obj/effect/turf_decal/box/white/corners,
+/turf/open/floor/iron/dark/diagonal,
 /area/space)
 "jm" = (
 /obj/structure/sign/warning/electric_shock,
@@ -497,6 +615,17 @@
 	dir = 8
 	},
 /area/space)
+"jH" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning,
+/turf/open/floor/iron/dark/herringbone,
+/area/space)
+"jL" = (
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 8
+	},
+/obj/effect/turf_decal/vg_decals/numbers/three,
+/turf/open/floor/iron/dark/herringbone,
+/area/space)
 "kf" = (
 /obj/machinery/conveyor{
 	id = "robo2"
@@ -526,6 +655,12 @@
 "kP" = (
 /obj/effect/spawner/random/engineering/tracking_beacon,
 /turf/open/floor/iron,
+/area/space)
+"la" = (
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/herringbone,
 /area/space)
 "lc" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -566,6 +701,13 @@
 /obj/effect/landmark/start/research_director,
 /turf/open/floor/carpet/cyan,
 /area/space)
+"lC" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 8
+	},
+/obj/effect/turf_decal/vg_decals/numbers/two,
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "lD" = (
 /obj/structure/disposalpipe/trunk,
 /obj/structure/disposaloutlet{
@@ -587,6 +729,17 @@
 "lK" = (
 /obj/effect/landmark/start/scientist,
 /turf/open/floor/iron/white,
+/area/space)
+"lO" = (
+/obj/machinery/power/shuttle_engine/propulsion,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating/airless,
+/area/space)
+"lP" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/turf/open/misc/grass/jungle/planet,
 /area/space)
 "lR" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -620,6 +773,10 @@
 "mg" = (
 /turf/open/floor/iron/dark/herringbone,
 /area/space)
+"mj" = (
+/obj/effect/turf_decal/trimline/yellow/corner,
+/turf/open/floor/iron/dark/herringbone,
+/area/space)
 "mu" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
@@ -651,6 +808,29 @@
 /obj/effect/turf_decal/tile/dark/full,
 /turf/open/floor/iron/dark/smooth_half,
 /area/space)
+"mQ" = (
+/obj/effect/turf_decal/trimline/yellow/filled/end{
+	dir = 8
+	},
+/turf/open/floor/iron/herringbone,
+/area/space)
+"mT" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
+"mU" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor2";
+	name = "Supply Dock Loading Door"
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "nh" = (
 /obj/effect/turf_decal/tile/dark_green/half{
 	dir = 1
@@ -680,6 +860,12 @@
 	dir = 4
 	},
 /area/space)
+"nL" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 6
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "nX" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -702,6 +888,12 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
+/area/space)
+"ol" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/turf/open/misc/grass/jungle/planet,
 /area/space)
 "oo" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -732,6 +924,18 @@
 /obj/item/knife,
 /turf/open/floor/iron/white,
 /area/space)
+"oH" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/shuttle/cargo,
+/area/space)
+"oI" = (
+/obj/machinery/power/shuttle_engine/propulsion,
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/fluff/metalpole/end{
+	pixel_y = -32
+	},
+/turf/open/floor/plating/airless,
+/area/space)
 "oS" = (
 /obj/structure/window/reinforced/spawner,
 /obj/structure/window/reinforced/spawner/west,
@@ -754,6 +958,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/space)
+"ps" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 4
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "pw" = (
 /obj/effect/turf_decal/siding/blue,
 /obj/machinery/photocopier{
@@ -761,6 +971,12 @@
 	},
 /obj/structure/table/glass,
 /turf/open/floor/iron/dark,
+/area/space)
+"pz" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/turf/open/misc/grass/jungle/planet,
 /area/space)
 "pB" = (
 /obj/effect/turf_decal/siding/white{
@@ -778,6 +994,10 @@
 	},
 /turf/open/floor/iron,
 /area/space)
+"pN" = (
+/obj/structure/marker_beacon/burgundy,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/space)
 "pX" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners,
 /obj/machinery/door/airlock/ce/glass,
@@ -792,6 +1012,10 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/space)
+"qs" = (
+/obj/effect/turf_decal/vg_decals/numbers/one,
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "qt" = (
 /obj/effect/turf_decal/trimline/darkblue/filled/line{
 	dir = 1
@@ -801,6 +1025,14 @@
 "qE" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /turf/open/floor/iron/white,
+/area/space)
+"qF" = (
+/obj/structure/marker_beacon/burgundy,
+/obj/structure/fluff/metalpole/end{
+	dir = 1;
+	pixel_y = 32
+	},
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/space)
 "qG" = (
 /obj/machinery/power/shieldwallgen/xenobiologyaccess,
@@ -817,6 +1049,12 @@
 	},
 /obj/structure/table/wood,
 /turf/open/floor/iron/grimy,
+/area/space)
+"qI" = (
+/obj/effect/turf_decal/trimline/yellow/filled/end{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/herringbone,
 /area/space)
 "rd" = (
 /obj/item/clothing/suit/hooded/wintercoat/blueshield,
@@ -837,12 +1075,32 @@
 "rs" = (
 /turf/open/floor/iron/dark/smooth_large,
 /area/space)
+"rt" = (
+/obj/structure/shipping_container/nanotrasen,
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 10
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "rx" = (
 /obj/item/clothing/under/rank/centcom/centcom_skirt,
 /turf/open/indestructible/dark,
 /area/space)
 "rI" = (
 /turf/open/floor/iron/dark/textured_half,
+/area/space)
+"rJ" = (
+/obj/effect/turf_decal/trimline/yellow/filled/shrink_cw{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/yellow/filled/shrink_ccw,
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
+"rL" = (
+/obj/effect/turf_decal/trimline/yellow/corner{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/herringbone,
 /area/space)
 "rR" = (
 /obj/item/bedsheet/hop/double,
@@ -858,16 +1116,29 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/space)
+"rW" = (
+/obj/structure/marker_beacon/olive,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/space)
 "rY" = (
 /obj/effect/turf_decal/tile/blue/fourcorners,
 /obj/machinery/door/airlock/cmo/glass,
 /turf/open/indestructible/dark,
+/area/space)
+"sc" = (
+/turf/open/floor/iron/textured,
 /area/space)
 "se" = (
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 8
 	},
 /turf/open/floor/circuit/red,
+/area/space)
+"sk" = (
+/obj/effect/turf_decal/trimline/yellow/filled/end{
+	dir = 4
+	},
+/turf/open/misc/dirt/jungle/dark,
 /area/space)
 "sr" = (
 /obj/structure/hedge,
@@ -884,6 +1155,9 @@
 	dir = 6
 	},
 /turf/open/floor/iron/white,
+/area/space)
+"sR" = (
+/turf/open/space/basic,
 /area/space)
 "ta" = (
 /obj/machinery/smartfridge/extract/preloaded,
@@ -902,6 +1176,21 @@
 	},
 /turf/open/floor/engine,
 /area/space)
+"tj" = (
+/obj/machinery/button/door/directional/east{
+	id = "QMLoaddoor2";
+	name = "Loading Doors";
+	pixel_y = 8
+	},
+/obj/machinery/button/door/directional/east{
+	id = "QMLoaddoor";
+	name = "Loading Doors";
+	pixel_y = -8
+	},
+/obj/machinery/light/directional/east,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/shuttle/cargo,
+/area/space)
 "tk" = (
 /obj/effect/turf_decal/tile/yellow/diagonal_centre,
 /obj/effect/turf_decal/tile/yellow/diagonal_edge,
@@ -914,6 +1203,12 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/engine,
+/area/space)
+"tH" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/turf/open/floor/iron/textured,
 /area/space)
 "tK" = (
 /obj/effect/turf_decal/tile/dark_green/half{
@@ -944,6 +1239,12 @@
 /obj/effect/turf_decal/tile/blue/full,
 /obj/effect/turf_decal/tile/dark/full,
 /turf/open/floor/iron/dark/textured_large,
+/area/space)
+"uu" = (
+/obj/effect/turf_decal/trimline/yellow/filled/end{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/herringbone,
 /area/space)
 "uA" = (
 /obj/machinery/door/poddoor/preopen{
@@ -981,6 +1282,15 @@
 	},
 /turf/open/floor/iron/grimy,
 /area/space)
+"uL" = (
+/obj/effect/turf_decal/trimline/yellow/corner{
+	dir = 4
+	},
+/turf/open/floor/iron/herringbone,
+/area/space)
+"uP" = (
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "uV" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -988,13 +1298,36 @@
 /obj/structure/disposaloutlet,
 /turf/open/floor/engine,
 /area/space)
+"vg" = (
+/obj/effect/turf_decal/trimline/yellow/warning,
+/turf/open/floor/iron/dark/herringbone,
+/area/space)
+"vm" = (
+/obj/structure/fluff/metalpole/end{
+	pixel_y = -32
+	},
+/turf/closed/wall/mineral/titanium/spaceship/nodiagonal,
+/area/space)
 "vs" = (
 /turf/open/floor/iron/white/textured_corner,
+/area/space)
+"vD" = (
+/obj/effect/turf_decal/trimline/yellow/filled/end{
+	dir = 4
+	},
+/turf/open/floor/iron/herringbone,
 /area/space)
 "vF" = (
 /obj/structure/table/glass,
 /obj/structure/microscope,
 /turf/open/floor/iron/white,
+/area/space)
+"vT" = (
+/obj/effect/turf_decal/trimline/yellow/filled/end{
+	dir = 8
+	},
+/obj/structure/shipping_container/nanotrasen,
+/turf/open/floor/iron/dark/herringbone,
 /area/space)
 "vY" = (
 /turf/open/floor/circuit,
@@ -1003,6 +1336,15 @@
 /turf/open/floor/iron/white/textured_corner{
 	dir = 4
 	},
+/area/space)
+"wi" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/turf/open/misc/grass/jungle/planet,
 /area/space)
 "wt" = (
 /obj/machinery/conveyor_switch/oneway{
@@ -1049,6 +1391,20 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/space)
+"wK" = (
+/obj/structure/marker_beacon/olive,
+/obj/structure/fluff/metalpole/end{
+	dir = 1;
+	pixel_y = 32
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
+"xd" = (
+/obj/effect/turf_decal/trimline/yellow/end{
+	dir = 8
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "xg" = (
 /obj/structure/window/reinforced,
 /obj/structure/table/wood,
@@ -1064,6 +1420,18 @@
 /area/space)
 "xl" = (
 /turf/closed/wall,
+/area/space)
+"xs" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 10
+	},
+/turf/open/misc/grass/jungle/planet,
+/area/space)
+"xt" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 1
+	},
+/turf/open/misc/dirt/jungle/dark,
 /area/space)
 "xv" = (
 /obj/item/bedsheet/ce/double,
@@ -1097,6 +1465,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/space)
+"xT" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 9
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "yj" = (
 /turf/open/floor/iron/recharge_floor,
 /area/space)
@@ -1115,6 +1489,12 @@
 	dir = 5
 	},
 /area/space)
+"yF" = (
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 1
+	},
+/turf/open/floor/iron/herringbone,
+/area/space)
 "zm" = (
 /obj/structure/sign/warning/test_chamber,
 /turf/closed/wall/r_wall,
@@ -1126,6 +1506,9 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
+/area/space)
+"zM" = (
+/turf/closed/wall/mineral/titanium/spaceship/nodiagonal,
 /area/space)
 "zV" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
@@ -1164,6 +1547,9 @@
 	},
 /turf/open/floor/engine,
 /area/space)
+"Al" = (
+/turf/open/floor/iron/herringbone,
+/area/space)
 "Ao" = (
 /obj/structure/chair/office/light{
 	dir = 4;
@@ -1171,11 +1557,24 @@
 	},
 /turf/open/floor/iron/white,
 /area/space)
+"Aw" = (
+/obj/effect/turf_decal/trimline/yellow/end{
+	dir = 4
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "AB" = (
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/corner,
+/area/space)
+"AD" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral/diagonal_edge,
+/obj/effect/turf_decal/tile/neutral/diagonal_centre,
+/obj/effect/turf_decal/box/white/corners,
+/turf/open/floor/iron/dark/diagonal,
 /area/space)
 "AH" = (
 /turf/open/floor/iron/dark/textured_large,
@@ -1234,6 +1633,12 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/space)
+"Bx" = (
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/herringbone,
+/area/space)
 "BC" = (
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/carpet/cyan,
@@ -1245,6 +1650,10 @@
 	dir = 1
 	},
 /turf/open/floor/engine,
+/area/space)
+"BO" = (
+/obj/effect/turf_decal/trimline/yellow/warning,
+/turf/open/floor/iron/herringbone,
 /area/space)
 "BQ" = (
 /obj/structure/window/reinforced{
@@ -1266,6 +1675,13 @@
 	},
 /turf/open/floor/iron/white,
 /area/space)
+"Cl" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/dirt,
+/turf/open/misc/grass/jungle/planet,
+/area/space)
 "Co" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -1275,6 +1691,13 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/space)
+"Cp" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/loading_area/white{
+	dir = 4
+	},
+/turf/open/floor/iron/shuttle/cargo,
+/area/space)
 "Cr" = (
 /turf/open/floor/engine,
 /area/space)
@@ -1283,11 +1706,27 @@
 	dir = 9
 	},
 /area/space)
+"Cz" = (
+/turf/closed/wall/mineral/titanium/spaceship,
+/area/space)
 "CD" = (
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
 	dir = 4
 	},
 /turf/open/floor/engine,
+/area/space)
+"CE" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral/diagonal_edge,
+/obj/effect/turf_decal/tile/neutral/diagonal_centre,
+/obj/effect/turf_decal/box/white/corners{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/diagonal,
+/area/space)
+"Dp" = (
+/obj/effect/turf_decal/weather/dirt,
+/turf/open/misc/grass/jungle/planet,
 /area/space)
 "Dt" = (
 /turf/open/floor/plating,
@@ -1308,6 +1747,9 @@
 	},
 /turf/open/floor/engine,
 /area/space)
+"DQ" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/space)
 "DZ" = (
 /obj/machinery/processor/slime,
 /turf/open/floor/iron/white/smooth_large,
@@ -1323,6 +1765,11 @@
 	id = "robo1"
 	},
 /turf/open/floor/iron/white,
+/area/space)
+"ED" = (
+/obj/effect/turf_decal/weather/dirt,
+/obj/effect/turf_decal/weather/dirt,
+/turf/open/misc/grass/jungle/planet,
 /area/space)
 "EF" = (
 /obj/effect/turf_decal/arrows,
@@ -1417,6 +1864,12 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/space)
+"Gp" = (
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 4
+	},
+/turf/open/floor/iron/herringbone,
+/area/space)
 "Gs" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/spawner/east,
@@ -1482,12 +1935,31 @@
 "GV" = (
 /turf/open/floor/carpet/stellar,
 /area/space)
+"Hc" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 5;
+	height = 7;
+	name = "Cargo Bay";
+	shuttle_id = "cargo_home";
+	width = 12
+	},
+/turf/open/floor/iron/herringbone,
+/area/space)
 "Hd" = (
-/obj/structure/shipping_container/nanotrasen,
-/turf/open/misc/grass/jungle/planet,
+/obj/effect/turf_decal/trimline/yellow/filled/end{
+	dir = 8
+	},
+/turf/open/misc/dirt/jungle/dark,
 /area/space)
 "Hg" = (
 /turf/open/floor/pod/dark,
+/area/space)
+"Hi" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/herringbone,
 /area/space)
 "Hm" = (
 /turf/open/floor/iron/dark/textured_edge{
@@ -1553,6 +2025,13 @@
 	dir = 8
 	},
 /area/space)
+"Ie" = (
+/turf/template_noop,
+/area/space)
+"Ij" = (
+/obj/effect/spawner/structure/window/reinforced/shuttle,
+/turf/open/floor/plating,
+/area/space)
 "Im" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
@@ -1580,6 +2059,12 @@
 /turf/open/floor/iron/dark/smooth_corner{
 	dir = 4
 	},
+/area/space)
+"Jt" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/herringbone,
 /area/space)
 "Jx" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -1630,6 +2115,13 @@
 /area/space)
 "Kr" = (
 /turf/open/floor/pod/light,
+/area/space)
+"Kt" = (
+/obj/machinery/light/directional/west,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral/diagonal_edge,
+/obj/effect/turf_decal/tile/neutral/diagonal_centre,
+/turf/open/floor/iron/dark/diagonal,
 /area/space)
 "Kv" = (
 /obj/machinery/door/window/brigdoor/right/directional/north,
@@ -1686,6 +2178,14 @@
 /obj/item/biopsy_tool,
 /turf/open/floor/iron/white,
 /area/space)
+"LV" = (
+/obj/machinery/door/airlock/grunge{
+	name = "Supply Shuttle Cockpit";
+	req_access = list("cargo")
+	},
+/obj/effect/turf_decal/delivery/white,
+/turf/open/floor/iron/dark/smooth_large,
+/area/space)
 "LX" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -1701,10 +2201,29 @@
 /obj/effect/landmark/start/scientist,
 /turf/open/floor/iron/white,
 /area/space)
+"Mr" = (
+/obj/machinery/door/airlock/grunge{
+	name = "Supply Shuttle Airlock";
+	req_access = list("cargo")
+	},
+/obj/effect/turf_decal/delivery/white,
+/obj/docking_port/mobile/supply{
+	dir = 1
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "MO" = (
 /turf/open/floor/iron/dark/textured_corner{
 	dir = 4
 	},
+/area/space)
+"Nj" = (
+/obj/structure/table/reinforced,
+/obj/item/paper/crumpled/muddy{
+	default_raw_text = "Toddy spilled his damn coffee all over the console, don't expect to manually pilot the Consign until we can get a repair guy. Which, uh, might be a while..."
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/dark/smooth_large,
 /area/space)
 "Nl" = (
 /obj/machinery/holopad,
@@ -1745,6 +2264,13 @@
 /obj/structure/table/wood,
 /turf/open/floor/iron/dark/corner,
 /area/space)
+"NX" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/shuttle/cargo,
+/area/space)
 "Od" = (
 /obj/effect/turf_decal/arrows{
 	dir = 1
@@ -1773,6 +2299,13 @@
 "OC" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
+/area/space)
+"OL" = (
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 8
+	},
+/obj/effect/turf_decal/vg_decals/numbers/three,
+/turf/open/floor/iron/herringbone,
 /area/space)
 "OY" = (
 /obj/structure/window/reinforced,
@@ -1873,6 +2406,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/space)
+"Qt" = (
+/obj/machinery/conveyor/auto{
+	dir = 5
+	},
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/obj/effect/turf_decal/weather/dirt,
+/turf/open/misc/grass/jungle/planet,
+/area/space)
 "Qu" = (
 /turf/open/floor/iron/dark/side,
 /area/space)
@@ -1917,6 +2460,12 @@
 /obj/machinery/vending/coffee,
 /turf/open/floor/iron/white,
 /area/space)
+"Rm" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 6
+	},
+/turf/open/misc/grass/jungle/planet,
+/area/space)
 "Ro" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1928,15 +2477,40 @@
 /obj/structure/table/wood,
 /turf/open/floor/iron/grimy,
 /area/space)
-"Ru" = (
-/obj/effect/spawner/random/structure/billboard/nanotrasen,
-/turf/open/misc/grass/jungle/planet,
+"RE" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/structure/closet/emcloset/wall{
+	pixel_x = -28
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/radio/intercom/directional/south,
+/turf/open/floor/iron/shuttle/cargo,
+/area/space)
+"RN" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 9
+	},
+/turf/open/misc/dirt/jungle/dark,
 /area/space)
 "RS" = (
 /obj/structure/table/wood,
 /turf/open/floor/iron/dark/corner{
 	dir = 4
 	},
+/area/space)
+"RU" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral/diagonal_edge,
+/obj/effect/turf_decal/tile/neutral/diagonal_centre,
+/turf/open/floor/iron/dark/diagonal,
+/area/space)
+"RX" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 1
+	},
+/turf/open/misc/grass/jungle/planet,
 /area/space)
 "SE" = (
 /turf/open/floor/iron/dark/small,
@@ -1961,6 +2535,18 @@
 	},
 /obj/effect/turf_decal/tile/dark/half,
 /turf/open/floor/iron/dark/textured_half,
+/area/space)
+"SV" = (
+/obj/machinery/light/directional/north,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/shuttle/cargo,
+/area/space)
+"SY" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/loading_area/white{
+	dir = 8
+	},
+/turf/open/floor/iron/shuttle/cargo,
 /area/space)
 "Tb" = (
 /obj/machinery/light/blacklight/directional/west,
@@ -2083,6 +2669,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/space)
+"Wb" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "QMLoad"
+	},
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor";
+	name = "Supply Dock Loading Door"
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "Wm" = (
 /obj/structure/chair/comfy/beige,
 /obj/effect/landmark/start/nanotrasen_consultant,
@@ -2096,9 +2693,30 @@
 	dir = 8
 	},
 /area/space)
+"Ws" = (
+/obj/machinery/light/directional/west,
+/obj/machinery/computer{
+	desc = "This WAS a helmsman's console, before it became a coffee's console."
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/dark/smooth_large,
+/area/space)
+"Wx" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 5
+	},
+/turf/open/misc/dirt/jungle/dark,
+/area/space)
 "WD" = (
 /obj/effect/turf_decal/skyrat_decals/departments/bridge,
 /turf/open/floor/iron/dark,
+/area/space)
+"WN" = (
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 8
+	},
+/obj/effect/turf_decal/vg_decals/numbers/two,
+/turf/open/floor/iron/dark/herringbone,
 /area/space)
 "Xq" = (
 /obj/structure/table/reinforced,
@@ -2177,6 +2795,13 @@
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
+/area/space)
+"YB" = (
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor";
+	name = "Supply Dock Loading Door"
+	},
+/turf/open/misc/grass/jungle/planet,
 /area/space)
 "YR" = (
 /obj/structure/cable,
@@ -14249,18 +14874,18 @@ ZN
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+qF
+DQ
+DQ
+DQ
+DQ
+DQ
+DQ
+DQ
+DQ
+pN
+zM
+Cz
 ZN
 ZN
 ZN
@@ -14506,18 +15131,18 @@ ZN
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Ij
+Ws
+RE
+DQ
+CE
+Kt
+hv
+oH
+CE
+hv
+bi
+oI
 ZN
 ZN
 ZN
@@ -14763,18 +15388,18 @@ ZN
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Ij
+Nj
+NX
+DQ
+RU
+RU
+RU
+oH
+RU
+RU
+bi
+lO
 ZN
 ZN
 ZN
@@ -15020,18 +15645,18 @@ ZN
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+cU
+DQ
+LV
+DQ
+gM
+RU
+AD
+oH
+gM
+jj
+zM
+vm
 ZN
 ZN
 ZN
@@ -15277,18 +15902,18 @@ ZN
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Ie
+DQ
+SV
+oH
+oH
+oH
+oH
+oH
+oH
+oH
+bi
+lO
 ZN
 ZN
 ZN
@@ -15534,18 +16159,18 @@ ZN
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Ie
+DQ
+oH
+Cp
+bA
+tj
+bA
+SY
+oH
+oH
+bi
+oI
 ZN
 ZN
 ZN
@@ -15786,23 +16411,23 @@ ZN
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Dp
+uP
+uP
+uP
+uP
+uP
+wK
+uP
+uP
+sR
+sR
+sR
+sR
+DQ
+rW
+zM
+Cz
 ZN
 ZN
 ZN
@@ -16043,15 +16668,15 @@ ZN
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Dp
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -16300,15 +16925,15 @@ ZN
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Dp
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -16535,37 +17160,37 @@ ZN
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+pz
+Rm
+mU
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -16788,41 +17413,41 @@ ZN
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+mg
+mg
+mg
+mg
+mg
+mg
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+eE
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -17044,42 +17669,42 @@ OC
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Dp
+RN
+mT
+mT
+mT
+uP
+uP
+ps
+uP
+mg
+Hi
+mg
+mj
+Bx
+rL
+in
+Gp
+uL
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -17301,42 +17926,42 @@ OC
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+ED
+xT
+rt
+uP
+xT
+gS
+iI
+hU
+xt
+jH
+uu
+Jt
+vg
+vT
+la
+BO
+mQ
+yF
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+Al
+Hc
+Mr
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -17558,42 +18183,42 @@ OC
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Dp
+uP
+uP
+uP
+uP
+uP
+iI
+uP
+xt
+jH
+mg
+Jt
+vg
+mg
+la
+BO
+Al
+yF
+Al
+aK
+ol
+xs
+Al
+Al
+aK
+wi
+ol
+Qt
+Wb
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -17815,42 +18440,42 @@ yr
 ZN
 ZN
 ZN
+Dp
+ix
+nL
+uP
+ix
+nL
+iI
+sk
+xt
+jH
+qI
+Jt
+vg
+qI
+la
+BO
+vD
+yF
+Al
+RX
 ZN
+Dp
+Al
+Al
+RX
+lP
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Cl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -18072,42 +18697,42 @@ OC
 ZN
 ZN
 ZN
+Dp
+qs
+uP
+uP
+qs
+uP
+uP
+lC
+uP
+mg
+WN
+mg
+fJ
+jL
+eR
+aI
+OL
+cD
+Al
+RX
 ZN
+Dp
+Al
+Al
+RX
+lP
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Cl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -18329,42 +18954,42 @@ OC
 ZN
 ZN
 ZN
+Dp
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+mg
+mg
+mg
+mg
+mg
+mg
+Al
+Al
+Al
+Al
+RX
 ZN
+Dp
+Al
+Al
+RX
+lP
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Cl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -18586,42 +19211,42 @@ OC
 ZN
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Dp
+uP
+uP
+ew
+uP
+xd
+uP
 Hd
-Hd
+uP
+mg
+uu
+mg
+mg
+uu
+mg
+Al
+mQ
+Al
+Al
+RX
 ZN
-Hd
+Dp
+Al
+Al
+RX
+lP
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Cl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -18843,42 +19468,42 @@ yr
 ZN
 ZN
 ZN
+Dp
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+mg
+mg
+mg
+mg
+mg
+mg
+Al
+Al
+Al
+Al
+RX
 ZN
+Dp
+Al
+Al
+RX
+lP
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Cl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -19100,42 +19725,42 @@ OC
 ZN
 ZN
 ZN
+Dp
+uP
+uP
+rJ
+uP
+Aw
+uP
+sk
+uP
+mg
+qI
+mg
+mg
+qI
+mg
+Al
+vD
+Al
+Al
+RX
 ZN
+Dp
+Al
+Al
+RX
+lP
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-Ru
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Cl
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+uP
 ZN
 ZN
 ZN
@@ -19357,34 +19982,34 @@ OC
 ZN
 ZN
 ZN
+Dp
+Wx
+uP
+uP
+uP
+uP
+uP
+uP
+uP
+mg
+mg
+mg
+mg
+mg
+mg
+Al
+Al
+Al
+Al
+RX
 ZN
+Dp
+Al
+Al
+RX
+lP
 ZN
-ZN
-ZN
-Hd
-Hd
-ZN
-Hd
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+Cl
 ZN
 ZN
 ZN
@@ -19629,19 +20254,19 @@ ZN
 ZN
 ZN
 ZN
+ol
+ol
+ol
+ol
 ZN
 ZN
+Dp
+Al
+Al
+RX
+lP
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+lP
 ZN
 ZN
 ZN
@@ -19892,13 +20517,13 @@ ZN
 ZN
 ZN
 ZN
+Dp
+Al
+Al
+RX
+YB
 ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+YB
 ZN
 ZN
 ZN
@@ -20130,41 +20755,41 @@ Hg
 Hg
 Hg
 Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+tH
+sc
+tH
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -20387,41 +21012,41 @@ Hg
 Hg
 Hg
 Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -20644,41 +21269,41 @@ Hg
 Hg
 Hg
 Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -20901,41 +21526,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -21158,41 +21783,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -21415,41 +22040,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -21672,41 +22297,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -21929,41 +22554,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -22186,41 +22811,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -22443,41 +23068,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -22700,41 +23325,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -22957,41 +23582,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -23214,41 +23839,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -23471,41 +24096,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -23728,41 +24353,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -23985,41 +24610,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -24242,41 +24867,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -24499,41 +25124,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -24756,41 +25381,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -25013,41 +25638,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -25270,41 +25895,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -25527,41 +26152,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -25784,41 +26409,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -26041,41 +26666,41 @@ ZN
 ZN
 ZN
 ZN
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -26298,41 +26923,41 @@ Hg
 Hg
 Hg
 Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -26555,41 +27180,41 @@ Hg
 Hg
 Hg
 Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -26812,41 +27437,41 @@ Hg
 Hg
 Hg
 Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -27069,41 +27694,41 @@ Hg
 Hg
 Hg
 Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
@@ -27326,41 +27951,41 @@ Hg
 Hg
 Hg
 Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
-Hg
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
 Hg
 Hg
 Hg
