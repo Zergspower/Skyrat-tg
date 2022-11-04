@@ -182,7 +182,7 @@
 			new /obj/effect/temp_visual/hierophant/blast/visual(t, user, TRUE)
 		for(var/mob/living/L in range(1, source))
 			INVOKE_ASYNC(src, .proc/teleport_mob, source, L, T, user)
-		sleep(6) //at this point the blasts detonate
+		sleep(0.6 SECONDS) //at this point the blasts detonate
 		if(beacon)
 			beacon.icon_state = "hierophant_tele_off"
 	else
@@ -199,19 +199,19 @@
 	if(!turf_to_teleport_to || turf_to_teleport_to.is_blocked_turf(TRUE))
 		return
 	animate(teleporting, alpha = 0, time = 2, easing = EASE_OUT) //fade out
-	sleep(1)
+	sleep(0.1 SECONDS)
 	if(!teleporting)
 		return
 	teleporting.visible_message(span_hierophant_warning("[teleporting] fades out!"))
-	sleep(2)
+	sleep(0.2 SECONDS)
 	if(!teleporting)
 		return
 	var/success = do_teleport(teleporting, turf_to_teleport_to, no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
-	sleep(1)
+	sleep(0.1 SECONDS)
 	if(!teleporting)
 		return
 	animate(teleporting, alpha = 255, time = 2, easing = EASE_IN) //fade IN
-	sleep(1)
+	sleep(0.1 SECONDS)
 	if(!teleporting)
 		return
 	teleporting.visible_message(span_hierophant_warning("[teleporting] fades in!"))
@@ -266,6 +266,7 @@
 	greyscale_colors = "#4d4d4d#808080"
 	greyscale_config = /datum/greyscale_config/heck_suit
 	greyscale_config_worn = /datum/greyscale_config/heck_suit/worn
+	greyscale_config_worn_digi = /datum/greyscale_config/heck_suit/worn/digi //SKYRAT EDIT ADDITION - DigiGreyscale
 	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/suit/hooded/hostile_environment/Initialize(mapload)
