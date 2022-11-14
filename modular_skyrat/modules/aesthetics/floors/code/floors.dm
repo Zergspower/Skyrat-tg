@@ -56,6 +56,18 @@
 		/obj/item/stack/tile/iron/sepia,
 	)
 
+/turf/open/indestructible/asphalt
+	name = "asphalt"
+	desc = "A simple and cheap flooring."
+	icon = 'modular_skyrat/modules/aesthetics/floors/icons/floors.dmi'
+	icon_state = "asphalt"
+	baseturfs = /turf/open/indestructible/asphalt
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	tiled_dirt = FALSE
+
 /turf/open/indestructible/cobble
 	name = "cobblestone path"
 	desc = "A simple but beautiful path made of various sized stones."
