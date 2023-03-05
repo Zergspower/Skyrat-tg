@@ -10,7 +10,8 @@
 	icon = 'modular_skyrat/modules/modular_items/lewd_items/icons/obj/lewd_items/lewd_items.dmi'
 	lefthand_file = 'modular_skyrat/modules/modular_items/lewd_items/icons/mob/lewd_inhands/lewd_inhand_left.dmi'
 	righthand_file = 'modular_skyrat/modules/modular_items/lewd_items/icons/mob/lewd_inhands/lewd_inhand_right.dmi'
-	icon_state = "pillow"
+	icon_state = "pillow_pink_round"
+	base_icon_state = "pillow"
 	inhand_icon_state = "pillow_pink_round"
 	var/datum/effect_system/feathers/pillow_feathers
 	var/current_color = "pink"
@@ -38,7 +39,7 @@
 		. = ..()
 		if(.)
 			return
-		var/choice = show_radial_menu(user, src, pillow_colors, custom_check = CALLBACK(src, .proc/check_menu, user), radius = 36, require_near = TRUE)
+		var/choice = show_radial_menu(user, src, pillow_colors, custom_check = CALLBACK(src, PROC_REF(check_menu), user), radius = 36, require_near = TRUE)
 		if(!choice)
 			return FALSE
 		current_color = choice
@@ -50,7 +51,7 @@
 			. = ..()
 			if(.)
 				return
-			var/choice = show_radial_menu(user, src, pillow_forms, custom_check = CALLBACK(src, .proc/check_menu, user), radius = 36, require_near = TRUE)
+			var/choice = show_radial_menu(user, src, pillow_forms, custom_check = CALLBACK(src, PROC_REF(check_menu), user), radius = 36, require_near = TRUE)
 			if(!choice)
 				return FALSE
 			current_form = choice
@@ -84,8 +85,8 @@
 
 /obj/item/fancy_pillow/update_icon_state()
 	. = ..()
-	icon_state = "[initial(icon_state)]_[current_color]_[current_form]"
-	inhand_icon_state = "[initial(icon_state)]_[current_color]_[current_form]"
+	icon_state = "[base_icon_state]_[current_color]_[current_form]"
+	inhand_icon_state = "[base_icon_state]_[current_color]_[current_form]"
 
 /obj/item/fancy_pillow/Destroy()
 	if(pillow_feathers)
@@ -163,7 +164,8 @@
 	name = "pillow"
 	desc = "A tiny pillow, for tiny heads."
 	icon = 'modular_skyrat/modules/modular_items/lewd_items/icons/obj/lewd_structures/pillows.dmi'
-	icon_state = "pillow"
+	icon_state = "pillow_pink_round"
+	base_icon_state = "pillow"
 	var/current_color = "pink"
 	var/current_form = "round"
 
@@ -179,7 +181,7 @@
 
 /obj/structure/bed/pillow_tiny/update_icon_state()
 	. = ..()
-	icon_state = "[initial(icon_state)]_[current_color]_[current_form]"
+	icon_state = "[base_icon_state]_[current_color]_[current_form]"
 
 //picking up the pillow
 
@@ -248,7 +250,8 @@
 	name = "small pillow pile"
 	desc = "A small pile of pillows. A comfortable seat, especially for taurs or nagas."
 	icon = 'modular_skyrat/modules/modular_items/lewd_items/icons/obj/lewd_structures/pillows.dmi'
-	icon_state = "pillowpile_small"
+	icon_state = "pillowpile_small_pink"
+	base_icon_state = "pillowpile_small"
 	pseudo_z_axis = 4
 	var/current_color = "pink"
 	var/mutable_appearance/armrest
@@ -283,16 +286,16 @@
 	return ..()
 
 /obj/structure/chair/pillow_small/post_buckle_mob(mob/living/affected_mob)
-    . = ..()
-    update_icon()
-    density = TRUE
-    //Push them up from the normal lying position
-    affected_mob.pixel_y = affected_mob.base_pixel_y + 2
+	. = ..()
+	update_icon()
+	density = TRUE
+	//Push them up from the normal lying position
+	affected_mob.pixel_y = affected_mob.base_pixel_y + 2
 
 /obj/structure/chair/pillow_small/update_overlays()
-    . = ..()
-    if(has_buckled_mobs())
-        . += mutable_appearance('modular_skyrat/modules/modular_items/lewd_items/icons/obj/lewd_structures/pillows.dmi', "pillowpile_small_[current_color]_overlay", layer = ABOVE_MOB_LAYER + 0.2)
+	. = ..()
+	if(has_buckled_mobs())
+		. += mutable_appearance('modular_skyrat/modules/modular_items/lewd_items/icons/obj/lewd_structures/pillows.dmi', "pillowpile_small_[current_color]_overlay", layer = ABOVE_MOB_LAYER + 0.2)
 
 /obj/structure/chair/pillow_small/post_unbuckle_mob(mob/living/affected_mob)
 	. = ..()
@@ -302,7 +305,7 @@
 
 /obj/structure/chair/pillow_small/update_icon_state()
 	. = ..()
-	icon_state = "[initial(icon_state)]_[current_color]"
+	icon_state = "[base_icon_state]_[current_color]"
 
 //Removing pillow from a pile
 /obj/structure/chair/pillow_small/AltClick(mob/user)
@@ -373,7 +376,8 @@
 	name = "large pillow pile"
 	desc = "A large pile of pillows. Jump on it!"
 	icon = 'modular_skyrat/modules/modular_items/lewd_items/icons/obj/lewd_structures/pillows.dmi'
-	icon_state = "pillowpile_large"
+	icon_state = "pillowpile_large_pink"
+	base_icon_state = "pillowpile_large"
 	pseudo_z_axis = 4
 	var/current_color = "pink"
 	var/mutable_appearance/armrest
@@ -397,8 +401,8 @@
 	buildstacktype = /obj/item/stack/sheet/cloth
 
 /obj/structure/bed/pillow_large/Initialize(mapload)
-    update_icon()
-    return ..()
+	update_icon()
+	return ..()
 
 /obj/structure/bed/pillow_large/proc/GetArmrest()
 	if(current_color == "pink")
@@ -411,16 +415,16 @@
 	return ..()
 
 /obj/structure/bed/pillow_large/post_buckle_mob(mob/living/affected_mob)
-    . = ..()
-    update_icon()
-    density = TRUE
-    //Push them up from the normal lying position
-    affected_mob.pixel_y = affected_mob.base_pixel_y + 0.5
+	. = ..()
+	update_icon()
+	density = TRUE
+	//Push them up from the normal lying position
+	affected_mob.pixel_y = affected_mob.base_pixel_y + 0.5
 
 /obj/structure/bed/pillow_large/update_overlays()
-    . = ..()
-    if(has_buckled_mobs())
-        . += mutable_appearance('modular_skyrat/modules/modular_items/lewd_items/icons/obj/lewd_structures/pillows.dmi', "pillowpile_large_[current_color]_overlay", layer = ABOVE_MOB_LAYER + 0.2)
+	. = ..()
+	if(has_buckled_mobs())
+		. += mutable_appearance('modular_skyrat/modules/modular_items/lewd_items/icons/obj/lewd_structures/pillows.dmi', "pillowpile_large_[current_color]_overlay", layer = ABOVE_MOB_LAYER + 0.2)
 
 /obj/structure/bed/pillow_large/post_unbuckle_mob(mob/living/affected_mob)
 	. = ..()
@@ -430,7 +434,7 @@
 
 /obj/structure/bed/pillow_large/update_icon_state()
 	. = ..()
-	icon_state = "[initial(icon_state)]_[current_color]"
+	icon_state = "[base_icon_state]_[current_color]"
 
 //Removing pillow from a pile
 /obj/structure/bed/pillow_large/AltClick(mob/user)

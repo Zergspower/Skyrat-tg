@@ -357,6 +357,8 @@
 
 /datum/config_entry/flag/show_irc_name
 
+/datum/config_entry/flag/no_default_techweb_link
+
 /datum/config_entry/flag/see_own_notes //Can players see their own admin notes
 
 /datum/config_entry/number/note_fresh_days
@@ -467,6 +469,10 @@
 	default = null
 	min_val = 500
 
+/datum/config_entry/number/client_warn_build
+	default = null
+	min_val = 0
+
 /datum/config_entry/string/client_warn_message
 	default = "Your version of byond may have issues or be blocked from accessing this server in the future."
 
@@ -522,6 +528,15 @@
 	return "" //default broadcast
 
 /datum/config_entry/string/chat_announce_new_game
+	deprecated_by = /datum/config_entry/string/channel_announce_new_game
+
+/datum/config_entry/string/chat_announce_new_game/DeprecationUpdate(value)
+	return "" //default broadcast
+
+/datum/config_entry/string/channel_announce_new_game
+	default = null
+
+/datum/config_entry/string/channel_announce_end_game
 	default = null
 
 /datum/config_entry/string/chat_new_game_notifications
@@ -647,3 +662,8 @@
 	default = 50
 
 /datum/config_entry/string/morgue_cadaver_override_species
+
+/datum/config_entry/flag/toast_notification_on_init
+
+/datum/config_entry/flag/config_errors_runtime
+	default = FALSE

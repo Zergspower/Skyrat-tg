@@ -1,8 +1,8 @@
 /// The baseline time to take for doing actions with the forge, like heating glass, setting ceramics, etc.
-#define BASELINE_ACTION_TIME 4 SECONDS
+#define BASELINE_ACTION_TIME (4 SECONDS)
 
 /// The basline for how long an item such as molten glass will be kept workable after heating
-#define BASELINE_HEATING_DURATION 25 SECONDS
+#define BASELINE_HEATING_DURATION (25 SECONDS)
 
 /// The amount the forge's temperature will change per process
 #define FORGE_DEFAULT_TEMPERATURE_CHANGE 5
@@ -11,7 +11,7 @@
 /// The minimum temperature for using the forge
 #define MIN_FORGE_TEMP 50
 /// The duration that objects heated in the forge are heated for
-#define FORGE_HEATING_DURATION 1 MINUTES
+#define FORGE_HEATING_DURATION (1 MINUTES)
 
 /// Defines for different levels of the forge, ranging from no level (you play like a noob) to legendary
 #define FORGE_LEVEL_YOU_PLAY_LIKE_A_NOOB 1
@@ -90,7 +90,7 @@
 	)
 	/// List of possible choices for the selection radial
 	var/list/radial_choice_list = list()
-    /// Blacklist that contains reagents that weapons and armor are unable to be imbued with.
+	/// Blacklist that contains reagents that weapons and armor are unable to be imbued with.
 	var/static/list/disallowed_reagents = typecacheof(list(
 		/datum/reagent/inverse/,
 		/datum/reagent/consumable/entpoly,
@@ -296,7 +296,7 @@
 	var/worst_cooked_food_state = 0
 	for(var/obj/item/baked_item as anything in used_tray.contents)
 
-		var/signal_result = SEND_SIGNAL(baked_item, COMSIG_ITEM_BAKED, src, delta_time)
+		var/signal_result = SEND_SIGNAL(baked_item, COMSIG_ITEM_OVEN_PROCESS, src, delta_time)
 
 		if(signal_result & COMPONENT_HANDLED_BAKING)
 			if(signal_result & COMPONENT_BAKING_GOOD_RESULT && worst_cooked_food_state < SMOKE_STATE_GOOD)
@@ -417,7 +417,7 @@
 
 /obj/structure/reagent_forge/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(!used_tray && istype(attacking_item, /obj/item/plate/oven_tray))
-		add_tray_to_forge(attacking_item)
+		add_tray_to_forge(user, attacking_item)
 		return TRUE
 
 	if(in_use) // If the forge is currently in use by someone (or there is a tray in it) then we cannot use it
@@ -461,12 +461,18 @@
 	return ..()
 
 /// Take the given tray and place it inside the forge, updating everything relevant to that
-/obj/structure/reagent_forge/proc/add_tray_to_forge(obj/item/plate/oven_tray/tray)
+/obj/structure/reagent_forge/proc/add_tray_to_forge(mob/living/user, obj/item/plate/oven_tray/tray)
 	if(used_tray) // This shouldn't be able to happen but just to be safe
 		balloon_alert_to_viewers("already has tray")
 		return
 
-	tray.forceMove(src)
+	if(!user.transferItemToLoc(tray, src, silent = FALSE))
+		return
+		
+	// need to send the right signal for each item in the tray
+	for(var/obj/item/baked_item in tray.contents)
+		SEND_SIGNAL(baked_item, COMSIG_ITEM_OVEN_PLACED_IN, src, user)
+
 	balloon_alert_to_viewers("put [tray] in [src]")
 	used_tray = tray
 	in_use = TRUE // You can't use the forge if there's a tray sitting in it
@@ -516,7 +522,7 @@
 
 	if(prob(CHARCOAL_CHANCE) && !is_strong_fuel)
 		to_chat(user, span_notice("[src]'s fuel is packed densely enough to have made some charcoal!"))
-		addtimer(CALLBACK(src, .proc/spawn_coal), 1 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(spawn_coal)), 1 MINUTES)
 
 /// Takes given ore and smelts it, possibly producing extra sheets if upgraded
 /obj/structure/reagent_forge/proc/smelt_ore(obj/item/stack/ore/ore_item, mob/living/user)
@@ -592,6 +598,7 @@
 /// Handles clothing imbuing, extremely similar to weapon imbuing but not in the same proc because of how uhh... goofy the way this has to be done is
 /obj/structure/reagent_forge/proc/handle_clothing_imbue(obj/attacking_item, mob/living/user)
 	in_use = TRUE
+	balloon_alert_to_viewers("imbuing...")
 
 	var/obj/item/attacking_clothing = attacking_item
 
@@ -618,14 +625,15 @@
 			attacking_clothing.reagents.remove_all_type(clothing_reagent.type)
 			continue
 
-			clothing_component.imbued_reagent += clothing_reagent.type
-			attacking_clothing.name = "[clothing_reagent.name] [attacking_clothing.name]"
+		clothing_component.imbued_reagent += clothing_reagent.type
+		attacking_clothing.name = "[clothing_reagent.name] [attacking_clothing.name]"
 
 	attacking_clothing.color = mix_color_from_reagents(attacking_clothing.reagents.reagent_list)
 	balloon_alert_to_viewers("imbued [attacking_clothing]")
 	user.mind.adjust_experience(/datum/skill/smithing, 60)
 	playsound(src, 'sound/magic/demon_consume.ogg', 50, TRUE)
 	in_use = FALSE
+	return TRUE
 
 /// Sets ceramic items from their unusable state into their finished form
 /obj/structure/reagent_forge/proc/handle_ceramics(obj/attacking_item, mob/living/user)

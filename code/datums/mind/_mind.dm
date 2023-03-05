@@ -73,7 +73,8 @@
 	var/has_ever_been_ai = FALSE
 	var/last_death = 0
 
-	/// Set by Into The Sunset command of the shuttle manipulator
+	/// Set by Into The Sunset command of the shuttle manipulator.
+	/// If TRUE, the mob will always be considered "escaped" if they are alive and not exiled.
 	var/force_escaped = FALSE
 
 	var/list/learned_recipes //List of learned recipe TYPES.
@@ -141,7 +142,7 @@
 		UnregisterSignal(src, COMSIG_PARENT_QDELETING)
 	current = new_current
 	if(current)
-		RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/clear_current)
+		RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(clear_current))
 
 /datum/mind/proc/clear_current(datum/source)
 	SIGNAL_HANDLER
@@ -182,7 +183,7 @@
 		var/mob/living/carbon/C = new_character
 		C.last_mind = src
 	transfer_martial_arts(new_character)
-	RegisterSignal(new_character, COMSIG_LIVING_DEATH, .proc/set_death_time)
+	RegisterSignal(new_character, COMSIG_LIVING_DEATH, PROC_REF(set_death_time))
 	if(active || force_key_move)
 		new_character.key = key //now transfer the key to link the client to our new body
 	if(new_character.client)
@@ -507,6 +508,19 @@
 	. = assigned_role
 	assigned_role = new_role
 
+/// Sets us to the passed job datum, then greets them to their new job.
+/// Use this one for when you're assigning this mind to a new job for the first time,
+/// or for when someone's recieving a job they'd really want to be greeted to.
+/datum/mind/proc/set_assigned_role_with_greeting(datum/job/new_role)
+	. = set_assigned_role(new_role)
+	if(!.)
+		return
+
+	to_chat(src, span_infoplain("<b>You are the [new_role.title].</b>"))
+
+	var/related_policy = get_policy(new_role.title)
+	if(related_policy)
+		to_chat(src, related_policy)
 
 /mob/proc/sync_mind()
 	mind_initialize() //updates the mind (or creates and initializes one if one doesn't exist)

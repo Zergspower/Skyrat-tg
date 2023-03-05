@@ -43,9 +43,19 @@
 	desc = "A classic bodyguard's suit, with custom-fitted Blueshield-Blue cuffs and a Nanotrasen insignia over one of the pockets."
 	icon_state = "blueshield"
 	strip_delay = 50
-	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 10, BOMB = 10, BIO = 0, FIRE = 50, ACID = 50)
+	armor_type = /datum/armor/rank_blueshield
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+	alt_covers_chest = TRUE
+
+/datum/armor/rank_blueshield
+	melee = 10
+	bullet = 5
+	laser = 5
+	energy = 10
+	bomb = 10
+	fire = 50
+	acid = 50
 
 /obj/item/clothing/under/rank/blueshield/skirt
 	name = "blueshield's suitskirt"
@@ -55,6 +65,7 @@
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	gets_cropped_on_taurs = FALSE
 
 /obj/item/clothing/under/rank/blueshield/turtleneck
 	name = "blueshield's turtleneck"
@@ -69,11 +80,12 @@
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	gets_cropped_on_taurs = FALSE
 
 /*
 *	NT CONSULTANT
 */
-//See Blueshield note - tl;dr, this role is a station role, while Centcomm.dmi is more event roles
+//See Blueshield note - tl;dr, this role is a station role, while Centcom.dmi is more event roles
 
 /obj/item/clothing/under/rank/nanotrasen_consultant
 	icon = 'modular_skyrat/master_files/icons/obj/clothing/under/command.dmi'
@@ -93,6 +105,7 @@
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	gets_cropped_on_taurs = FALSE
 
 /*
 *	UNASSIGNED (Any head of staff)
@@ -105,7 +118,7 @@
 	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/captain/skyrat/utility/syndicate
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 40) //Same stats as the tactical turtleneck.
+	armor_type = /datum/armor/utility_syndicate
 	has_sensor = NO_SENSORS
 
 /obj/item/clothing/under/rank/captain/skyrat/imperial/generic

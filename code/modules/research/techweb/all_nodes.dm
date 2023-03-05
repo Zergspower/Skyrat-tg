@@ -110,7 +110,7 @@
 		"spoon",
 		"status_display_frame",
 		"sticky_tape",
-		"tablet",
+		"syrup_bottle",
 		"tape",
 		"tech_disk",
 		"timer",
@@ -125,7 +125,9 @@
 		"turbine_part_rotor",
 		"turbine_part_stator",
 		"turret_control",
+		"universal_scanner",
 		"voice_analyzer",
+		"vox_gas_filter", //SKYRAT EDIT ADDITION
 		"watering_can",
 	)
 
@@ -302,7 +304,6 @@
 		"xlarge_beaker",
 
 		//SKYRAT EDIT START - RESEARCH DESIGNS
-		"engi_plumbing",
 		"hospital_gown",
 		//SKYRAT EDIT END - RESEARCH DESIGNS
 	)
@@ -316,6 +317,7 @@
 		"circuit_multitool",
 		"comp_access_checker",
 		"comp_arithmetic",
+		"comp_assoc_list_pick",
 		"comp_binary_convert",
 		"comp_clock",
 		"comp_comparison",
@@ -346,6 +348,7 @@
 		"comp_list_assoc_literal",
 		"comp_list_clear",
 		"comp_list_literal",
+		"comp_list_pick",
 		"comp_list_remove",
 		"comp_logic",
 		"comp_matscanner",
@@ -383,7 +386,7 @@
 		"component_printer",
 		"integrated_circuit",
 		"module_duplicator",
-		"usb_cable",
+		"usb_cable"
 	)
 
 /////////////////////////Biotech/////////////////////////
@@ -486,7 +489,6 @@
 		"dish_drive",
 		"fat_sucker",
 		"gibber",
-		"gibber",
 		"griddle",
 		"microwave",
 		"monkey_recycler",
@@ -586,15 +588,18 @@
 		"adv_scanning",
 		"airalarm_electronics",
 		"airlock_board",
+		"anomaly_refinery",
 		"apc_control",
 		"atmos_control",
+		"atmos_thermal",
 		"atmosalerts",
 		"autolathe",
 		"cell_charger",
 		"crystallizer",
 		"electrolyzer",
-		"emergency_oxygen",
 		"emergency_oxygen_engi",
+		"emergency_oxygen",
+		"emitter",
 		"firealarm_electronics",
 		"firelock_board",
 		"grounding_rod",
@@ -616,14 +621,11 @@
 		"solarcontrol",
 		"stack_console",
 		"stack_machine",
+		"tank_compressor",
 		"tesla_coil",
 		"thermomachine",
 		"w-recycler",
-		"emitter",
 		"welding_goggles",
-		"anomaly_refinery",
-		"tank_compressor",
-		"atmos_thermal",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
 	discount_experiments = list(/datum/experiment/scanning/random/material/easy = 7500)
@@ -646,6 +648,7 @@
 		"rcd_loaded",
 		"rcd_ammo",
 		"rpd_loaded",
+		"rtd_loaded",
 		"sheetifier",
 		"weldingmask",
 
@@ -654,9 +657,7 @@
 		"mesons_prescription",
 		"multi_cell_charger",
 		"tray_goggles_prescription",
-		"plumbing_chem",
 		"plumbing_eng",
-		"plumbing_sci"
 		//SKYRAT EDIT END - RESEARCH DESIGNS
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 15000)
@@ -872,7 +873,9 @@
 		"comp_bar_overlay",
 		"comp_bci_action",
 		"comp_counter_overlay",
+		"comp_install_detector",
 		"comp_object_overlay",
+		"comp_reagent_injector",
 		"comp_target_intercept",
 		"comp_thought_listener",
 		"comp_vox",
@@ -895,7 +898,7 @@
 	id = "server_shell"
 	display_name = "Server Technology Research"
 	description = "Grants access to a server shell that has a very high capacity for components."
-	prereq_ids = list("adv_shells", "computer_hardware_basic")
+	prereq_ids = list("adv_shells", "computer_data_disks")
 	design_ids = list(
 		"server_shell",
 	)
@@ -910,6 +913,7 @@
 	design_ids = list(
 		"paicard",
 		"borg_upgrade_snacks", // SKYRAT ADDITION - BETTER BORG SNACK DISPENSORS
+		"mecha_camera"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -1158,6 +1162,7 @@
 		"mech_honker",
 		"mech_mousetrap_mortar",
 		"mech_punching_face",
+		"clown_firing_pin",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -1180,24 +1185,17 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 
-/datum/techweb_node/computer_hardware_basic //Modular computers are shitty and nearly useless so until someone makes them actually useful this can be easy to get.
-	id = "computer_hardware_basic"
-	display_name = "Computer Hardware"
-	description = "How computer hardware is made."
+/datum/techweb_node/data_disks
+	id = "computer_data_disks"
+	display_name = "Computer Data Disks"
+	description = "Data disks used for storing modular computer stuff."
 	prereq_ids = list("comptech")
 	design_ids = list(
-		"bat_advanced",
-		"bat_control",
-		"bat_micro",
-		"bat_nano",
-		"bat_normal",
-		"bat_super",
-		"cardslot",
 		"portadrive_advanced",
 		"portadrive_basic",
 		"portadrive_super",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)  //they are really shitty
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
 /datum/techweb_node/computer_board_gaming
 	id = "computer_board_gaming"
@@ -1269,6 +1267,7 @@
 		"health_hud_prescription",
 		"security_hud_prescription",
 		"diagnostic_hud_prescription",
+		"science_hud_prescription",
 		"health_hud_aviator",
 		"security_hud_aviator",
 		"diagnostic_hud_aviator",
@@ -1280,6 +1279,7 @@
 		"meson_hud_projector",
 		"science_hud_projector",
 		"permit_glasses",
+		"nifsoft_money_sense",
 		//SKYRAT EDIT END - RESEARCH DESIGNS
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
@@ -1353,8 +1353,14 @@
 		"cybernetic_liver_tier2",
 		"cybernetic_lungs_tier2",
 		"cybernetic_stomach_tier2",
+		"cybernetic_tongue", //SKYRAT EDIT ADDITION
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+
+/datum/techweb_node/cyber_organs/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500)
 
 /datum/techweb_node/cyber_organs_upgraded
 	id = "cyber_organs_upgraded"
@@ -1369,6 +1375,11 @@
 		"cybernetic_stomach_tier3",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
+
+/datum/techweb_node/cyber_organs_upgraded/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
 /datum/techweb_node/cyber_implants
 	id = "cyber_implants"
@@ -1386,6 +1397,11 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
+/datum/techweb_node/cyber_implants/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+
 /datum/techweb_node/adv_cyber_implants
 	id = "adv_cyber_implants"
 	display_name = "Advanced Cybernetic Implants"
@@ -1399,6 +1415,11 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
+/datum/techweb_node/adv_cyber_implants/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
+
 /datum/techweb_node/combat_cyber_implants
 	id = "combat_cyber_implants"
 	display_name = "Combat Cybernetic Implants"
@@ -1411,6 +1432,11 @@
 		"ci-thrusters",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/combat_cyber_implants/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
 
 ////////////////////////Tools////////////////////////
 
@@ -1434,6 +1460,7 @@
 		"rangemod",
 		"superresonator",
 		"triggermod",
+		"mining_scanner",
 	)//e a r l y    g a  m e)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -1447,10 +1474,6 @@
 		"hypermod",
 		"jackhammer",
 		"plasmacutter_adv",
-
-		//SKYRAT EDIT START - RESEARCH DESIGNS
-		"ripleyupgradef"
-		//SKYRAT EDIT END - RESEARCH DESIGNS
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
 	discount_experiments = list(/datum/experiment/scanning/random/material/hard/one = 5000)
@@ -1507,6 +1530,7 @@
 		"mechanicalpinches",
 		"rangedanalyzer",
 		"searingtool",
+		"adv_fire_extinguisher",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
 	discount_experiments = list(/datum/experiment/scanning/random/material/hard/one = 5000)
@@ -1523,6 +1547,7 @@
 		"seclite",
 		"zipties",
 		"inspector",
+		"nifsoft_remover", //SKYRAT EDIT ADDITION - NIFs
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
@@ -2230,7 +2255,7 @@
 /datum/techweb_node/syndicate_basic/New() //Crappy way of making syndicate gear decon supported until there's another way.
 	. = ..()
 	if(!SSearly_assets.initialized)
-		RegisterSignal(SSearly_assets, COMSIG_SUBSYSTEM_POST_INITIALIZE, .proc/register_uplink_items)
+		RegisterSignal(SSearly_assets, COMSIG_SUBSYSTEM_POST_INITIALIZE, PROC_REF(register_uplink_items))
 	else
 		register_uplink_items()
 
@@ -2363,26 +2388,3 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	hidden = TRUE
 	experimental = TRUE
-
-//Helpers for debugging/balancing the techweb in its entirety!
-/proc/total_techweb_points()
-	var/list/datum/techweb_node/processing = list()
-	for(var/i in subtypesof(/datum/techweb_node))
-		processing += new i
-	var/datum/techweb/TW = new
-	TW.research_points = list()
-	for(var/i in processing)
-		var/datum/techweb_node/TN = i
-		TW.add_point_list(TN.research_costs)
-	return TW.research_points
-
-/proc/total_techweb_points_printout()
-	var/list/datum/techweb_node/processing = list()
-	for(var/i in subtypesof(/datum/techweb_node))
-		processing += new i
-	var/datum/techweb/TW = new
-	TW.research_points = list()
-	for(var/i in processing)
-		var/datum/techweb_node/TN = i
-		TW.add_point_list(TN.research_costs)
-	return TW.printout_points()
