@@ -22,9 +22,9 @@
 	minbodytemp = 0
 	maxHealth = 750 //Very durable
 	health = 500
-	healable = FALSE
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff_red = 0
+	lighting_cutoff_green = 35
+	lighting_cutoff_blue = 20
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	melee_damage_lower = 40
 	melee_damage_upper = 40
@@ -32,7 +32,6 @@
 	attack_verb_continuous = "rips into"
 	attack_verb_simple = "rip into"
 	attack_sound = 'sound/effects/blobattack.ogg'
-	next_move_modifier = 0.5 //Faster attacks
 	butcher_results = list(/obj/item/food/meat/slab/human = 15) //It's a pretty big dude. Actually killing one is a feat.
 	gold_core_spawnable = FALSE //Should stay exclusive to changelings tbh, otherwise makes it much less significant to sight one
 	var/datum/action/innate/turn_to_human
@@ -232,7 +231,7 @@
 	horrorform.devouring = TRUE
 	horrorform.visible_message(span_warning("[horrorform] begins ripping apart and feasting on [lunch]!"), \
 					span_danger("We begin to feast upon [lunch]..."))
-	if(!do_mob(usr, lunch, 5 SECONDS))
+	if(!do_after(usr, 5 SECONDS, lunch))
 		horrorform.devouring = FALSE
 		return FALSE
 	horrorform.devouring = FALSE

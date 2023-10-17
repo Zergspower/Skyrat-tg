@@ -56,7 +56,7 @@
 /datum/supply_pack/service/janitor/janitank
 	name = "Janitor Backpack Crate"
 	desc = "Call forth divine judgement upon dirt and grime with this high capacity janitor \
-		backpack. Contains 500 units of station-cleansing cleaner. Requires janitor access to open."
+		backpack. Contains 500 units of station-cleansing cleaner."
 	cost = CARGO_CRATE_VALUE * 2
 	access = ACCESS_JANITOR
 	contains = list(/obj/item/watertank/janitor)
@@ -154,7 +154,7 @@
 	desc = "All the miners died too fast? Assistant wants to get a taste of life off-station? \
 		Either way, this kit is the best way to turn a regular crewman into an ore-producing, \
 		monster-slaying machine. Contains meson goggles, a pickaxe, advanced mining scanner, \
-		cargo headset, ore bag, gasmask, an explorer suit and a miner ID upgrade. Requires QM access to open."
+		cargo headset, ore bag, gasmask, an explorer suit and a miner ID upgrade."
 	cost = CARGO_CRATE_VALUE * 4
 	access = ACCESS_QM
 	access_view = ACCESS_MINING_STATION
@@ -162,8 +162,6 @@
 	crate_name = "shaft miner starter kit"
 	crate_type = /obj/structure/closet/crate/secure
 
-// SKYRAT EDIT REMOVAL BEGIN - GUN CARGO
-/*
 /datum/supply_pack/service/survivalknives
 	name = "Survival Knives Crate"
 	desc = "Contains three sharpened survival knives. Each knife guaranteed to fit snugly \
@@ -171,8 +169,6 @@
 	cost = CARGO_CRATE_VALUE * 3
 	contains = list(/obj/item/knife/combat/survival = 3)
 	crate_name = "survival knife crate"
-*/
-// SKYRAT EDIT REMOVAL END
 
 /datum/supply_pack/service/wedding
 	name = "Wedding Crate"
@@ -182,7 +178,7 @@
 	cost = CARGO_CRATE_VALUE * 3
 	contains = list(/obj/item/clothing/under/dress/wedding_dress,
 					/obj/item/clothing/under/suit/tuxedo,
-					/obj/item/storage/belt/cummerbund,
+					/obj/item/storage/belt/fannypack/cummerbund,
 					/obj/item/clothing/head/costume/weddingveil,
 					/obj/item/bouquet,
 					/obj/item/bouquet/sunflower,

@@ -22,7 +22,7 @@
 	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/cargo/tech/skyrat/utility/syndicate
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 40) // Same stats as the tactical turtleneck.
+	armor_type = /datum/armor/clothing_under/utility_syndicate
 	has_sensor = NO_SENSORS
 
 /obj/item/clothing/under/rank/cargo/tech/skyrat/long
@@ -86,8 +86,13 @@
 	desc = "A dark suit with a classic cargo vest. For the ultimate master of all things paper."
 	icon_state = "qmsynd"
 	has_sensor = NO_SENSORS
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 40)
+	armor_type = /datum/armor/clothing_under/skyrat_syndie
 	can_adjust = FALSE
+
+/datum/armor/clothing_under/skyrat_syndie
+	melee = 10
+	fire = 50
+	acid = 40
 
 /obj/item/clothing/under/rank/cargo/qm/skyrat/formal
 	name = "quartermaster's formal jumpsuit"
@@ -98,7 +103,7 @@
 /obj/item/clothing/under/rank/cargo/qm/skyrat/formal/skirt
 	name = "quartermaster's formal jumpskirt"
 	desc = "A western-like alternate uniform for the old fashioned QM. Skirt included!"
-	icon_state = "supply_chief"
+	icon_state = "supply_chief_skirt"
 	can_adjust = FALSE
 	body_parts_covered = CHEST|GROIN|ARMS
 	dying_key = DYE_REGISTRY_JUMPSKIRT

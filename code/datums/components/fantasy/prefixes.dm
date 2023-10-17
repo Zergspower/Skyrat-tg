@@ -107,6 +107,7 @@
 	master.RemoveElement(/datum/element/beauty, min(comp.quality, -1) * 250)
 
 /datum/fantasy_affix/venomous
+	name = "<poisonname>-laced (picked from small pool of toxins)"
 	placement = AFFIX_PREFIX
 	alignment = AFFIX_GOOD
 
@@ -143,7 +144,6 @@
 /datum/fantasy_affix/venomous/remove(datum/component/fantasy/comp)
 	var/obj/item/master = comp.parent
 	master.RemoveElement(/datum/element/venomous)
-
 
 /datum/fantasy_affix/soul_stealer
 	name = "soul-stealing"

@@ -86,7 +86,7 @@
 	is_zombie = TRUE
 	if(zombified_human.wear_suit)
 		var/obj/item/clothing/suit/armor/zombie_suit = zombified_human.wear_suit
-		maxHealth += zombie_suit.armor.melee //That zombie's got armor, I want armor!
+		maxHealth += zombie_suit.get_armor_rating(MELEE) //That zombie's got armor, I want armor!
 	maxHealth += 40
 	health = maxHealth
 	name = "zombie"
@@ -102,7 +102,7 @@
 	AddElement(/datum/element/wall_smasher, strength_flag = ENVIRONMENT_SMASH_STRUCTURES)
 	movement_type = GROUND
 	icon_state = ""
-	zombified_human.hairstyle = null
+	zombified_human.set_hairstyle(null, update = FALSE)
 	zombified_human.update_body_parts()
 	zombified_human.forceMove(src)
 	oldguy = zombified_human

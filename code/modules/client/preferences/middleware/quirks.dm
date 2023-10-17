@@ -44,7 +44,7 @@
 	return list(
 		"max_positive_quirks" = MAX_QUIRKS,
 		"quirk_info" = quirk_info,
-		"quirk_blacklist" = SSquirks.quirk_blacklist,
+		"quirk_blacklist" = GLOB.quirk_string_blacklist,
 	)
 
 /datum/preference_middleware/quirks/on_new_character(mob/user)
@@ -56,12 +56,12 @@
 	//SKYRAT EDIT ADDITION
 	var/list/quirks = SSquirks.get_quirks()
 	var/datum/quirk/quirk = quirks[quirk_name]
-	if(initial(quirk.veteran_only) && !is_veteran_player(preferences?.parent))
+	if(initial(quirk.veteran_only) && !SSplayer_ranks.is_veteran(preferences?.parent))
 		return FALSE
 	//SKYRAT EDIT END
 
 	var/list/new_quirks = preferences.all_quirks | quirk_name
-	if (SSquirks.filter_invalid_quirks(new_quirks) != new_quirks)
+	if (SSquirks.filter_invalid_quirks(new_quirks, preferences.augments) != new_quirks)// SKYRAT EDIT - AUGMENTS+
 		// If the client is sending an invalid give_quirk, that means that
 		// something went wrong with the client prediction, so we should
 		// catch it back up to speed.
@@ -77,10 +77,7 @@
 	var/quirk_name = params["quirk"]
 
 	var/list/new_quirks = preferences.all_quirks - quirk_name
-	if ( \
-		!(quirk_name in preferences.all_quirks) \
-		|| SSquirks.filter_invalid_quirks(new_quirks) != new_quirks \
-	)
+	if (!(quirk_name in preferences.all_quirks) || SSquirks.filter_invalid_quirks(new_quirks, preferences.augments) != new_quirks)// SKYRAT EDIT - AUGMENTS+
 		// If the client is sending an invalid remove_quirk, that means that
 		// something went wrong with the client prediction, so we should
 		// catch it back up to speed.
@@ -99,7 +96,7 @@
 		//SKYRAT EDIT ADDITION
 		var/list/quirks = SSquirks.get_quirks()
 		var/datum/quirk/quirk_datum = quirks[quirk]
-		if(initial(quirk_datum.veteran_only) && !is_veteran_player(preferences?.parent))
+		if(initial(quirk_datum.veteran_only) && !SSplayer_ranks.is_veteran(preferences?.parent))
 			preferences.all_quirks -= quirk
 			continue
 		//SKYRAT EDIT END

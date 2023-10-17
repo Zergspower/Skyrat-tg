@@ -47,7 +47,7 @@
 	greyscale_colors = "#3d3d3d" //Having all the configs for a single color feels wrong. This is wrong.
 	flags_1 = IS_PLAYER_COLORABLE_1
 
-/obj/item/clothing/under/pants/skyrat/chaps //ORION TODO - attachment AND uniform item (is it even possible?); GREYSCALE
+/obj/item/clothing/under/pants/skyrat/chaps
 	name = "black chaps"
 	desc = "Yeehaw"
 	icon_state = "chaps"
@@ -65,6 +65,16 @@
 	greyscale_config_worn = /datum/greyscale_config/shorts_ripped/worn
 	greyscale_config_worn_digi = /datum/greyscale_config/shorts_ripped/worn/digi
 	greyscale_config_worn_teshari = /datum/greyscale_config/shorts_ripped/worn/teshari
+	greyscale_colors = "#787878#723E0E#202020"
+	flags_1 = IS_PLAYER_COLORABLE_1
+
+/obj/item/clothing/under/shorts/skyrat/shortershorts
+	name = "shorter shorts"
+	desc = "Show those legs off with these even shorter shorts!"
+	icon_state = "shortershorts"
+	greyscale_config = /datum/greyscale_config/shortershorts
+	greyscale_config_worn = /datum/greyscale_config/shortershorts/worn
+	greyscale_config_worn_digi = /datum/greyscale_config/shortershorts/worn/digi
 	greyscale_colors = "#787878#723E0E#202020"
 	flags_1 = IS_PLAYER_COLORABLE_1
 

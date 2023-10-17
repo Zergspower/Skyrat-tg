@@ -8,16 +8,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/ammunitionlocker/useful,
-/obj/item/storage/box/lethalshot,
-/obj/item/storage/box/lethalshot,
-/obj/item/storage/box/lethalshot,
-/obj/item/storage/box/lethalshot,
+/obj/structure/closet/secure_closet/armory_kiboko,
 /turf/open/floor/iron/showroomfloor,
 /area/station/ai_monitored/security/armory)
 "q" = (
@@ -29,12 +23,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/rack/gunrack,
 /obj/effect/spawner/armory_spawn/microfusion,
 /turf/open/floor/iron/showroomfloor,
@@ -77,14 +67,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/rack/gunrack,
-/obj/effect/spawner/armory_spawn/cmg,
+/obj/effect/spawner/armory_spawn/smg,
 /turf/open/floor/iron/showroomfloor,
 /area/station/ai_monitored/security/armory)
 "G" = (
@@ -96,10 +82,8 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/rack/gunrack,
 /obj/effect/spawner/armory_spawn/shotguns,
 /turf/open/floor/iron/showroomfloor,

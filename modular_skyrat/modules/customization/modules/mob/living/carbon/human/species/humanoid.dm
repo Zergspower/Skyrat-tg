@@ -1,19 +1,12 @@
 /datum/species/humanoid
 	name = "Humanoid"
 	id = SPECIES_HUMANOID
-	species_traits = list(MUTCOLORS,
-		EYECOLOR,
-		LIPS,
-		HAS_FLESH,
-		HAS_BONE,
-		HAIR,
-		FACEHAIR
-	)
 	inherent_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,
 		TRAIT_CAN_STRIP,
 		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_LITERATE,
+		TRAIT_MUTANT_COLORS,
 	)
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mutant_bodyparts = list()
@@ -27,7 +20,7 @@
 		"horns" = "None"
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
-	payday_modifier = 0.75
+	payday_modifier = 1.0
 	examine_limb_id = SPECIES_HUMAN
 
 /datum/species/humanoid/get_species_description()
@@ -42,8 +35,8 @@
 	human.dna.features["mcolor"] = main_color
 	human.dna.features["mcolor2"] = main_color
 	human.dna.features["mcolor3"] = main_color
-	human.dna.species.mutant_bodyparts["horns"] = list(MUTANT_INDEX_NAME = "Curled", MUTANT_INDEX_COLOR_LIST = list(secondary_color, secondary_color, secondary_color))
+	human.dna.mutant_bodyparts["horns"] = list(MUTANT_INDEX_NAME = "Curled", MUTANT_INDEX_COLOR_LIST = list(secondary_color, secondary_color, secondary_color))
 	human.hairstyle = "Cornrows"
 	human.hair_color = "#2b2b2b"
-	human.update_mutant_bodyparts(TRUE)
+	regenerate_organs(human, src, visual_only = TRUE)
 	human.update_body(TRUE)

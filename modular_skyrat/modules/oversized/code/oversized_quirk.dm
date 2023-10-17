@@ -11,10 +11,11 @@
 	medical_record_text = "Patient is abnormally tall."
 	value = 0
 	mob_trait = TRAIT_OVERSIZED
-	icon = "expand-arrows-alt"
+	icon = FA_ICON_EXPAND_ARROWS_ALT
 	veteran_only = TRUE
+	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_CHANGES_APPEARANCE
 
-/datum/quirk/oversized/add()
+/datum/quirk/oversized/add(client/client_source)
 	var/mob/living/carbon/human/human_holder = quirk_holder
 	human_holder.dna.features["body_size"] = 2
 	human_holder.maptext_height = 32 * human_holder.dna.features["body_size"] //Adjust runechat height
@@ -32,10 +33,9 @@
 
 	human_holder.blood_volume_normal = BLOOD_VOLUME_OVERSIZED
 	human_holder.physiology.hunger_mod *= OVERSIZED_HUNGER_MOD //50% hungrier
-	var/speed_mod = human_holder.dna.species.speedmod + OVERSIZED_SPEED_SLOWDOWN
-	human_holder.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species, multiplicative_slowdown = speed_mod)
-	var/obj/item/organ/internal/stomach/old_stomach = human_holder.getorganslot(ORGAN_SLOT_STOMACH)
-	if(!(old_stomach.type == /obj/item/organ/internal/stomach))
+	human_holder.add_movespeed_modifier(/datum/movespeed_modifier/oversized)
+	var/obj/item/organ/internal/stomach/old_stomach = human_holder.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!istype(old_stomach))
 		return
 	old_stomach.Remove(human_holder, special = TRUE)
 	qdel(old_stomach)
@@ -62,8 +62,12 @@
 
 	human_holder.blood_volume_normal = BLOOD_VOLUME_NORMAL
 	human_holder.physiology.hunger_mod /= OVERSIZED_HUNGER_MOD
-	var/speedmod = human_holder.dna.species.speedmod
-	human_holder.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species, multiplicative_slowdown=speedmod)
+	human_holder.remove_movespeed_modifier(/datum/movespeed_modifier/oversized)
+
+
+/datum/movespeed_modifier/oversized
+	multiplicative_slowdown = OVERSIZED_SPEED_SLOWDOWN
+
 
 #undef OVERSIZED_HUNGER_MOD
 #undef OVERSIZED_SPEED_SLOWDOWN

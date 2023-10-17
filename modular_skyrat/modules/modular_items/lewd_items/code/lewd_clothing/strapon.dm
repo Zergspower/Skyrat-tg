@@ -1,7 +1,8 @@
 /obj/item/clothing/strapon
 	name = "strapon"
 	desc = "Sometimes you need a special way to humiliate someone."
-	icon_state = "strapon"
+	icon_state = "strapon_human"
+	base_icon_state = "strapon"
 	icon = 'modular_skyrat/modules/modular_items/lewd_items/icons/obj/lewd_items/lewd_items.dmi'
 	worn_icon = 'modular_skyrat/modules/modular_items/lewd_items/icons/mob/lewd_items/lewd_items.dmi'
 	slot_flags = ITEM_SLOT_BELT
@@ -58,10 +59,10 @@
 /obj/item/clothing/strapon/equipped(mob/user, slot)
 	. = ..()
 	var/mob/living/carbon/human/affected_mob = user
-	var/obj/item/organ/external/genital/vagina/affected_vagina = affected_mob.getorganslot(ORGAN_SLOT_VAGINA)
-	var/obj/item/organ/external/genital/womb/affected_womb = affected_mob.getorganslot(ORGAN_SLOT_WOMB)
-	var/obj/item/organ/external/genital/penis/affected_penis = affected_mob.getorganslot(ORGAN_SLOT_PENIS)
-	var/obj/item/organ/external/genital/testicles/affected_testicles = affected_mob.getorganslot(ORGAN_SLOT_TESTICLES)
+	var/obj/item/organ/external/genital/vagina/affected_vagina = affected_mob.get_organ_slot(ORGAN_SLOT_VAGINA)
+	var/obj/item/organ/external/genital/womb/affected_womb = affected_mob.get_organ_slot(ORGAN_SLOT_WOMB)
+	var/obj/item/organ/external/genital/penis/affected_penis = affected_mob.get_organ_slot(ORGAN_SLOT_PENIS)
+	var/obj/item/organ/external/genital/testicles/affected_testicles = affected_mob.get_organ_slot(ORGAN_SLOT_TESTICLES)
 
 	if(src == affected_mob.belt)
 		affected_vagina?.visibility_preference = GENITAL_NEVER_SHOW
@@ -75,10 +76,10 @@
 /obj/item/clothing/strapon/dropped(mob/living/user)
 	. = ..()
 	var/mob/living/carbon/human/affected_mob = user
-	var/obj/item/organ/external/genital/vagina/affected_vagina = affected_mob.getorganslot(ORGAN_SLOT_VAGINA)
-	var/obj/item/organ/external/genital/womb/affected_womb = affected_mob.getorganslot(ORGAN_SLOT_WOMB)
-	var/obj/item/organ/external/genital/penis/affected_penis = affected_mob.getorganslot(ORGAN_SLOT_PENIS)
-	var/obj/item/organ/external/genital/testicles/affected_testicles = affected_mob.getorganslot(ORGAN_SLOT_TESTICLES)
+	var/obj/item/organ/external/genital/vagina/affected_vagina = affected_mob.get_organ_slot(ORGAN_SLOT_VAGINA)
+	var/obj/item/organ/external/genital/womb/affected_womb = affected_mob.get_organ_slot(ORGAN_SLOT_WOMB)
+	var/obj/item/organ/external/genital/penis/affected_penis = affected_mob.get_organ_slot(ORGAN_SLOT_PENIS)
+	var/obj/item/organ/external/genital/testicles/affected_testicles = affected_mob.get_organ_slot(ORGAN_SLOT_TESTICLES)
 
 	if(strapon_item && !ismob(loc) && in_hands == TRUE && src != affected_mob.belt)
 		qdel(strapon_item)
@@ -95,7 +96,7 @@
 
 /obj/item/clothing/strapon/update_icon_state()
 	.=..()
-	icon_state = "[initial(icon_state)]_[strapon_type]"
+	icon_state = "[base_icon_state]_[strapon_type]"
 
 //Functionality stuff
 /obj/item/clothing/strapon/proc/update_mob_action_buttonss()
@@ -122,7 +123,7 @@
 		to_chat(user, span_warning("You need to put the strapon around your waist before you can use it!"))
 
 /obj/item/clothing/strapon/proc/toggle(mob/living/carbon/human/user)
-	playsound(user, 'modular_skyrat/modules/modular_items/lewd_items/sounds/latex.ogg', 40, TRUE, ignore_walls = FALSE)
+	play_lewd_sound(user, 'modular_skyrat/modules/modular_items/lewd_items/sounds/latex.ogg', 40, TRUE)
 	var/obj/item/held = user.get_active_held_item()
 	var/obj/item/unheld = user.get_inactive_held_item()
 
@@ -169,7 +170,8 @@
 	name = "strapon"
 	desc = "An item with which to be menacing and merciless."
 	icon = 'modular_skyrat/modules/modular_items/lewd_items/icons/obj/lewd_items/lewd_items.dmi'
-	icon_state = "dildo"
+	icon_state = "dildo_human"
+	base_icon_state = "dildo"
 	inhand_icon_state = "nothing"
 	force = 0
 	throwforce = 0
@@ -183,8 +185,8 @@
 	ADD_TRAIT(src, TRAIT_NODROP, STRAPON_TRAIT)
 
 /obj/item/strapon_dildo/update_icon_state()
-	.=..()
-	icon_state = "[initial(icon_state)]_[strapon_type]"
+	. = ..()
+	icon_state = "[base_icon_state]_[strapon_type]"
 
 /obj/item/strapon_dildo/attack(mob/living/carbon/human/hit_mob, mob/living/carbon/human/user)
 	if(hit_mob == user)
@@ -194,8 +196,8 @@
 		return
 
 	var/message = ""
-	var/obj/item/organ/external/genital/vagina = hit_mob.getorganslot(ORGAN_SLOT_VAGINA)
-	if(hit_mob.client?.prefs?.read_preference(/datum/preference/toggle/erp/sex_toy))
+	var/obj/item/organ/external/genital/vagina = hit_mob.get_organ_slot(ORGAN_SLOT_VAGINA)
+	if(hit_mob.check_erp_prefs(/datum/preference/toggle/erp/sex_toy, user, src))
 		switch(user.zone_selected) //to let code know what part of body we gonna fuck
 			if(BODY_ZONE_PRECISE_GROIN)
 				if(vagina)
@@ -206,12 +208,12 @@
 						if(prob(40))
 							hit_mob.try_lewd_autoemote(pick("twitch_s", "moan"))
 						user.visible_message(span_purple("[user] [message]!"))
-						playsound(loc, pick('modular_skyrat/modules/modular_items/lewd_items/sounds/bang1.ogg',
+						play_lewd_sound(loc, pick('modular_skyrat/modules/modular_items/lewd_items/sounds/bang1.ogg',
 											'modular_skyrat/modules/modular_items/lewd_items/sounds/bang2.ogg',
 											'modular_skyrat/modules/modular_items/lewd_items/sounds/bang3.ogg',
 											'modular_skyrat/modules/modular_items/lewd_items/sounds/bang4.ogg',
 											'modular_skyrat/modules/modular_items/lewd_items/sounds/bang5.ogg',
-											'modular_skyrat/modules/modular_items/lewd_items/sounds/bang6.ogg'), 60, TRUE, ignore_walls = FALSE)
+											'modular_skyrat/modules/modular_items/lewd_items/sounds/bang6.ogg'), 60, TRUE)
 					else
 						to_chat(user, span_danger("[hit_mob]'s groin is covered!"))
 						return
@@ -228,12 +230,12 @@
 					if(prob(70))
 						hit_mob.try_lewd_autoemote(pick("gasp", "moan"))
 					user.visible_message(span_purple("[user] [message]!"))
-					playsound(loc, pick('modular_skyrat/modules/modular_items/lewd_items/sounds/bang1.ogg',
+					play_lewd_sound(loc, pick('modular_skyrat/modules/modular_items/lewd_items/sounds/bang1.ogg',
 										'modular_skyrat/modules/modular_items/lewd_items/sounds/bang2.ogg',
 										'modular_skyrat/modules/modular_items/lewd_items/sounds/bang3.ogg',
 										'modular_skyrat/modules/modular_items/lewd_items/sounds/bang4.ogg',
 										'modular_skyrat/modules/modular_items/lewd_items/sounds/bang5.ogg',
-										'modular_skyrat/modules/modular_items/lewd_items/sounds/bang6.ogg'), 40, TRUE, ignore_walls = FALSE)
+										'modular_skyrat/modules/modular_items/lewd_items/sounds/bang6.ogg'), 40, TRUE)
 
 				else
 					to_chat(user, span_danger("[hit_mob]'s mouth is covered!"))
@@ -247,12 +249,12 @@
 					if(prob(60))
 						hit_mob.try_lewd_autoemote(pick("twitch_s", "moan", "shiver"))
 					user.visible_message(span_purple("[user] [message]!"))
-					playsound(loc, pick('modular_skyrat/modules/modular_items/lewd_items/sounds/bang1.ogg',
+					play_lewd_sound(loc, pick('modular_skyrat/modules/modular_items/lewd_items/sounds/bang1.ogg',
 										'modular_skyrat/modules/modular_items/lewd_items/sounds/bang2.ogg',
 										'modular_skyrat/modules/modular_items/lewd_items/sounds/bang3.ogg',
 										'modular_skyrat/modules/modular_items/lewd_items/sounds/bang4.ogg',
 										'modular_skyrat/modules/modular_items/lewd_items/sounds/bang5.ogg',
-										'modular_skyrat/modules/modular_items/lewd_items/sounds/bang6.ogg'), 100, TRUE, ignore_walls = FALSE)
+										'modular_skyrat/modules/modular_items/lewd_items/sounds/bang6.ogg'), 100, TRUE)
 
 				else
 					to_chat(user, span_danger("[hit_mob]'s anus is covered!"))

@@ -42,14 +42,14 @@
 		if(istype(object, /obj/item/gun/ballistic))
 			var/obj/item/gun/ballistic/gun = object
 			if(!gun.internal_magazine)
-				products.Add(gun.mag_type)
+				products.Add(gun.spawn_magazine_type)
 		if(istype(object, /obj/item/storage))
 			var/obj/item/storage/storage = object
 			for(var/storage_item in storage.contents)
 				if(istype(storage_item, /obj/item/gun/ballistic))
 					var/obj/item/gun/ballistic/gun = storage_item
 					if(!gun.internal_magazine)
-						products.Add(gun.mag_type)
+						products.Add(gun.spawn_magazine_type)
 
 	//Add our items to the list of products
 	build_inventory(products, product_records, FALSE)
@@ -64,7 +64,6 @@
 		var/atom/temp = typepath
 		var/datum/data/vending_product/vending_product = new /datum/data/vending_product()
 
-		GLOB.vending_products[typepath] = 1
 		vending_product.name = initial(temp.name)
 		vending_product.product_path = typepath
 		if(!start_empty)

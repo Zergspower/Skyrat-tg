@@ -9,8 +9,8 @@
 	desc = "Contains two crabs. Get your crab on!"
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(
-		/mob/living/simple_animal/crab,
-		/mob/living/simple_animal/crab,
+		/mob/living/basic/crab,
+		/mob/living/basic/crab,
 	)
 	crate_name = "look sir free crabs"
 
@@ -27,6 +27,20 @@
 	. = ..()
 	for(var/i in 1 to 5)
 		new /mob/living/basic/mouse(.)
+
+/datum/supply_pack/critter/chinchilla
+	name = "Chinchilla Crate"
+	desc = "Contains four chinchillas. Dust not included."
+	cost = CARGO_CRATE_VALUE * 7
+	contains = list(
+		/mob/living/basic/pet/chinchilla,
+	)
+	crate_name = "chinchilla crate"
+
+/datum/supply_pack/critter/chinchilla/generate()
+	. = ..()
+	for(var/i in 1 to 3)
+		new /mob/living/basic/pet/chinchilla(.)
 
 /*
 *	MEDICAL
@@ -133,9 +147,9 @@
 	contains = list(/obj/item/mod/control/pre_equipped/security)
 	crate_name = "security MODsuit crate"
 
-/datum/supply_pack/security/armor
+/datum/supply_pack/security/armor_skyrat
 	name = "Armor Crate"
-	desc = "Three vests of well-rounded, decently-protective armor. Requires Security access to open."
+	desc = "Three vests of well-rounded, decently-protective armor."
 	cost = CARGO_CRATE_VALUE * 2
 	access_view = ACCESS_SECURITY
 	contains = list(
@@ -145,15 +159,11 @@
 	)
 	crate_name = "armor crate"
 
-/datum/supply_pack/security/helmets
+/datum/supply_pack/security/helmets_skyrat
 	name = "Helmets Crate"
-	desc = "Contains three standard-issue brain buckets. Requires Security access to open."
+	desc = "Contains three standard-issue brain buckets."
 	cost = CARGO_CRATE_VALUE * 2
-	contains = list(
-		/obj/item/clothing/head/helmet/sec/redsec,
-		/obj/item/clothing/head/helmet/sec/redsec,
-		/obj/item/clothing/head/helmet/sec/redsec,
-	)
+	contains = list(/obj/item/clothing/head/helmet/sec/sol = 3)
 	crate_name = "helmet crate"
 
 /datum/supply_pack/security/deployablebarricades
@@ -175,9 +185,9 @@
 	desc = "Contains three material pouches."
 	access_view = ACCESS_ENGINE_EQUIP
 	contains = list(
-		/obj/item/storage/bag/material,
-		/obj/item/storage/bag/material,
-		/obj/item/storage/bag/material,
+		/obj/item/storage/pouch/material,
+		/obj/item/storage/pouch/material,
+		/obj/item/storage/pouch/material,
 	)
 	cost = CARGO_CRATE_VALUE * 15
 	crate_name = "material pouches crate"
@@ -262,12 +272,12 @@
 *	MISC
 */
 
-/datum/supply_pack/misc/medibeam //Moved to Misc so Medical can't order them for free through department consoles and break the economy.
-	name = "Medical Beam Gun"
-	desc = "Nanotrasen offers you, for an exorbatant fee, the ability to lease one of their ERTs favorite gadgets, the Medical Beam Gun"
+/datum/supply_pack/misc/speedbike //If you see this bought in game, its time to nerf a cargo exploit.
+	name = "Speedbike"
+	desc = "Put your shades on, saddle up, and ride off directly into the sun on this turbo deluxe space-cruising speedbike."
 	cost = 1000000 //Special case, we don't want to make this in terms of crates because having bikes be a million credits is the whole meme.
-	contains = list(/obj/item/gun/medbeam)
-	crate_name = "medical beamgun crate"
+	contains = list(/obj/vehicle/ridden/speedbike)
+	crate_name = "speedbike crate"
 
 /datum/supply_pack/misc/painting
 	name = "Advanced Art Supplies"
@@ -428,17 +438,17 @@
 	desc = "Chef slop boring? Have high-maintenance crewmembers that with wings? Maybe you just want to revel in the sinful delight that are Cheese Curds? The Finest of our trade union has made the pack for you, containing a mix of fine oils, vinegar, and exceptionally rare ingredients."
 	cost = CARGO_CRATE_VALUE * 5
 	contains = list(
-		/obj/item/reagent_containers/condiment/quality_oil,
-		/obj/item/reagent_containers/condiment/quality_oil,
+		/obj/item/reagent_containers/condiment/olive_oil,
+		/obj/item/reagent_containers/condiment/olive_oil,
 		/obj/item/reagent_containers/condiment/vinegar,
 		/obj/item/reagent_containers/condiment/vinegar,
 		/obj/item/food/canned/tomatoes,
 		/obj/item/food/canned/tomatoes,
 		/obj/item/food/canned/pine_nuts,
 		/obj/item/food/canned/pine_nuts,
-		/obj/item/food/canned_jellyfish,
-		/obj/item/food/desert_snails,
-		/obj/item/food/larvae,
+		/obj/item/food/canned/jellyfish,
+		/obj/item/food/canned/desert_snails,
+		/obj/item/food/canned/larvae,
 		/obj/item/food/moonfish_eggs,
 	)
 	crate_name = "fine cuisine assortment pack"
@@ -449,16 +459,16 @@
 	desc = "Normal cooking oil not cutting it? Chef throw all the quality stuff in the frier because they thought it was funny? Well, We got you covered, Introducing a bulk pack of Ten (10) bottles of our finest oils, blended for the perfect taste in cold recipes, and a resistance for going acrid when cooking."
 	cost = CARGO_CRATE_VALUE * 9
 	contains = list(
-		/obj/item/reagent_containers/condiment/quality_oil,
-		/obj/item/reagent_containers/condiment/quality_oil,
-		/obj/item/reagent_containers/condiment/quality_oil,
-		/obj/item/reagent_containers/condiment/quality_oil,
-		/obj/item/reagent_containers/condiment/quality_oil,
-		/obj/item/reagent_containers/condiment/quality_oil,
-		/obj/item/reagent_containers/condiment/quality_oil,
-		/obj/item/reagent_containers/condiment/quality_oil,
-		/obj/item/reagent_containers/condiment/quality_oil,
-		/obj/item/reagent_containers/condiment/quality_oil,
+		/obj/item/reagent_containers/condiment/olive_oil,
+		/obj/item/reagent_containers/condiment/olive_oil,
+		/obj/item/reagent_containers/condiment/olive_oil,
+		/obj/item/reagent_containers/condiment/olive_oil,
+		/obj/item/reagent_containers/condiment/olive_oil,
+		/obj/item/reagent_containers/condiment/olive_oil,
+		/obj/item/reagent_containers/condiment/olive_oil,
+		/obj/item/reagent_containers/condiment/olive_oil,
+		/obj/item/reagent_containers/condiment/olive_oil,
+		/obj/item/reagent_containers/condiment/olive_oil,
 	)
 	crate_name = "bulk quality oil pack"
 	crate_type = /obj/structure/closet/crate/freezer
@@ -506,18 +516,18 @@
 	desc = "Having some devious tastes? One of your scalie friends wanting something that isn't fried mystery meat? Well you're just one order away from from the perfect pleaser. Containing Three (3) Cans of our finest-sourced canned jellyfish, snails and bee larvae, An addition of Three (3) packs of cruelty free Moonfish eggs might get their hearts."
 	cost = CARGO_CRATE_VALUE * 3.5
 	contains = list(
-		/obj/item/food/canned_jellyfish,
-		/obj/item/food/canned_jellyfish,
-		/obj/item/food/canned_jellyfish,
-		/obj/item/food/desert_snails,
-		/obj/item/food/desert_snails,
-		/obj/item/food/desert_snails,
+		/obj/item/food/canned/jellyfish,
+		/obj/item/food/canned/jellyfish,
+		/obj/item/food/canned/jellyfish,
+		/obj/item/food/canned/desert_snails,
+		/obj/item/food/canned/desert_snails,
+		/obj/item/food/canned/desert_snails,
 		/obj/item/food/moonfish_eggs,
 		/obj/item/food/moonfish_eggs,
 		/obj/item/food/moonfish_eggs,
-		/obj/item/food/larvae,
-		/obj/item/food/larvae,
-		/obj/item/food/larvae,
+		/obj/item/food/canned/larvae,
+		/obj/item/food/canned/larvae,
+		/obj/item/food/canned/larvae,
 	)
 	crate_name = "bulk lizard pack"
 	crate_type = /obj/structure/closet/crate/freezer
@@ -631,8 +641,8 @@
 		/obj/item/claymore/weak/weaker,
 		/obj/item/clothing/suit/armor/vest/cuirass/larp,
 		/obj/item/clothing/suit/armor/vest/cuirass/larp,
-		/obj/item/gun/ballistic/bow,
-		/obj/item/gun/ballistic/bow,
+		/obj/item/gun/ballistic/bow/longbow,
+		/obj/item/gun/ballistic/bow/longbow,
 		/obj/item/storage/bag/quiver,
 		/obj/item/storage/bag/quiver,
 		/obj/item/clothing/head/helmet/knight/red,
@@ -652,8 +662,8 @@
 		/obj/item/seeds/lavaland/inocybe,
 		/obj/item/seeds/lavaland/ember,
 		/obj/item/seeds/lavaland/seraka,
-		/obj/item/seeds/star_cactus,
-		/obj/item/seeds/star_cactus,
+		/obj/item/seeds/lavaland/fireblossom,
+		/obj/item/seeds/lavaland/cactus,
 	)
 	crate_name = "planetary seeds crate"
 	crate_type = /obj/structure/closet/crate/hydroponics
@@ -694,32 +704,46 @@
 	for(var/i in 1 to 19)
 		new /obj/item/grown/log(.)
 
-/datum/supply_pack/security/armory/russian
-	name = "Imperial Surplus Crate"
-	desc = "Good time of the day Mister Comrade! We have the most modern imperial military equipment our shop can offer, for the right price of course. Sadly, all our equipment is military-grade and mostly armored so we would kindly ask you not to show it off too much."
+/datum/supply_pack/imports/cin_surplus
+	name = "CIN Military Surplus Crate"
+	desc = "A collection of surplus equipment sourced from the Coalition of Independent Nations' military stockpiles. Likely to contain old and outdated equipment, as is the nature of surplus."
 	contraband = TRUE
-	cost = CARGO_CRATE_VALUE * 15
+	cost = CARGO_CRATE_VALUE * 9
 	contains = list(
-		/obj/item/crucifix,
-		/obj/item/storage/box/nri_rations,
-		/obj/item/storage/box/nri_rations,
-		/obj/item/storage/toolbox/ammo,
-		/obj/item/storage/toolbox/maint_kit,
-		/obj/item/gun/ballistic/rifle/boltaction,
-		/obj/item/ammo_box/a762,
-		/obj/item/ammo_box/a762,
-		/obj/item/gun/ballistic/automatic/plastikov,
-		/obj/item/ammo_box/magazine/plastikov9mm,
-		/obj/item/ammo_box/magazine/plastikov9mm,
-		/obj/item/gun/ballistic/automatic/pistol/makarov,
-		/obj/item/ammo_box/magazine/multi_sprite/makarov,
-		/obj/item/ammo_box/magazine/multi_sprite/makarov,
-		/obj/item/clothing/suit/armor/vest/russian/nri,
-		/obj/item/clothing/head/helmet/rus_helmet/nri,
-		/obj/item/storage/backpack/nri,
-		/obj/item/storage/belt/military/nri,
-		/obj/item/clothing/gloves/tackler/combat,
-		/obj/item/clothing/under/costume/nri,
-		/obj/item/clothing/shoes/combat,
-		/obj/item/clothing/mask/gas/hecu2,
+		/obj/item/storage/box/colonial_rations = 1,
+		/obj/item/storage/toolbox/ammobox/strilka310 = 1,
+		/obj/item/storage/toolbox/ammobox/strilka310/surplus = 1,
+		/obj/item/storage/toolbox/maint_kit = 1,
+		/obj/item/storage/toolbox/guncase/soviet/sakhno = 2,
+		/obj/item/ammo_box/strilka310 = 1,
+		/obj/item/clothing/suit/armor/vest/cin_surplus_vest = 1,
+		/obj/item/clothing/head/helmet/cin_surplus_helmet/random_color = 1,
+		/obj/item/storage/backpack/industrial/cin_surplus/random_color = 1,
+		/obj/item/storage/belt/military/cin_surplus/random_color = 1,
+		/obj/item/clothing/gloves/tackler/combat = 1,
+		/obj/item/clothing/under/syndicate/rus_army/cin_surplus/random_color = 1,
+		/obj/item/clothing/shoes/jackboots = 1,
+		/obj/item/clothing/mask/gas/hecu2 = 1,
+		/obj/item/clothing/mask/balaclavaadjust = 1,
 	)
+
+/datum/supply_pack/imports/cin_surplus/fill(obj/structure/closet/crate/we_are_filling_this_crate)
+	for(var/i in 1 to 10)
+		var/item = pick_weight(contains)
+		new item(we_are_filling_this_crate)
+
+/*
+* VENDING RESTOCKS
+*/
+
+/datum/supply_pack/vending/dorms
+	name = "LustWish Supply Crate"
+	desc = "This crate contains a single refill for the LustWish vendor."
+	cost = CARGO_CRATE_VALUE * 2
+	contains = list(/obj/item/vending_refill/lustwish)
+
+/datum/supply_pack/vending/barber
+	name = "Fab-O-Vend Supply Crate"
+	desc = "Contains a single restock for the Fab-O-Vend, great for those who are indecisive about their looks."
+	cost = CARGO_CRATE_VALUE * 3
+	contains = list(/obj/item/vending_refill/barbervend)

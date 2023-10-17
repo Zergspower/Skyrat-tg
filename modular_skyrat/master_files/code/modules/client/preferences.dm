@@ -162,3 +162,15 @@
 	else
 		return FALSE
 
+/// This proc saves the damage currently on `character` (human) and reapplies it after `safe_transfer_prefs()` is applied to the `character`.
+/datum/preferences/proc/safe_transfer_prefs_to_with_damage(mob/living/carbon/human/character, icon_updates = TRUE, is_antag = FALSE)
+	if(!istype(character))
+		return FALSE
+
+	var/datum/component/damage_tracker/human/added_tracker = character.AddComponent(/datum/component/damage_tracker/human)
+	if(!added_tracker)
+		return FALSE
+
+	safe_transfer_prefs_to(character, icon_updates, is_antag)
+	qdel(added_tracker)
+

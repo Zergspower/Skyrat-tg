@@ -17,21 +17,17 @@
 /area/station/hallway/secondary/entry)
 "au" = (
 /obj/effect/turf_decal/delivery,
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/organic/plant22,
 /obj/item/radio/intercom/directional/east,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "aF" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "bU" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -82,9 +78,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "dC" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -110,9 +104,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "eC" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/organic/plant21,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -124,13 +116,7 @@
 /turf/open/space,
 /area/space/nearstation)
 "fy" = (
-/obj/docking_port/stationary{
-	dwidth = 1;
-	height = 4;
-	name = "escape pod loader";
-	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
-	width = 3
-	},
+/obj/docking_port/stationary/escape_pod,
 /turf/open/space/basic,
 /area/space)
 "fV" = (
@@ -143,7 +129,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "fY" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -195,9 +181,7 @@
 /turf/open/floor/iron/smooth,
 /area/station/hallway/secondary/entry)
 "iR" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -335,7 +319,7 @@
 /turf/open/space,
 /area/space/nearstation)
 "mT" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -346,9 +330,7 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/entry)
 "ne" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/organic/plant21,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -434,9 +416,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "ri" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -624,14 +604,7 @@
 	},
 /area/station/hallway/secondary/entry)
 "zX" = (
-/obj/docking_port/stationary{
-	dwidth = 3;
-	height = 5;
-	shuttle_id = "commonmining_home";
-	name = "SS13: Common Mining Dock";
-	roundstart_template = /datum/map_template/shuttle/mining_common/meta;
-	width = 7
-	},
+/obj/docking_port/stationary/mining_home/common,
 /turf/open/space/basic,
 /area/space)
 "Af" = (
@@ -835,14 +808,12 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "Fr" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
 "FK" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -878,7 +849,6 @@
 	height = 13;
 	shuttle_id = "arrivals_stationary";
 	name = "arrivals";
-	roundstart_template = null;
 	width = 5
 	},
 /turf/open/space/basic,
@@ -957,9 +927,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "OP" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/organic/plant21,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
@@ -1137,7 +1105,7 @@
 /turf/open/space/basic,
 /area/space)
 "Yy" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)

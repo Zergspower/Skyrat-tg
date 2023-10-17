@@ -8,8 +8,9 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman,
 		/obj/item/tank/jetpack/oxygen/captain,
+		/obj/item/storage/belt/holster,
 		)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
+	armor_type = /datum/armor/none
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_OCLOTHING
@@ -20,8 +21,10 @@
 	. = ..()
 	setup_shielding()
 
-///obj/item/clothing/suit/worn_overlays(isinhands = FALSE) //ORIGINAL
-/obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, file2use, mutant_styles = NONE)
+/// SKYRAT EDIT CHANGE BEGIN - taurs and teshis
+// /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE) // ORIGINAL
+/obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, file2use = null, mutant_styles = NONE)
+// SKYRAT EDIT CHANGE END
 	. = ..()
 	if(isinhands)
 		return
@@ -39,14 +42,16 @@
 		. += mutable_appearance(bloodfile2use, "[blood_overlay_type]blood")
 		//SKYRAT EDIT CHANGE END
 
-	var/mob/living/carbon/human/M = loc
-	if(!ishuman(M) || !M.w_uniform)
+	var/mob/living/carbon/human/wearer = loc
+	if(!ishuman(wearer) || !wearer.w_uniform)
 		return
-	var/obj/item/clothing/under/U = M.w_uniform
-	if(istype(U) && U.attached_accessory)
-		var/obj/item/clothing/accessory/A = U.attached_accessory
-		if(A.above_suit)
-			. += U.accessory_overlay
+	var/obj/item/clothing/under/undershirt = wearer.w_uniform
+	if(!istype(undershirt) || !LAZYLEN(undershirt.attached_accessories))
+		return
+
+	var/obj/item/clothing/accessory/displayed = undershirt.attached_accessories[1]
+	if(displayed.above_suit)
+		. += undershirt.modify_accessory_overlay() // SKYRAT EDIT CHANGE - ORIGINAL: . += undershirt.accessory_overlay
 
 /obj/item/clothing/suit/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()

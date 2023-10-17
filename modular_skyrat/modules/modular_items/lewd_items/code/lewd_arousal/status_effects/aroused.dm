@@ -12,11 +12,11 @@
 
 /datum/status_effect/aroused
 	id = "aroused"
-	tick_interval = 10
+	tick_interval = 1 SECONDS
 	duration = -1
 	alert_type = null
 
-/datum/status_effect/aroused/tick()
+/datum/status_effect/aroused/tick(seconds_between_ticks)
 	if(owner.stat >= DEAD || !owner.client?.prefs?.read_preference(/datum/preference/toggle/erp))
 		return
 
@@ -25,7 +25,7 @@
 	var/temp_pleasure = BASE_PAIN_AND_PLEASURE_ADJUSTMENT
 	var/temp_pain = BASE_PAIN_AND_PLEASURE_ADJUSTMENT
 
-	var/obj/item/organ/external/genital/testicles/balls = affected_mob.getorganslot(ORGAN_SLOT_TESTICLES)
+	var/obj/item/organ/external/genital/testicles/balls = affected_mob.get_organ_slot(ORGAN_SLOT_TESTICLES)
 	if(balls && balls.internal_fluid_full())
 		temp_arousal += BLUEBALL_AROUSAL_MODIFIER
 

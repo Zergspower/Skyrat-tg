@@ -18,6 +18,8 @@
 		return
 
 	if(GET_MUTATION_POWER(src) <= 1) // we only care about power from here on
+		to_modify.cone_levels = initial(to_modify.cone_levels) //resets to default if no power chromosome
+		to_modify.self_throw_range = initial(to_modify.self_throw_range)
 		return
 
 	to_modify.cone_levels += 2  // Cone fwooshes further, and...
@@ -65,7 +67,7 @@
 	// When casting, throw the caster backwards a few tiles.
 	var/original_dir = living_cast_on.dir
 	living_cast_on.throw_at(
-		get_edge_target_turf(living_cast_on, turn(living_cast_on.dir, 180)),
+		get_edge_target_turf(living_cast_on, REVERSE_DIR(living_cast_on.dir)),
 		range = self_throw_range,
 		speed = 2,
 		gentle = TRUE,

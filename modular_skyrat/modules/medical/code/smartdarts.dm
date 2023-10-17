@@ -34,7 +34,7 @@
 		to_chat(user, span_warning("You cannot directly remove reagents from [target]!"))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 
-	var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user) // transfer from, transfer to - who cares?
+	var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transferred_by = user) // transfer from, transfer to - who cares?
 	to_chat(user, span_notice("You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units."))
 
 	return SECONDARY_ATTACK_CONTINUE_CHAIN
@@ -46,12 +46,15 @@
 	w_class = WEIGHT_CLASS_NORMAL //I might need to look into changing this later depending on feedback
 	icon = 'modular_skyrat/modules/medical/icons/obj/dartguns.dmi'
 	icon_state = "smartdartgun"
-	has_gun_safety = TRUE
+	worn_icon_state = "medicalsyringegun"
 	item_flags = null
 
 /obj/item/gun/syringe/smartdart/Initialize(mapload)
 	. = ..()
 	chambered = new /obj/item/ammo_casing/syringegun/dart(src)
+
+/obj/item/gun/syringe/smartdart/give_gun_safeties()
+	return
 
 /obj/item/gun/syringe/smartdart/attackby(obj/item/container, mob/user, params, show_msg = TRUE)
 	if(istype(container, /obj/item/reagent_containers/syringe/smartdart))

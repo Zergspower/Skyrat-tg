@@ -28,7 +28,7 @@
 
 /obj/item/clothing/neck/human_petcollar/Initialize(mapload)
 	. = ..()
-	create_storage(type = /datum/storage/pockets/small/collar)
+	create_storage(storage_type = /datum/storage/pockets/small/collar)
 	if(treat_path)
 		new treat_path(src)
 
@@ -52,6 +52,14 @@
 	greyscale_config_worn = /datum/greyscale_config/collar/choker/worn
 	greyscale_colors = "#222222"
 
+/obj/item/clothing/neck/human_petcollar/thinchoker
+	name = "thin choker"
+	desc = "Like the normal one, but thinner!"
+	icon_state = "thinchoker"
+	greyscale_config = /datum/greyscale_config/collar/thinchoker
+	greyscale_config_worn = /datum/greyscale_config/collar/thinchoker/worn
+	greyscale_colors = "#222222"
+
 /obj/item/key/collar
 	name = "collar key"
 	desc = "A key for a tiny lock on a collar or bag."
@@ -66,7 +74,7 @@
 /obj/item/clothing/neck/human_petcollar/locked/Initialize(mapload)
 	. = ..()
 
-	create_storage(type = /datum/storage/pockets/small/collar/locked)
+	create_storage(storage_type = /datum/storage/pockets/small/collar/locked)
 
 /obj/item/clothing/neck/human_petcollar/locked/attackby(obj/item/attacking_item, mob/user, params)
 	if(istype(attacking_item, /obj/item/key/collar))

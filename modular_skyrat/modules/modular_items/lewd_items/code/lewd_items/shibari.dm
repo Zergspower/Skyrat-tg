@@ -103,7 +103,7 @@
 		return
 	if(!ishuman(attacked))
 		return
-	if(!attacked.client?.prefs?.read_preference(/datum/preference/toggle/erp/sex_toy))
+	if(!attacked.check_erp_prefs(/datum/preference/toggle/erp/sex_toy, user, src))
 		to_chat(user, span_danger("Looks like [attacked] doesn't want you to do that."))
 		return
 	switch(user.zone_selected)
@@ -137,11 +137,11 @@
 	them.visible_message(span_warning("[user] starts tying [them]'s groin!"),\
 		span_userdanger("[user] starts tying your groin!"),\
 		span_hear("You hear ropes being tightened."))
-	if(!do_mob(user, them, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60))
+	if(!do_after(user, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60, them))
 		return
 	var/obj/item/stack/shibari_rope/split_rope = null
 	var/slow = 0
-	if(them.dna.species.bodytype & BODYTYPE_TAUR)
+	if(them.bodytype & BODYTYPE_TAUR)
 		split_rope = split_stack(null, 2)
 		slow = 4
 	else
@@ -173,7 +173,7 @@
 	them.visible_message(span_warning("[user] starts tying [them]'s chest!"),\
 		span_userdanger("[user] starts tying your chest!"),\
 		span_hear("You hear ropes being tightened."))
-	if(!do_mob(user, them, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60))
+	if(!do_after(user, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60, them))
 		return
 	var/obj/item/stack/shibari_rope/split_rope = split_stack(null, 1)
 	if(split_rope)
@@ -197,7 +197,7 @@
 	them.visible_message(span_warning("[user] starts tying [them]'s hands!"),\
 		span_userdanger("[user] starts tying your hands!"),\
 		span_hear("You hear ropes being tightened."))
-	if(!do_mob(user, them, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60))
+	if(!do_after(user, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60, them))
 		return
 	var/obj/item/stack/shibari_rope/split_rope = split_stack(null, 1)
 	if(split_rope)
@@ -218,13 +218,13 @@
 	if(them.shoes)
 		to_chat(user, span_warning("They're already wearing something on this slot!"))
 		return
-	if(them.dna.species.bodytype & BODYTYPE_TAUR)
+	if(them.bodytype & BODYTYPE_TAUR)
 		to_chat(user, span_warning("You can't tie their feet, they're a taur!"))
 		return
 	them.visible_message(span_warning("[user] starts tying [them]'s feet!"),\
 		span_userdanger("[user] starts tying your feet!"),\
 		span_hear("You hear ropes being tightened."))
-	if(!do_mob(user, them, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60))
+	if(!do_after(user, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60, them))
 		return
 	var/obj/item/stack/shibari_rope/split_rope = split_stack(null, 1)
 	if(split_rope)
@@ -247,10 +247,10 @@
 			them.visible_message(span_warning("[user] starts tying [them]'s chest!"),\
 				span_userdanger("[user] starts tying your chest!"),\
 				span_hear("You hear ropes being tightened."))
-			if(!do_mob(user, them, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60))
+			if(!do_after(user, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60, them))
 				return
 			var/slow = 0
-			if(them.dna.species.bodytype & BODYTYPE_TAUR)
+			if(them.bodytype & BODYTYPE_TAUR)
 				slow = 4
 			var/obj/item/stack/shibari_rope/split_rope = split_stack(null, 1)
 			if(split_rope)
@@ -279,11 +279,11 @@
 			them.visible_message(span_warning("[user] starts tying [them]'s groin!"),\
 				span_userdanger("[user] starts tying your groin!"),\
 				span_hear("You hear ropes being tightened."))
-			if(!do_mob(user, them, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60))
+			if(!do_after(user, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60, them))
 				return
 			var/obj/item/stack/shibari_rope/split_rope = null
 			var/slow = 0
-			if(them.dna.species.bodytype & BODYTYPE_TAUR)
+			if(them.bodytype & BODYTYPE_TAUR)
 				split_rope = split_stack(null, 2)
 				slow = 4
 			else
@@ -317,15 +317,15 @@
 	switch(tightness)
 		if(ROPE_TIGHTNESS_HIGH)
 			tightness = ROPE_TIGHTNESS_LOW
-			playsound(loc, 'modular_skyrat/modules/modular_items/lewd_items/sounds/latex.ogg', 25)
+			play_lewd_sound(loc, 'modular_skyrat/modules/modular_items/lewd_items/sounds/latex.ogg', 25)
 			balloon_alert(user, span_notice("You slightly tightened the ropes"))
 		if(ROPE_TIGHTNESS_LOW)
 			tightness = ROPE_TIGHTNESS_MED
-			playsound(loc, 'modular_skyrat/modules/modular_items/lewd_items/sounds/latex.ogg', 50)
+			play_lewd_sound(loc, 'modular_skyrat/modules/modular_items/lewd_items/sounds/latex.ogg', 50)
 			balloon_alert(user, span_notice("You moderately tightened the ropes"))
 		if(ROPE_TIGHTNESS_MED)
 			tightness = ROPE_TIGHTNESS_HIGH
-			playsound(loc, 'modular_skyrat/modules/modular_items/lewd_items/sounds/latex.ogg', 75)
+			play_lewd_sound(loc, 'modular_skyrat/modules/modular_items/lewd_items/sounds/latex.ogg', 75)
 			balloon_alert(user, span_notice("You strongly tightened the ropes"))
 
 #undef ROPE_TIGHTNESS_LOW

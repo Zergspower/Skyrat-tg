@@ -62,6 +62,28 @@
 	cost = PAYCHECK_CREW * 4
 	contains = list(/obj/item/paper_bin)
 
+/datum/supply_pack/goody/xenoarch_intern
+	name = "Xenoarchaeology Intern Skillchip"
+	desc = "A skillchip with all the information required to start dabbling in the fine art of interpreting xenoarchaeological finds. \
+			Does not come with actual xenoarchaeological tools, nor the ability to actually make anyone pay attention to one's \
+			attempts at intellectual posturing, nor any actual job experience as a curator."
+	cost = PAYCHECK_CREW * 35 // 1750 credit goody? do bounties
+	contains = list(/obj/item/skillchip/xenoarch_magnifier)
+
+/datum/supply_pack/goody/gravity_harness
+	name = "Gravity Suspension Harness"
+	desc = "A back-mounted suspensor harness powered by cells, designed by Deep Spacer tribes to either nullify or amplify gravity. \
+		While it's a pretty cheap bootleg of the personal gravitic engines used by the Skrell, this one's been fitted with straps and a basic storage module."
+	cost = CARGO_CRATE_VALUE * 6 // 1200 credits
+	contains = list(/obj/item/gravity_harness)
+
+/datum/supply_pack/goody/scratching_stone
+	name = "Scratching Stone"
+	desc = "A high-grade sharpening stone made of specialized alloys, meant to sharpen razor-claws. Unfortunately, this particular one has by far seen better days."
+	cost = CARGO_CRATE_VALUE * 4 //800 credits
+	contains = list(/obj/item/scratching_stone)
+	contraband = TRUE
+
 /*
 *	CARPET PACKS
 */
@@ -111,12 +133,78 @@
 	contains = list(/obj/item/stack/tile/carpet/blue/fifty)
 
 /*
-*	MEDICAL STUFF
+* NIF STUFF
 */
+/datum/supply_pack/goody/standard_nif
+	name = "Standard Type NIF"
+	desc = "Contains a single standard NIF by itself, surgery is required."
+	cost = CARGO_CRATE_VALUE * 15
+	contains = list(
+		/obj/item/organ/internal/cyberimp/brain/nif/standard,
+	)
 
+/datum/supply_pack/goody/cheap_nif
+	name = "Econo-Deck Type NIF"
+	desc = "Contains a single Econo-Deck NIF by itself, surgery is required."
+	cost = CARGO_CRATE_VALUE * 7.5
+	contains = list(
+		/obj/item/organ/internal/cyberimp/brain/nif/roleplay_model,
+	)
 
-/datum/supply_pack/goody/afad
-	name = "Automated First Aid Device"
-	desc = "Someone mildly hurt and it's too much of a bother to manually handle their burns or cuts? Look no further than the AFAD, a state-of-the-art pain-relief device!"
-	cost = PAYCHECK_CREW * 40
-	contains = list(/obj/item/gun/medbeam/afad)
+/datum/supply_pack/goody/nif_repair_kit
+	name = "Cerulean NIF Regenerator"
+	desc = "Contains a single container of NIF repair fluid, good for up to 5 uses."
+	cost = CARGO_CRATE_VALUE * 3
+	contains = list(
+		/obj/item/nif_repair_kit,
+	)
+
+/datum/supply_pack/goody/money_sense_nifsoft
+	name = "Automatic Appraisal NIFSoft"
+	desc = "Contains a single Automatic Appraisal NIFSoft uploader disk."
+	cost = CARGO_CRATE_VALUE * 1.5
+	contains = list(
+		/obj/item/disk/nifsoft_uploader/money_sense,
+	)
+
+/datum/supply_pack/goody/shapeshifter_nifsoft
+	name = "Polymorph NIFSoft"
+	desc = "Contains a single Polymorph NIFSoft uploader disk."
+	cost = CARGO_CRATE_VALUE * 1.5
+	contains = list(
+		/obj/item/disk/nifsoft_uploader/shapeshifter,
+	)
+
+/datum/supply_pack/goody/hivemind_nifsoft
+	name = "Hivemind NIFSoft"
+	desc = "Contains a single Hivemind NIFSoft uploader disk."
+	cost = CARGO_CRATE_VALUE * 1.5
+	contains = list(
+		/obj/item/disk/nifsoft_uploader/hivemind,
+	)
+
+/datum/supply_pack/goody/summoner_nifsoft
+	name = "Grimoire Caeruleam NIFSoft"
+	desc = "Contains a single Grimoire Caeruleam NIFSoft uploader disk."
+	cost = CARGO_CRATE_VALUE * 0.75
+	contains = list(
+		/obj/item/disk/nifsoft_uploader/summoner,
+	)
+
+/datum/supply_pack/goody/firstaid_pouch
+	name = "Mini-Medkit First Aid Pouch"
+	desc = "Contains a single surplus first-aid pouch, complete with pocket clip. Repackaged with station-standard medical supplies, \
+	but nothing's stopping you from repacking it yourself, though."
+	cost = PAYCHECK_CREW * 6
+	contains = list(
+		/obj/item/storage/pouch/medical/firstaid/loaded,
+	)
+
+/datum/supply_pack/goody/stabilizer_pouch
+	name = "Stabilizer First Aid Pouch"
+	desc = "Contains a single surplus first-aid pouch, complete with pocket clip. Repackaged with a wound stabilizing-focused loadout, \
+	but nothing's stopping you from repacking it yourself, though."
+	cost = PAYCHECK_CREW * 6
+	contains = list(
+		/obj/item/storage/pouch/medical/firstaid/stabilizer,
+	)

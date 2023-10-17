@@ -11,7 +11,7 @@
 	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/security/detective/cowboy/armorless //Donator variant, just uses the sprite.
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
+	armor_type = /datum/armor/clothing_under/none
 
 /obj/item/clothing/suit/cowboyvest
 	name = "blonde cowboy vest"
@@ -43,42 +43,6 @@
 	icon_state = "runner"
 	supports_variations_flags = NONE
 	can_adjust = FALSE
-
-// Police Uniforms
-///OFFICERS
-/obj/item/clothing/under/rank/security/peacekeeper/sol/cadet
-	name = "sol police cadet uniform"
-	desc = "A light blue shirt with navy pants, and no other markings. This is essentially no more than a fancy blue suit."
-	icon_state = "policecadetalt"
-
-/obj/item/clothing/under/rank/security/peacekeeper/sol
-	name = "sol police uniform"
-	desc = "A light blue shirt with navy pants, and a golden insignia on the shoulder. Perfect for standing around idly during emergencies."
-	icon = 'modular_skyrat/master_files/icons/obj/clothing/under/security.dmi'
-	worn_icon = 'modular_skyrat/master_files/icons/mob/clothing/under/security.dmi'
-	icon_state = "policealt"
-
-///WARDEN
-/obj/item/clothing/under/rank/security/warden/peacekeeper/sol
-	name = "sol warden uniform"
-	desc = "A light blue shirt with navy pants. This one bears the insignia of a Warden, as well as the stretch marks."
-	icon_state = "policewardenalt"
-
-///HEAD OF SECURITY
-/obj/item/clothing/under/rank/security/head_of_security/peacekeeper/sol
-	name = "sol chief of police uniform"
-	desc = "A white satin shirt with golden pauldrons and a leather belt, which has a large \"NT\" for a buckle. Nice to see where the budget went."
-	icon = 'modular_skyrat/master_files/icons/obj/clothing/under/security.dmi'
-	worn_icon = 'modular_skyrat/master_files/icons/mob/clothing/under/security.dmi'
-	icon_state = "policechiefalt"
-
-// End Police Uniforms
-
-///SECMED
-/obj/item/clothing/under/rank/medical/scrubs/skyrat/red/sec
-	name = "security medic scrubs"
-	desc = "It's made of a special fiber that provides minor protection against biohazards and acid, along with some light padding. This one is in a deep red."
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 30, ACID = 30, WOUND = 10)
 
 /// PRISONER
 /obj/item/clothing/under/rank/prisoner/protcust
@@ -137,6 +101,7 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+	supports_variations_flags = NONE
 
 /obj/item/clothing/under/rank/prisoner/syndicate
 	name = "syndicate prisoner jumpsuit"

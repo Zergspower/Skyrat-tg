@@ -89,7 +89,7 @@
 
 /obj/item/reagent_containers/borghypo/borgshaker/specific
 	icon = 'modular_skyrat/modules/borg_buffs/icons/items_cyborg.dmi'
-	icon_state = "shaker"
+	icon_state = "misc"
 
 /obj/item/reagent_containers/borghypo/borgshaker/specific/juice
 	name = "cyborg juice shaker"
@@ -211,11 +211,11 @@
 
 // Wirebrush for janiborg
 /datum/design/borg_wirebrush
-	name = "Cyborg Upgrade (Wire-brush)"
+	name = "Wire-brush Module"
 	id = "borg_upgrade_brush"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/wirebrush
-	materials = list(/datum/material/iron = 4000)
+	materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT * 2)
 	construction_time = 40
 	category = list(RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_JANITOR)
 

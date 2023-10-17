@@ -5,8 +5,9 @@
 /obj/item/clothing/sextoy/eggvib
 	name = "vibrating egg"
 	desc = "A simple, vibrating sex toy."
-	icon_state = "eggvib"
-	inhand_icon_state = "eggvib_teal"
+	icon_state = "eggvib_pink_off"
+	base_icon_state = "eggvib"
+	inhand_icon_state = "eggvib_pink"
 	icon = 'modular_skyrat/modules/modular_items/lewd_items/icons/obj/lewd_items/lewd_items.dmi'
 	lefthand_file = 'modular_skyrat/modules/modular_items/lewd_items/icons/mob/lewd_inhands/lewd_inhand_left.dmi'
 	righthand_file = 'modular_skyrat/modules/modular_items/lewd_items/icons/mob/lewd_inhands/lewd_inhand_right.dmi'
@@ -23,11 +24,11 @@
 	/// Assoc list of modes, used to transfer between them
 	var/list/modes = list("low" = "medium", "medium" = "high", "high" = "off", "off" = "low")
 	/// A looping sound called on process()
-	var/datum/looping_sound/vibrator/low/soundloop1
+	var/datum/looping_sound/lewd/vibrator/low/soundloop1
 	/// A looping sound called on process()
-	var/datum/looping_sound/vibrator/medium/soundloop2
+	var/datum/looping_sound/lewd/vibrator/medium/soundloop2
 	/// A looping sound called on process()
-	var/datum/looping_sound/vibrator/high/soundloop3
+	var/datum/looping_sound/lewd/vibrator/high/soundloop3
 	/// The sprites used in the radial menu when selecting a toy color
 	var/static/list/vib_designs
 	w_class = WEIGHT_CLASS_TINY
@@ -35,8 +36,8 @@
 /// Creates the designs for the color choice radial menu
 /obj/item/clothing/sextoy/eggvib/proc/populate_vib_designs()
 	vib_designs = list(
-		"pink" = image(icon = src.icon, icon_state = "[initial(icon_state)]_pink_low[(istype(src, /obj/item/clothing/sextoy/eggvib/signalvib)) ? "_on" : ""]"),
-		"teal" = image(icon = src.icon, icon_state = "[initial(icon_state)]_teal_low[(istype(src, /obj/item/clothing/sextoy/eggvib/signalvib)) ? "_on" : ""]"))
+		"pink" = image(icon = src.icon, icon_state = "[initial(base_icon_state)]_pink_low[(istype(src, /obj/item/clothing/sextoy/eggvib/signalvib)) ? "_on" : ""]"),
+		"teal" = image(icon = src.icon, icon_state = "[initial(base_icon_state)]_teal_low[(istype(src, /obj/item/clothing/sextoy/eggvib/signalvib)) ? "_on" : ""]"))
 
 /obj/item/clothing/sextoy/eggvib/AltClick(mob/user)
 	if(!color_changed)
@@ -83,8 +84,8 @@
 
 /obj/item/clothing/sextoy/eggvib/update_icon_state()
 	. = ..()
-	icon_state = "[initial(icon_state)]_[current_color]_[vibration_mode][(istype(src, /obj/item/clothing/sextoy/eggvib/signalvib)) ? (toy_on ? "_on" : "_off") : ""]"
-	inhand_icon_state = "[initial(icon_state)]_[current_color]"
+	icon_state = "[base_icon_state]_[current_color]_[vibration_mode]"
+	inhand_icon_state = "[base_icon_state]_[current_color]"
 
 /// Toggles between vibration modes seuentially
 /obj/item/clothing/sextoy/eggvib/proc/toggle_mode()
@@ -95,21 +96,21 @@
 	switch(vibration_mode)
 		if("low")
 			toy_on = TRUE
-			playsound(loc, 'sound/weapons/magin.ogg', 20, TRUE, ignore_walls = FALSE)
+			play_lewd_sound(loc, 'sound/weapons/magin.ogg', 20, TRUE)
 			soundloop1.start()
 		if("medium")
 			toy_on = TRUE
-			playsound(loc, 'sound/weapons/magin.ogg', 20, TRUE, ignore_walls = FALSE)
+			play_lewd_sound(loc, 'sound/weapons/magin.ogg', 20, TRUE)
 			soundloop2.start()
 		if("high")
 			toy_on = TRUE
-			playsound(loc, 'sound/weapons/magin.ogg', 20, TRUE, ignore_walls = FALSE)
+			play_lewd_sound(loc, 'sound/weapons/magin.ogg', 20, TRUE)
 			soundloop3.start()
 		if("off")
 			toy_on = FALSE
-			playsound(loc, 'sound/weapons/magout.ogg', 20, TRUE, ignore_walls = FALSE)
+			play_lewd_sound(loc, 'sound/weapons/magout.ogg', 20, TRUE)
 
-/obj/item/clothing/sextoy/eggvib/equipped(mob/living/carbon/human/user, slot, initial)
+/obj/item/clothing/sextoy/eggvib/lewd_equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 	if(!istype(user))
 		return
@@ -120,21 +121,21 @@
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/clothing/sextoy/eggvib/process(delta_time)
+/obj/item/clothing/sextoy/eggvib/process(seconds_per_tick)
 	if(!toy_on)
 		return
 	var/mob/living/carbon/human/target = loc
 	if(!istype(target))
 		return
 	if(vibration_mode == "low")
-		target.adjust_arousal(0.5 * delta_time)
-		target.adjust_pleasure(0.5 * delta_time)
+		target.adjust_arousal(0.5 * seconds_per_tick)
+		target.adjust_pleasure(0.5 * seconds_per_tick)
 	if(vibration_mode == "medium")
-		target.adjust_arousal(0.6 * delta_time)
-		target.adjust_pleasure(0.6 * delta_time)
+		target.adjust_arousal(0.6 * seconds_per_tick)
+		target.adjust_pleasure(0.6 * seconds_per_tick)
 	if(vibration_mode == "high")
-		target.adjust_arousal(0.7 * delta_time)
-		target.adjust_pleasure(0.7 * delta_time)
+		target.adjust_arousal(0.7 * seconds_per_tick)
+		target.adjust_pleasure(0.7 * seconds_per_tick)
 
 /*
 *	SIGNALLER CONTROLLED EGG
@@ -143,8 +144,9 @@
 /obj/item/clothing/sextoy/eggvib/signalvib
 	name = "signal vibrating egg"
 	desc = "A vibrating sex toy with remote control capability. Use a signaller to turn it on."
-	icon_state = "signalvib"
-	inhand_icon_state = "signalvib_teal"
+	icon_state = "signalvib_pink_low_off"
+	base_icon_state = "signalvib"
+	inhand_icon_state = "signalvib_pink"
 	modes = list("low" = "medium", "medium" = "high", "high" = "low")
 	vibration_mode = "low"
 	/// If TRUE, the code and frequency will be random on initialize()
@@ -175,8 +177,8 @@
 
 /obj/item/clothing/sextoy/eggvib/signalvib/update_icon_state()
 	. = ..()
-	icon_state = "[initial(icon_state)]_[current_color]_[vibration_mode == "off" ? "low_off" : (toy_on ? "[vibration_mode]_on" : "[vibration_mode]_off")]"
-	inhand_icon_state = "[initial(icon_state)]_[current_color]"
+	icon_state = "[base_icon_state]_[current_color]_[vibration_mode == "off" ? "low_off" : (toy_on ? "[vibration_mode]_on" : "[vibration_mode]_off")]"
+	inhand_icon_state = "[base_icon_state]_[current_color]"
 
 /obj/item/clothing/sextoy/eggvib/signalvib/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -325,10 +327,10 @@
 	switch(vibration_mode)
 		if("low")
 			vibration_mode = "low"
-			playsound(loc, 'sound/weapons/magin.ogg', 20, TRUE, ignore_walls = FALSE)
+			play_lewd_sound(loc, 'sound/weapons/magin.ogg', 20, TRUE)
 		if("medium")
 			vibration_mode = "medium"
-			playsound(loc, 'sound/weapons/magin.ogg', 20, TRUE, ignore_walls = FALSE)
+			play_lewd_sound(loc, 'sound/weapons/magin.ogg', 20, TRUE)
 		if("high")
 			vibration_mode = "high"
-			playsound(loc, 'sound/weapons/magin.ogg', 20, TRUE, ignore_walls = FALSE)
+			play_lewd_sound(loc, 'sound/weapons/magin.ogg', 20, TRUE)

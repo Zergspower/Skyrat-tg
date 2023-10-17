@@ -1,6 +1,6 @@
 /obj/item/circuitboard/computer/order_console/mining/interdyne
 	name = "Interdyne Mining Equipment Vendor Console"
-	build_path = /obj/machinery/computer/order_console/mining/golem
+	build_path = /obj/machinery/computer/order_console/mining/interdyne
 
 // Interdyne/DS-2 mining equipment vendor that doesn't need a cargo shuttle to work
 
@@ -9,7 +9,6 @@
 	circuit = /obj/item/circuitboard/computer/order_console/mining/interdyne
 	forced_express = TRUE
 	express_cost_multiplier = 1
-	uses_ltsrbt = FALSE
 	order_categories = list(
 		CATEGORY_MINING,
 		CATEGORY_CONSUMABLES,
@@ -21,14 +20,14 @@
 
 /obj/machinery/computer/order_console/mining/interdyne/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	. = ..()
-	for(var/mob/living/simple_animal/hostile/mining_drone/drone in drop_location())
+	for(var/mob/living/basic/mining_drone/drone in drop_location())
 		// There could already be an interdyne drone there
-		if(!istype(drone, /mob/living/simple_animal/hostile/mining_drone/interdyne))
+		if(!istype(drone, /mob/living/basic/mining_drone/interdyne))
 			qdel(drone)
-			new /mob/living/simple_animal/hostile/mining_drone/interdyne(drop_location())
+			new /mob/living/basic/mining_drone/interdyne(drop_location())
 
 // Interdyne minebot
 
-/mob/living/simple_animal/hostile/mining_drone/interdyne
+/mob/living/basic/mining_drone/interdyne
 	name = "\improper Interdyne minebot"
-	faction = list("neutral", "Syndicate")
+	faction = list(FACTION_NEUTRAL, ROLE_SYNDICATE)

@@ -1,10 +1,6 @@
 #define ORGANS_DEFAULT_NAME "Default"
 #define LIMBS_DEFAULT_NAME "None"
 
-/datum/preference_middleware/limbs_and_markings/post_set_preference(mob/user, preference, value)
-	preferences.character_preview_view.update_body()
-	. = ..()
-
 /datum/preference_middleware/limbs_and_markings
 	action_delegations = list(
 		"set_limb_aug" = PROC_REF(set_limb_aug),
@@ -35,7 +31,9 @@
 		"stomach" = "Stomach",
 		"eyes" = "Eyes",
 		"tongue" = "Tongue",
-		"Mouth implant" = "Mouth implant"
+		"Mouth implant" = "Mouth implant",
+		"Left Arm implant" = "Left Arm implant",
+		"Right Arm implant" = "Right Arm implant",
 	)
 
 	var/list/aug_support = list(
@@ -43,8 +41,8 @@
 		"r_arm" = TRUE,
 		"l_leg" = TRUE,
 		"r_leg" = TRUE,
-		"chest" = FALSE, // TODO: figure out why head/chest augs dont render, needed for IPC head on non IPC body
-		"head" = FALSE,
+		"chest" = TRUE,
+		"head" = TRUE,
 		"l_hand" = FALSE,
 		"r_hand" = FALSE,
 	)
@@ -56,6 +54,34 @@
 	)
 	var/list/robotic_styles
 
+
+/datum/preference_middleware/limbs_and_markings/apply_to_human(mob/living/carbon/human/target, datum/preferences/preferences, visuals_only = FALSE)
+	target.dna.species.body_markings = LAZYCOPY(preferences.body_markings)
+
+	var/list/visited_body_zones = list()
+	for(var/key in preferences.augments)
+		var/datum/augment_item/aug = GLOB.augment_items[preferences.augments[key]]
+		var/visited_body_zone = aug.apply(target, visuals_only, prefs = preferences)
+
+		if(visited_body_zone) // Only limb augments should be returning those, and only in visuals_only mode.
+			visited_body_zones += visited_body_zone
+
+	target.synchronize_bodytypes() // We call this here to ensure that by this point, bodytypes are synchronized, after all changes to the limbs.
+
+	// We don't need to go any further if this isn't visuals only, as we will have fully replaced each limb
+	// affected by a limb augmentation.
+	if(!visuals_only)
+		return
+
+	for(var/body_zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_CHEST, BODY_ZONE_HEAD))
+		if(body_zone in visited_body_zones)
+			continue
+
+		var/obj/item/bodypart/target_bodypart = target.get_bodypart(body_zone)
+
+		target_bodypart?.reset_appearance()
+
+
 /datum/preference_middleware/limbs_and_markings/proc/set_limb_aug(list/params, mob/user)
 	var/limb_slot = params["limb_slot"]
 	var/augment_name = params["augment_name"]
@@ -63,6 +89,11 @@
 		preferences.augments -= limbs_to_process[limb_slot]
 	else
 		preferences.augments[limbs_to_process[limb_slot]] = augment_to_path[augment_name]
+	// Remove some positive quirks if the point balance becomes too low.
+	var/list/filtered_quirks = SSquirks.filter_invalid_quirks(preferences.all_quirks, preferences.augments)
+	if(filtered_quirks != preferences.all_quirks)
+		preferences.all_quirks = filtered_quirks
+		preferences.update_static_data(user)
 	preferences.character_preview_view.update_body()
 	return TRUE
 
@@ -131,7 +162,7 @@
 		usr,
 		"Select new color",
 		null,
-		preferences.body_markings[limb_slot][marking_entry_name],
+		preferences.body_markings[limb_slot][marking_entry_name][1],
 	) as color | null
 	if(!new_color)
 		return TRUE
@@ -183,6 +214,11 @@
 		preferences.augments -= organs_to_process[organ_slot]
 	else
 		preferences.augments[organs_to_process[organ_slot]] = augment_to_path[augment_name]
+	// Remove some positive quirks if the point balance becomes too low.
+	var/list/filtered_quirks = SSquirks.filter_invalid_quirks(preferences.all_quirks, preferences.augments)
+	if(filtered_quirks != preferences.all_quirks)
+		preferences.all_quirks = filtered_quirks
+		preferences.update_static_data(user)
 	preferences.character_preview_view.update_body()
 	return TRUE
 

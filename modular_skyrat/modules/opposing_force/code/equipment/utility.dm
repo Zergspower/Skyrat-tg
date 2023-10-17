@@ -11,6 +11,13 @@
 	item_type = /obj/item/card/emag/doorjack
 	description = "Identifies commonly as a \"doorjack\", this illegally modified ID card can disrupt airlock electronics. Has a self recharging cell."
 
+/datum/opposing_force_equipment/gear/tram_remote
+	name = "Tram Remote Control"
+	item_type = /obj/item/tram_remote
+	description = "When linked to a tram's on board computer systems, this device allows the user to manipulate the controls remotely. \
+		Includes direction toggle and a rapid mode to bypass door safety checks and crossing signals. \
+		Perfect for running someone over in the name of a tram malfunction!"
+
 /datum/opposing_force_equipment/gear/stoolbox
 	item_type = /obj/item/storage/toolbox/syndicate
 	description = "A fully-kitted toolbox scavenged from maintenance by our highly-paid monkeys. The toolbox \
@@ -60,22 +67,6 @@
 	item_type = /obj/item/reagent_containers/syringe/mulligan
 	description = "A syringe containing a chemical that can completely change the user's identity."
 
-/* Removing it for lag-related reason, for now. Might make it permanent later.
-/datum/opposing_force_equipment/gear/dump_eet
-	name = "Crab-17 Phone"
-	item_type = /obj/item/suspiciousphone
-	description = "\"Bogdanoff, he did it.\" \"He bought?\" \"He went all in.\" \"Dump it.\"" // I'm sorry
-*/
-
-/datum/opposing_force_equipment/gear/borer_egg
-	name = "Cortical Borer Egg"
-	item_type = /obj/effect/gibspawner/generic
-	description = "The egg of a cortical borer. The cortical borer is a parasite that can produce chemicals upon command, as well as learn new chemicals through the blood if old enough."
-	admin_note = "Allows a ghost to take control of a Cortical Borer."
-
-/datum/opposing_force_equipment/gear/borer_egg/on_issue(mob/living/target)
-	new /obj/effect/mob_spawn/ghost_role/borer_egg/opfor(get_turf(target))
-
 
 /datum/opposing_force_equipment/gear/holoparasite
 	item_type = /obj/item/guardiancreator/tech/choose/traitor
@@ -87,9 +78,9 @@
 	description = "A briefcase containing a launchpad, a device able to teleport items and people to and from targets up to eight tiles away from the briefcase. \
 			Also includes a remote control, disguised as an ordinary folder. Touch the briefcase with the remote to link it."
 
-/datum/opposing_force_equipment/gear/camera_bug
-	name = "Camera Bug"
-	item_type = /obj/item/camera_bug
+/datum/opposing_force_equipment/gear/camera_app
+	name = "SyndEye Program"
+	item_type = /obj/item/computer_disk/syndicate/camera_app
 
 /datum/opposing_force_equipment/gear/microlaser
 	name = "Radioactive Microlaser"
@@ -97,6 +88,7 @@
 	description = "A radioactive microlaser disguised as a standard Nanotrasen health analyzer. When used, it emits a \
 			powerful burst of radiation, which, after a short delay, can incapacitate all but the most protected \
 			of humanoids."
+	admin_note = "WARNING: Is a knockout weapon with no warning, and 'infinite' use."
 
 /datum/opposing_force_equipment/gear/stimpack
 	name = "Stimulant Medipen"
@@ -195,6 +187,7 @@
 /datum/opposing_force_equipment/gear/energyshield_mod
 	item_type = /obj/item/mod/module/energy_shield
 	description = "A highly illegal MODsuit module that projects a shield of energy around you, temporarily blocking conventional kinetic and laser projectiles."
+	admin_note = "WARNING: Gives you essentially, total immunity to three attacks every thirty seconds, give out sparingly."
 
 /datum/opposing_force_equipment/gear/biteof87_mod
 	item_type = /obj/item/mod/module/springlock/bite_of_87

@@ -8,6 +8,9 @@ GLOBAL_LIST_INIT(loadout_toys, generate_loadout_items(/datum/loadout_item/toys))
 *	PLUSHIES
 */
 
+/datum/loadout_item/toys/pre_equip_item(datum/outfit/outfit, datum/outfit/outfit_important_for_life, mob/living/carbon/human/equipper, visuals_only = FALSE)  // these go in the backpack
+	return FALSE
+
 /datum/loadout_item/toys/bee
 	name = "Bee Plushie"
 	item_path = /obj/item/toy/plush/beeplushie
@@ -15,6 +18,10 @@ GLOBAL_LIST_INIT(loadout_toys, generate_loadout_items(/datum/loadout_item/toys))
 /datum/loadout_item/toys/carp
 	name = "Carp Plushie"
 	item_path = /obj/item/toy/plush/carpplushie
+
+/datum/loadout_item/toys/shark
+	name = "Shark Plushie"
+	item_path = /obj/item/toy/plush/shark
 
 /datum/loadout_item/toys/lizard_greyscale
 	name = "Greyscale Lizard Plushie"
@@ -186,6 +193,10 @@ GLOBAL_LIST_INIT(loadout_toys, generate_loadout_items(/datum/loadout_item/toys))
 	name = "Commanding Teshari Plushy"
 	item_path = /obj/item/toy/plush/skyrat/commanding_teshari
 
+/datum/loadout_item/toys/snow_owl
+	name = "Snowy Owl Plush"
+	item_path = /obj/item/toy/plush/skyrat/snow_owl
+
 /datum/loadout_item/toys/breakdancing_bird
 	name = "Breakdancing Bird Plushie"
 	item_path = /obj/item/toy/plush/skyrat/breakdancing_bird
@@ -233,6 +244,30 @@ GLOBAL_LIST_INIT(loadout_toys, generate_loadout_items(/datum/loadout_item/toys))
 /datum/loadout_item/toys/rubi_plush
 	name = "Huggable Bee Plushie"
 	item_path = /obj/item/toy/plush/skyrat/rubi
+
+/datum/loadout_item/toys/derg_plushie
+	name = "Wingless Dragon Plushie"
+	item_path = /obj/item/toy/plush/skyrat/derg_plushie
+
+/datum/loadout_item/toys/tracy
+	name = "Creature Plushie"
+	item_path = /obj/item/toy/plush/skyrat/tracy
+
+/datum/loadout_item/toys/adventurous_synth
+	name = "Adventurous Synth Plushie"
+	item_path = /obj/item/toy/plush/skyrat/plushie_synthia
+
+/datum/loadout_item/toys/jecca
+	name = "Sexy Snoodle Plushie"
+	item_path = /obj/item/toy/plush/skyrat/jecca
+
+/datum/loadout_item/toys/courier_synth
+	name = "Courier Synth Plushie"
+	item_path = /obj/item/toy/plush/skyrat/courier_synth
+
+/datum/loadout_item/toys/plush_janiborg
+	name = "Friendly Janiborg Plush"
+	item_path = /obj/item/toy/plush/skyrat/plush_janiborg
 
 /*
 *	CARDS

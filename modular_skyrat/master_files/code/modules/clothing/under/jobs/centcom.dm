@@ -14,12 +14,6 @@
 //Check modular_skyrat\modules\nanotrasen_naval_command\code\clothing.dm for more of these! (Or, currently, ALL of these.)
 
 /*
-*	ARMADYNE
-*/
-//Check modular_skyrat\modules\sec_haul\code\peacekeeper\armadyne_clothing.dm for these (ORION TODO: debate moving them all into this one file - uniforms, at least)
-//(TODO applies to NT as well)
-
-/*
 *	LOPLAND
 */
 /obj/item/clothing/under/rank/centcom/skyrat/lopland
@@ -38,4 +32,4 @@
 /*
 *	MISC
 */
-//ORION TODO: pizza and other misc ERTs in this file too? see /obj/item/clothing/under/pizza (also repath this)
+// pizza and other misc ERTs in this file too?

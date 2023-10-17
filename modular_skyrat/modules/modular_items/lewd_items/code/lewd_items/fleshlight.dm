@@ -1,7 +1,8 @@
 /obj/item/clothing/sextoy/fleshlight
 	name = "fleshlight"
 	desc = "What a strange flashlight."
-	icon_state = "fleshlight"
+	icon_state = "fleshlight_pink"
+	base_icon_state = "fleshlight"
 	inhand_icon_state = "fleshlight_pink"
 	icon = 'modular_skyrat/modules/modular_items/lewd_items/icons/obj/lewd_items/lewd_items.dmi'
 	lefthand_file = 'modular_skyrat/modules/modular_items/lewd_items/icons/mob/lewd_inhands/lewd_inhand_left.dmi'
@@ -19,11 +20,11 @@
 /// Generates a list of toy colors (or designs) for use in the radial color choice menu
 /obj/item/clothing/sextoy/fleshlight/proc/populate_fleshlight_designs()
 	fleshlight_designs = list(
-		"green" = image(icon = src.icon, icon_state = "[initial(icon_state)]_green"),
-		"pink" = image(icon = src.icon, icon_state = "[initial(icon_state)]_pink"),
-		"teal" = image(icon = src.icon, icon_state = "[initial(icon_state)]_teal"),
-		"red" = image(icon = src.icon, icon_state = "[initial(icon_state)]_red"),
-		"yellow" = image(icon = src.icon, icon_state = "[initial(icon_state)]_yellow"),
+		"green" = image(icon = src.icon, icon_state = "[base_icon_state]_green"),
+		"pink" = image(icon = src.icon, icon_state = "[base_icon_state]_pink"),
+		"teal" = image(icon = src.icon, icon_state = "[base_icon_state]_teal"),
+		"red" = image(icon = src.icon, icon_state = "[base_icon_state]_red"),
+		"yellow" = image(icon = src.icon, icon_state = "[base_icon_state]_yellow"),
 	)
 
 /obj/item/clothing/sextoy/fleshlight/Initialize(mapload)
@@ -35,8 +36,8 @@
 
 /obj/item/clothing/sextoy/fleshlight/update_icon_state()
 	. = ..()
-	icon_state = "[initial(icon_state)]_[current_color]"
-	inhand_icon_state = "[initial(icon_state)]_[current_color]"
+	icon_state = "[base_icon_state]_[current_color]"
+	inhand_icon_state = "[base_icon_state]_[current_color]"
 
 /obj/item/clothing/sextoy/fleshlight/AltClick(mob/user)
 	if(color_changed)
@@ -57,12 +58,12 @@
 		return
 
 	var/message = ""
-	if(!target.client?.prefs?.read_preference(/datum/preference/toggle/erp/sex_toy))
+	if(!target.check_erp_prefs(/datum/preference/toggle/erp/sex_toy, user, src))
 		to_chat(user, span_danger("[target] doesn't want you to do that!"))
 		return
 	switch(user.zone_selected) //to let code know what part of body we gonna... Uhh... You get the point.
 		if(BODY_ZONE_PRECISE_GROIN)
-			var/obj/item/organ/external/genital/penis = target.getorganslot(ORGAN_SLOT_PENIS)
+			var/obj/item/organ/external/genital/penis = target.get_organ_slot(ORGAN_SLOT_PENIS)
 			if(!penis)
 				to_chat(user, span_danger("[target] doesn't have a penis!"))
 				return
@@ -76,9 +77,9 @@
 			target.adjust_arousal(6)
 			target.adjust_pleasure(9)
 			user.visible_message(span_purple("[user] [message]!"))
-			playsound(loc, pick('modular_skyrat/modules/modular_items/lewd_items/sounds/bang1.ogg',
+			play_lewd_sound(loc, pick('modular_skyrat/modules/modular_items/lewd_items/sounds/bang1.ogg',
 								'modular_skyrat/modules/modular_items/lewd_items/sounds/bang2.ogg',
 								'modular_skyrat/modules/modular_items/lewd_items/sounds/bang3.ogg',
 								'modular_skyrat/modules/modular_items/lewd_items/sounds/bang4.ogg',
 								'modular_skyrat/modules/modular_items/lewd_items/sounds/bang5.ogg',
-								'modular_skyrat/modules/modular_items/lewd_items/sounds/bang6.ogg'), 70, 1, -1, ignore_walls = FALSE)
+								'modular_skyrat/modules/modular_items/lewd_items/sounds/bang6.ogg'), 70, 1, -1)

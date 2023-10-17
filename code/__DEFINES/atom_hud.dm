@@ -27,32 +27,33 @@
 #define DIAG_MECH_HUD "11"
 /// Bot HUDs
 #define DIAG_BOT_HUD "12"
-/// Circuit assembly health bar
-#define DIAG_CIRCUIT_HUD "13"
 /// Mech/Silicon tracking beacon, Circutry long range icon
-#define DIAG_TRACK_HUD "14"
+#define DIAG_TRACK_HUD "13"
 /// Airlock shock overlay
-#define DIAG_AIRLOCK_HUD "15"
+#define DIAG_AIRLOCK_HUD "14"
 /// Bot path indicators
-#define DIAG_PATH_HUD "16"
+#define DIAG_PATH_HUD "15"
 /// Gland indicators for abductors
-#define GLAND_HUD "17"
-#define SENTIENT_DISEASE_HUD "18"
-#define AI_DETECT_HUD "19"
+#define GLAND_HUD "16"
+#define SENTIENT_DISEASE_HUD "17"
+#define AI_DETECT_HUD "18"
 /// Displays launchpads' targeting reticle
-#define DIAG_LAUNCHPAD_HUD "22"
+#define DIAG_LAUNCHPAD_HUD "19"
 //for antag huds. these are used at the /mob level
-#define ANTAG_HUD "23"
+#define ANTAG_HUD "20"
 // for fans to identify pins
-#define FAN_HUD "24"
+#define FAN_HUD "21"
 /// Mech camera HUD
-#define DIAG_CAMERA_HUD "25"
+#define DIAG_CAMERA_HUD "22"
 
-// SKYRAT EDIT ADDITION BEGIN - gun permits
+// SKYRAT EDIT ADDITION BEGIN - gun permits and DNR
 /// ammo of guns
 #define AMMO_HUD "25"
 /// if they have a gun permit
 #define PERMIT_HUD "26"
+
+/// If they have the DNR trait
+#define DNR_HUD "27"
 // SKYRAT EDIT ADDITION END
 
 //by default everything in the hud_list of an atom is an image
@@ -72,6 +73,7 @@
 #define DATA_HUD_AI_DETECT 9
 #define DATA_HUD_FAN 10
 #define DATA_HUD_PERMIT 11 //SKYRAT EDIT
+#define DATA_HUD_DNR 12 // SKYRAT EDIT
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
@@ -88,10 +90,13 @@
 #define SECHUD_UNKNOWN "hudunknown"
 #define SECHUD_CENTCOM "hudcentcom"
 #define SECHUD_SYNDICATE "hudsyndicate"
+#define SECHUD_SYNDICATE_INTERDYNE "hudsyndicateinterdyne"
+#define SECHUD_SYNDICATE_INTERDYNE_HEAD "hudsyndicateinterdynehead"
 
 #define SECHUD_ASSISTANT "hudassistant"
 #define SECHUD_ATMOSPHERIC_TECHNICIAN "hudatmospherictechnician"
 #define SECHUD_BARTENDER "hudbartender"
+#define SECHUD_BITRUNNER "hudbitrunner"
 #define SECHUD_BOTANIST "hudbotanist"
 #define SECHUD_CAPTAIN "hudcaptain"
 #define SECHUD_CARGO_TECHNICIAN "hudcargotechnician"
@@ -101,6 +106,7 @@
 #define SECHUD_CHIEF_MEDICAL_OFFICER "hudchiefmedicalofficer"
 #define SECHUD_CLOWN "hudclown"
 #define SECHUD_COOK "hudcook"
+#define SECHUD_CORONER "hudcoroner"
 #define SECHUD_CURATOR "hudcurator"
 #define SECHUD_DETECTIVE "huddetective"
 #define SECHUD_GENETICIST "hudgeneticist"

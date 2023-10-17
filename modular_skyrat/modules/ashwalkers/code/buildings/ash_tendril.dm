@@ -99,7 +99,7 @@
 			viewable_living.gib()
 			continue
 
-		if(viewable_living.mind?.has_antag_datum(/datum/antagonist/ashwalker) && (viewable_living.key || viewable_living.get_ghost(FALSE, TRUE))) //special interactions for dead lava lizards with ghosts attached
+		if(viewable_living.mind?.has_antag_datum(/datum/antagonist/ashwalker) && (viewable_living.ckey || viewable_living.get_ghost(FALSE, TRUE))) //special interactions for dead lava lizards with ghosts attached
 			revive_ashwalker(viewable_living)
 			continue
 
@@ -128,6 +128,8 @@
 
 			else
 				living_observers.add_mood_event("oogabooga", /datum/mood_event/sacrifice_bad)
+
+		ashies.sacrifices_made++
 
 /**
  * Proc that will spawn the egg that will revive the ashwalker
@@ -160,7 +162,7 @@
 		qdel(src)
 		return
 
-	living_inside.revive(HEAL_ADMIN)
+	living_inside.revive(ADMIN_HEAL_ALL)
 	living_inside.forceMove(get_turf(src))
 	living_inside.mind.grab_ghost()
 	living_inside.balloon_alert_to_viewers("[living_inside] breaks out of [src]!")

@@ -9,11 +9,11 @@
 	if(weak_against_armour && our_armor >= 0)
 		our_armor *= ARMOR_WEAKENED_MULTIPLIER
 	if(silent)
-		return max(0, our_armor - armour_penetration)
+		return max(0, PENETRATE_ARMOUR(our_armor, armour_penetration))
 
 	//the if "armor" check is because this is used for everything on /living, including humans
 	if(armour_penetration)
-		our_armor = max(0, our_armor - armour_penetration)
+		our_armor = max(PENETRATE_ARMOUR(our_armor, armour_penetration), 0)
 		if(penetrated_text)
 			to_chat(src, span_userdanger("[penetrated_text]"))
 		else
@@ -46,19 +46,59 @@
 		return 1
 	return 0
 
-/mob/living/proc/is_mouth_covered(head_only = 0, mask_only = 0)
-	return FALSE
+/**
+ * Checks if our mob has their mouth covered.
+ *
+ * Note that we only care about [ITEM_SLOT_HEAD] and [ITEM_SLOT_MASK].
+ *  (so if you check all slots, it'll return head, then mask)
+ *That is also the priority order
+ * Arguments
+ * * check_flags: What item slots should we check?
+ *
+ * Retuns a truthy value (a ref to what is covering mouth), or a falsy value (null)
+ */
+/mob/living/proc/is_mouth_covered(check_flags = ALL)
+	return null
 
-/mob/living/proc/is_eyes_covered(check_glasses = 1, check_head = 1, check_mask = 1)
-	return FALSE
-/mob/living/proc/is_pepper_proof(check_head = TRUE, check_mask = TRUE)
-	return FALSE
+/**
+ * Checks if our mob has their eyes covered.
+ *
+ * Note that we only care about [ITEM_SLOT_HEAD], [ITEM_SLOT_MASK], and [ITEM_SLOT_GLASSES].
+ * That is also the priority order (so if you check all slots, it'll return head, then mask, then glasses)
+ *
+ * Arguments
+ * * check_flags: What item slots should we check?
+ *
+ * Retuns a truthy value (a ref to what is covering eyes), or a falsy value (null)
+ */
+/mob/living/proc/is_eyes_covered(check_flags = ALL)
+	return null
+
+/**
+ * Checks if our mob is protected from pepper spray.
+ *
+ * Note that we only care about [ITEM_SLOT_HEAD] and [ITEM_SLOT_MASK].
+ * That is also the priority order (so if you check all slots, it'll return head, then mask)
+ *
+ * Arguments
+ * * check_flags: What item slots should we check?
+ *
+ * Retuns a truthy value (a ref to what is protecting us), or a falsy value (null)
+ */
+/mob/living/proc/is_pepper_proof(check_flags = ALL)
+	return null
+
+/// Checks if the mob's ears (BOTH EARS, BOWMANS NEED NOT APPLY) are covered by something.
+/// Returns the atom covering the mob's ears, or null if their ears are uncovered.
+/mob/living/proc/is_ears_covered()
+	return null
+
 /mob/living/proc/on_hit(obj/projectile/P)
 	return BULLET_ACT_HIT
 
 /mob/living/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
 	. = ..()
-	if(!P.nodamage && (. != BULLET_ACT_BLOCK))
+	if(P.is_hostile_projectile() && (. != BULLET_ACT_BLOCK))
 		var/attack_direction = get_dir(P.starting, src)
 		// we need a second, silent armor check to actually know how much to reduce damage taken, as opposed to
 		// on [/atom/proc/bullet_act] where it's just to pass it to the projectile's on_hit().
@@ -141,6 +181,7 @@
 	return ..()
 
 /mob/living/fire_act()
+	. = ..()
 	adjust_fire_stacks(3)
 	ignite_mob()
 
@@ -183,7 +224,7 @@
 				log_combat(user, src, "attempted to neck grab", addition="neck grab")
 			if(GRAB_NECK)
 				log_combat(user, src, "attempted to strangle", addition="kill grab")
-		if(!do_mob(user, src, grab_upgrade_time))
+		if(!do_after(user, grab_upgrade_time, src))
 			return FALSE
 		if(!user.pulling || user.pulling != src || user.grab_state != old_grab_state)
 			return FALSE
@@ -242,27 +283,6 @@
 		to_chat(M, span_danger("You glomp [src]!"))
 		return TRUE
 
-/mob/living/attack_basic_mob(mob/living/basic/user, list/modifiers)
-	. = ..()
-	if(user.melee_damage_upper == 0)
-		if(user != src)
-			visible_message(span_notice("\The [user] [user.friendly_verb_continuous] [src]!"), \
-							span_notice("\The [user] [user.friendly_verb_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, span_notice("You [user.friendly_verb_simple] [src]!"))
-		return FALSE
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, span_warning("You don't want to hurt anyone!"))
-		return FALSE
-
-	if(user.attack_sound)
-		playsound(loc, user.attack_sound, 50, TRUE, TRUE)
-	user.do_attack_animation(src)
-	visible_message(span_danger("\The [user] [user.attack_verb_continuous] [src]!"), \
-					span_userdanger("\The [user] [user.attack_verb_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
-	to_chat(user, span_danger("You [user.attack_verb_simple] [src]!"))
-	log_combat(user, src, "attacked")
-	return TRUE
-
 /mob/living/attack_animal(mob/living/simple_animal/user, list/modifiers)
 	. = ..()
 	user.face_atom(src)
@@ -287,15 +307,20 @@
 
 /mob/living/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	. = ..()
+
+	for(var/datum/surgery/operations as anything in surgeries)
+		if(user.combat_mode)
+			break
+		if(IS_IN_INVALID_SURGICAL_POSITION(src, operations))
+			continue
+		if(operations.next_step(user, modifiers))
+			return TRUE
+
 	var/martial_result = user.apply_martial_art(src, modifiers)
 	if (martial_result != MARTIAL_ATTACK_INVALID)
 		return martial_result
 
 /mob/living/attack_paw(mob/living/carbon/human/user, list/modifiers)
-	if(isturf(loc) && istype(loc.loc, /area/misc/start))
-		to_chat(user, "No attacking people at spawn, you jackass.")
-		return FALSE
-
 	var/martial_result = user.apply_martial_art(src, modifiers)
 	if (martial_result != MARTIAL_ATTACK_INVALID)
 		return martial_result
@@ -310,11 +335,13 @@
 		to_chat(user, span_warning("You don't want to hurt anyone!"))
 		return FALSE
 
-	if(user.is_muzzled() || user.is_mouth_covered(FALSE, TRUE))
+	if(!user.get_bodypart(BODY_ZONE_HEAD))
+		return FALSE
+	if(user.is_muzzled() || user.is_mouth_covered(ITEM_SLOT_MASK))
 		to_chat(user, span_warning("You can't bite with your mouth covered!"))
 		return FALSE
 	user.do_attack_animation(src, ATTACK_EFFECT_BITE)
-	if (prob(75))
+	if (HAS_TRAIT(user, TRAIT_PERFECT_ATTACKER) || prob(75))
 		log_combat(user, src, "attacked")
 		playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 		visible_message(span_danger("[user.name] bites [src]!"), \
@@ -417,8 +444,8 @@
 
 ///Logs, gibs and returns point values of whatever mob is unfortunate enough to get eaten.
 /mob/living/singularity_act()
-	usr.investigate_log("has been consumed by the singularity.", INVESTIGATE_ENGINE) //Oh that's where the clown ended up!
-	usr.investigate_log("has been gibbed by the singularity.", INVESTIGATE_DEATHS)
+	investigate_log("has been consumed by the singularity.", INVESTIGATE_ENGINE) //Oh that's where the clown ended up!
+	investigate_log("has been gibbed by the singularity.", INVESTIGATE_DEATHS)
 	gib()
 	return 20
 
@@ -435,7 +462,7 @@
 			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(cult_ending_helper), CULT_VICTORY_MASS_CONVERSION), 120)
 			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(ending_helper)), 270)
 	if(client)
-		makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, src, cultoverride = TRUE)
+		makeNewConstruct(/mob/living/basic/construct/harvester, src, cultoverride = TRUE)
 	else
 		switch(rand(1, 4))
 			if(1)
@@ -447,7 +474,7 @@
 			if(4)
 				new /mob/living/simple_animal/hostile/construct/proteon/hostile(get_turf(src))
 	spawn_dust()
-	usr.investigate_log("has been gibbed by Nar'Sie.", INVESTIGATE_DEATHS)
+	investigate_log("has been gibbed by Nar'Sie.", INVESTIGATE_DEATHS)
 	gib()
 	return TRUE
 
@@ -495,13 +522,13 @@
  */
 /mob/living/proc/do_slap_animation(atom/slapped)
 	do_attack_animation(slapped, no_effect=TRUE)
-	var/image/gloveimg = image('icons/effects/effects.dmi', slapped, "slapglove", slapped.layer + 0.1)
-	gloveimg.pixel_y = 10 // should line up with head
-	gloveimg.pixel_x = 10
-	flick_overlay_global(gloveimg, GLOB.clients, 10)
+	var/mutable_appearance/glove_appearance = mutable_appearance('icons/effects/effects.dmi', "slapglove")
+	glove_appearance.pixel_y = 10 // should line up with head
+	glove_appearance.pixel_x = 10
+	var/atom/movable/flick_visual/glove = slapped.flick_overlay_view(glove_appearance, 1 SECONDS)
 
 	// And animate the attack!
-	animate(gloveimg, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 10, pixel_z = 0, time = 3)
+	animate(glove, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 10, pixel_z = 0, time = 3)
 	animate(time = 1)
 	animate(alpha = 0, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
 
@@ -523,3 +550,10 @@
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
 		. |= R.expose_mob(src, methods, reagents[R], show_message, touch_protection)
+
+/// Simplified ricochet angle calculation for mobs (also the base version doesn't work on mobs)
+/mob/living/handle_ricochet(obj/projectile/ricocheting_projectile)
+	var/face_angle = get_angle_raw(ricocheting_projectile.x, ricocheting_projectile.pixel_x, ricocheting_projectile.pixel_y, ricocheting_projectile.p_y, x, y, pixel_x, pixel_y)
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + GET_ANGLE_OF_INCIDENCE(face_angle, (ricocheting_projectile.Angle + 180)))
+	ricocheting_projectile.set_angle(new_angle_s)
+	return TRUE

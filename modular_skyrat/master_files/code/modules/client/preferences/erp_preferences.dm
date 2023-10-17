@@ -61,6 +61,10 @@
 		target.pain = 0
 		target.pleasure = 0
 
+/// Sounds from interaction menu and stimuli
+/datum/preference/toggle/erp/sounds
+	savefile_key = "erp_sounds_pref"
+
 /datum/preference/toggle/erp/sex_toy
 	savefile_key = "sextoy_pref"
 
@@ -82,6 +86,9 @@
 	client.mob.hud_used.hidden_inventory_update(client.mob)
 	client.mob.hud_used.persistent_inventory_update(client.mob)
 
+/datum/preference/toggle/erp/sex_toy_sounds
+	savefile_key = "sextoy_sounds_pref"
+
 /datum/preference/toggle/erp/bimbofication
 	savefile_key = "bimbofication_pref"
 
@@ -91,8 +98,17 @@
 /datum/preference/toggle/erp/breast_enlargement
 	savefile_key = "breast_enlargement_pref"
 
+/datum/preference/toggle/erp/breast_shrinkage
+	savefile_key = "breast_shrinkage_pref"
+
 /datum/preference/toggle/erp/penis_enlargement
 	savefile_key = "penis_enlargement_pref"
+
+/datum/preference/toggle/erp/penis_shrinkage
+	savefile_key = "penis_shrinkage_pref"
+
+/datum/preference/toggle/erp/genitalia_removal
+	savefile_key = "genitalia_removal_pref"
 
 /datum/preference/toggle/erp/gender_change
 	savefile_key = "gender_change_pref"
@@ -112,7 +128,7 @@
 	savefile_key = "erp_status_pref"
 
 /datum/preference/choiced/erp_status/init_possible_values()
-	return list("Yes - Switch", "Yes - Sub", "Yes - Dom", "Check OOC", "Ask", "No")
+	return list("Yes - Switch", "Yes - Sub", "Yes - Dom", "Check OOC", "Ask", "No", "Yes")
 
 /datum/preference/choiced/erp_status/create_default_value()
 	return "Ask"
@@ -128,7 +144,7 @@
 
 /datum/preference/choiced/erp_status/deserialize(input, datum/preferences/preferences)
 	if(CONFIG_GET(flag/disable_erp_preferences))
-		return "disabled"
+		return "No"
 	if(!preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
 		return "No"
 	. = ..()
@@ -142,7 +158,7 @@
 	savefile_key = "erp_status_pref_nc"
 
 /datum/preference/choiced/erp_status_nc/init_possible_values()
-	return list("Yes - Switch", "Yes - Sub", "Yes - Dom", "Check OOC", "Ask", "No")
+	return list("Yes - Switch", "Yes - Sub", "Yes - Dom", "Check OOC", "Ask", "No", "Yes")
 
 /datum/preference/choiced/erp_status_nc/create_default_value()
 	return "Ask"
@@ -172,7 +188,7 @@
 	savefile_key = "erp_status_pref_v"
 
 /datum/preference/choiced/erp_status_v/init_possible_values()
-	return list("Yes - Switch", "Yes - Prey", "Yes - Pred", "Check OOC", "Ask", "No")
+	return list("Yes - Switch", "Yes - Prey", "Yes - Pred", "Check OOC", "Ask", "No", "Yes")
 
 /datum/preference/choiced/erp_status_v/create_default_value()
 	return "Ask"

@@ -169,7 +169,7 @@
 	if(!.)
 		return
 	var/datum/round_event_control/event = locate(/datum/round_event_control/communications_blackout) in SSevents.control
-	event.runEvent()
+	event.run_event()
 
 /datum/contractor_item/mod_baton_holster
 	name = "Baton Holster Module"
@@ -177,7 +177,7 @@
 	item = /obj/item/mod/module/baton_holster
 	item_icon = "wrench" //I cannot find anything better, replace if you find something more fitting
 	limited = 1
-	cost = 1
+	cost = 2
 
 /datum/contractor_item/baton_upgrade_cuff
 	name = "Baton Cuff Upgrade"

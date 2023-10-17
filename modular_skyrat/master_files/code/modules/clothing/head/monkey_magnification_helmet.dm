@@ -4,10 +4,16 @@
 	icon_state = "monkeymind"
 	inhand_icon_state = null
 	strip_delay = 100
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 0, FIRE = 50, ACID = 50, WOUND = 0)
+	armor_type = /datum/armor/helmet_monkey_sentience
 	var/mob/living/carbon/human/magnification = null ///if the helmet is on a valid target (just works like a normal helmet if not (cargo please stop))
 	var/polling = FALSE///if the helmet is currently polling for targets (special code for removal)
 	var/light_colors = 1 ///which icon state color this is (red, blue, yellow)
+
+/datum/armor/helmet_monkey_sentience
+	melee = 5
+	bomb = 25
+	fire = 50
+	acid = 50
 
 /obj/item/clothing/head/helmet/monkey_sentience/Initialize(mapload)
 	. = ..()
@@ -91,7 +97,9 @@
 		if(prob(10))
 			switch(rand(1, 4))
 				if(1) // blood rage
-					magnification.ai_controller.blackboard[BB_MONKEY_AGGRESSIVE] = TRUE
+					var/datum/ai_controller/monkey/monky_controller = magnification.ai_controller
+					monky_controller.set_trip_mode(mode = FALSE)
+					monky_controller.set_blackboard_key(BB_MONKEY_AGGRESSIVE, TRUE)
 				if(2) // brain death
 					magnification.apply_damage(500, BRAIN, BODY_ZONE_HEAD, FALSE, FALSE, FALSE)
 				if(3) // primal gene (gorilla)

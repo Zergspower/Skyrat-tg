@@ -23,6 +23,9 @@
 /area/ruin/space/has_grav/powered/skyrat/blackmarket
 	name = "Shady Market"
 
+/area/ruin/space/has_grav/powered/skyrat/alien_tool_lab
+	name = "Alien Tool Lab"
+
 /area/ruin/space/has_grav/powered/skyrat/scrapheap
 	name = "Scrap Heap"
 
@@ -229,31 +232,33 @@
 
 /area/ruin/space/has_grav/cargodise_freighter/trauma
 	name = "Freighter Trauma Center"
-	icon_state = "medbay1"
 
 /area/ruin/space/has_grav/cargodise_freighter/utility
 	name = "Freighter Utility Room"
-	icon_state = "engine"
 
 /area/ruin/space/has_grav/cargodise_freighter/kitchen
 	name = "Freighter Kitchen"
-	icon_state = "cafeteria"
 
 /area/ruin/space/has_grav/cargodise_freighter/bridge
 	name = "Freighter Bridge"
-	icon_state = "bridge"
 
 /area/ruin/space/has_grav/cargodise_freighter/cargo
 	name = "Freighter Cargo Bay"
-	icon_state = "cargo"
 
 /area/ruin/space/has_grav/cargodise_freighter/mining
 	name = "Freighter Mining Office"
-	icon_state = "cargo"
 
 /area/ruin/space/has_grav/cargodise_freighter/quarters
 	name = "Freighter Crew Quarters"
-	icon_state = "crew_quarters"
+
+/area/ruin/space/has_grav/cargodise_freighter/hydroponics
+	name = "Freighter Hydroponics"
+
+/area/ruin/space/has_grav/cargodise_freighter/vault
+	name = "Freighter Vault"
+
+/area/ruin/space/has_grav/cargodise_freighter/exterior
+	name = "Freighter Exterior"
 
 // Skyrat's Space Hotel
 
