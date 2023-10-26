@@ -27,6 +27,7 @@ GLOBAL_LIST_INIT(exp_specialmap, list(
 		ROLE_GHOST_ROLE,
 		//Skyrat Edit Start - Custom Ghost roles
 		ROLE_BLACK_MARKET_DEALER,
+		ROLE_INFORMATION_BROKER,
 		ROLE_DS2,
 		ROLE_FREIGHTER_CREW,
 		ROLE_GHOST_CAFE,

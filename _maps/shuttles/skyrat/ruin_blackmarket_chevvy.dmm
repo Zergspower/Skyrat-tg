@@ -1,14 +1,17 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ad" = (
-/obj/effect/turf_decal/tile/neutral/diagonal_centre,
-/obj/effect/turf_decal/tile/neutral/diagonal_edge,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark/diagonal,
+/turf/open/floor/iron/shuttle/cargo,
 /area/shuttle/blackmarket_chevvy)
 "bu" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/shuttle/cargo,
+/area/shuttle/blackmarket_chevvy)
+"ca" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/catwalk_floor,
 /area/shuttle/blackmarket_chevvy)
 "cL" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -41,6 +44,10 @@
 	pixel_x = 32
 	},
 /turf/open/floor/engine,
+/area/shuttle/blackmarket_chevvy)
+"eX" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/turf/open/floor/iron/shuttle/cargo,
 /area/shuttle/blackmarket_chevvy)
 "fp" = (
 /turf/closed/wall/mineral/titanium,
@@ -154,6 +161,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/catwalk_floor,
 /area/shuttle/blackmarket_chevvy)
+"Dh" = (
+/turf/template_noop,
+/area/space)
 "Dx" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/machinery/door/airlock/external,
@@ -218,6 +228,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark/smooth_large,
+/area/shuttle/blackmarket_chevvy)
+"NL" = (
+/obj/machinery/airalarm/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/shuttle/cargo,
 /area/shuttle/blackmarket_chevvy)
 "Ov" = (
 /turf/template_noop,
@@ -339,11 +354,7 @@
 /turf/open/floor/iron/dark/diagonal,
 /area/shuttle/blackmarket_chevvy)
 "ZE" = (
-/obj/effect/turf_decal/tile/neutral/diagonal_centre,
-/obj/effect/turf_decal/tile/neutral/diagonal_edge,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/iron/dark/diagonal,
+/turf/open/floor/iron/shuttle/cargo,
 /area/shuttle/blackmarket_chevvy)
 "ZW" = (
 /obj/docking_port/mobile{
@@ -414,28 +425,37 @@ YX
 Yg
 YX
 YX
-zH
-ZW
+ca
+YX
 "}
 (7,1,1) = {"
-ss
+YX
 ZC
 nB
 ZC
 YX
+zH
+ZW
+"}
+(8,1,1) = {"
+ss
+ad
+eX
+ad
+YX
 jD
 Fr
 "}
-(8,1,1) = {"
+(9,1,1) = {"
 YX
-ZE
+NL
 bu
-ad
+ZE
 RN
 Ee
 YX
 "}
-(9,1,1) = {"
+(10,1,1) = {"
 YX
 Fu
 en
@@ -444,7 +464,7 @@ Hj
 yt
 YX
 "}
-(10,1,1) = {"
+(11,1,1) = {"
 YX
 eu
 PY
@@ -453,11 +473,11 @@ YX
 SY
 YX
 "}
-(11,1,1) = {"
-Ov
-Ov
-Ov
-Ov
+(12,1,1) = {"
+Dh
+Dh
+Dh
+Dh
 fp
 VX
 pI

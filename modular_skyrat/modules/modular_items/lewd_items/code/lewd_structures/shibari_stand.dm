@@ -82,12 +82,6 @@
 		return FALSE
 
 	var/mob/living/carbon/human/hooman = buckled
-	if(!(istype(hooman.w_uniform, /obj/item/clothing/under/shibari/full)))
-		to_chat(user, span_warning("You'll need to completely tie their body!"))
-		return FALSE
-	if(!istype(user.get_active_held_item(), /obj/item/stack/shibari_rope))
-		to_chat(user, span_warning("You'll need to be holding shibari ropes to tie them to the stand!!"))
-		return FALSE
 
 	if(buckled != user)
 		buckled.visible_message(span_warning("[user] starts tying [buckled] to \the [src]!"),\
@@ -99,9 +93,6 @@
 		if(!is_user_buckle_possible(buckled, user, check_loc))
 			return FALSE
 
-		if(!(istype(hooman.w_uniform, /obj/item/clothing/under/shibari/full)))
-			to_chat(user, span_warning("You'll need to completely tie their body!"))
-			return FALSE
 		if(!istype(user.get_active_held_item(), /obj/item/stack/shibari_rope))
 			to_chat(user, span_warning("You'll need to be holding shibari ropes to tie them to the stand!"))
 			return FALSE

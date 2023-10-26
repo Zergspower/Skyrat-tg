@@ -118,6 +118,7 @@
 #define ROLE_ZOMBIE "Zombie"
 //SKYRAT EDIT START
 #define ROLE_BLACK_MARKET_DEALER "Black Market Dealer"
+#define ROLE_INFORMATION_BROKER "Information Broker"
 #define ROLE_DS2 "DS2 Syndicate"
 #define ROLE_FREIGHTER_CREW "Freighter Crew"
 #define ROLE_GHOST_CAFE "Ghost Cafe Visitor"

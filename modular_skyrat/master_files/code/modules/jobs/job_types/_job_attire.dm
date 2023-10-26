@@ -184,6 +184,9 @@
 /datum/job/blackmarket
 	akula_outfit = /datum/outfit/akula
 
+/datum/job/info_broker
+	akula_outfit = /datum/outfit/akula
+
 /datum/job/ds2
 	akula_outfit = /datum/outfit/akula
 

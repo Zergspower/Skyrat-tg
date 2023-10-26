@@ -11,19 +11,18 @@
 	spawned_human.grant_language(/datum/language/common, source = LANGUAGE_SPAWNER)
 
 /obj/effect/mob_spawn/ghost_role/human/blackmarket
-	name = "cryogenics pod"
+	name = "Blackmarket dealer"
 	prompt_name = "a blackmarket dealer"
 	desc = "A humming cryo pod. The machine is attempting to wake up its occupant."
 	mob_name = "a black market dealer"
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
-	mob_species = /datum/species/human
 	you_are_text = "You are a black market dealer, with shop set up in Nanotrasen Space."
 	flavour_text = "FTU, Independent.. whatever, whoever you are. It doesn't matter out here. \
 	You've set up shop in a slightly shady, yet functional little asteroid for your dealings. \
 	Explore space, find valuable artifacts and nice loot - and pawn it off to those stooges at NT. \
 	Or perhaps more exotic customers are in local space...?"
-	important_text = "You are not an antagonist."
+	important_text = "You are not an antagonist, work with the info broker to sell their secrets."
 	outfit = /datum/outfit/black_market
 	spawner_job_path = /datum/job/blackmarket
 	quirks_enabled = TRUE
@@ -33,11 +32,42 @@
 /datum/outfit/black_market
 	name = "Black Market Trader"
 	uniform = /obj/item/clothing/under/rank/cargo/tech
+	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/laceup
 	id = /obj/item/card/id/away/blackmarket
 
 /datum/outfit/black_market/post_equip(mob/living/carbon/human/shady, visualsOnly)
 	handlebank(shady)
+	return ..()
+
+/obj/effect/mob_spawn/ghost_role/human/information_broker
+	name = "Information Broker"
+	prompt_name = "an information broker"
+	desc = "A humming cryo pod. The machine is attempting to wake up its occupant."
+	mob_name = "a information broker"
+	icon = 'icons/obj/machines/sleeper.dmi'
+	icon_state = "sleeper"
+	you_are_text = "You're an information broker, your asteroid home has drifted into Nanotrasen Space."
+	flavour_text = "Another day another dollar, your asteroid cove seems to have drifted in populated space. \
+	You've partnered up with an equally shady friend, the trader is how you move around this endless void. \
+	Work with your friend who you're renting the dock out to, explore space and listen to the radio waves. \
+	Information always has a buyer, time to find out who the customer is..."
+	important_text = "You are not an antagonist, keep communication with the Trader so they can transport you to your sellers you arrange."
+	outfit = /datum/outfit/info_broker
+	spawner_job_path = /datum/job/info_broker
+	quirks_enabled = TRUE
+	random_appearance = FALSE
+	loadout_enabled = TRUE
+
+/datum/outfit/info_broker
+	name = "Black Market Trader"
+	uniform = /obj/item/clothing/under/rank/cargo/tech
+	suit = /obj/item/clothing/suit/armor/vest
+	shoes = /obj/item/clothing/shoes/laceup
+	id = /obj/item/card/id/away/infobroker
+
+/datum/outfit/info_broker/post_equip(mob/living/carbon/human/info, visualsOnly)
+	handlebank(info)
 	return ..()
 
 /obj/effect/mob_spawn/ghost_role/human/ds2
@@ -620,8 +650,17 @@
 	trim = /datum/id_trim/away/blackmarket
 
 /datum/id_trim/away/blackmarket
-	access = list(ACCESS_AWAY_GENERIC4)
+	access = list(ACCESS_AWAY_GENERIC4, ACCESS_WEAPONS)
 	assignment = "Deck Crewman"
+
+/obj/item/card/id/away/infobroker
+	name = "modern ID card"
+	desc = "A high-tech card, feeling expensive to the touch."
+	trim = /datum/id_trim/away/trim_bitavatar
+	icon_state = "card_black"
+/datum/id_trim/away/infobroker
+	access = list(ACCESS_AWAY_GENERIC4, ACCESS_WEAPONS)
+	assignment = "Information Broker"
 
 /obj/item/card/id/away/freightcrew
 	name = "Freighter ID"
@@ -652,6 +691,7 @@
 
 /datum/id_trim/away/hotel/security
 	assignment = "Hotel Security"
+	access = list(ACCESS_TWIN_NEXUS_STAFF, ACCESS_TWIN_NEXUS_MANAGER)
 
 /datum/id_trim/away/tarkon
 	assignment = "P-T Cargo Personnel"
