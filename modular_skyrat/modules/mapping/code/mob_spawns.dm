@@ -60,7 +60,7 @@
 	loadout_enabled = TRUE
 
 /datum/outfit/info_broker
-	name = "Black Market Trader"
+	name = "Information Broker"
 	uniform = /obj/item/clothing/under/rank/cargo/tech
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/laceup
@@ -656,9 +656,10 @@
 /obj/item/card/id/away/infobroker
 	name = "modern ID card"
 	desc = "A high-tech card, feeling expensive to the touch."
-	trim = /datum/id_trim/away/trim_bitavatar
+	trim = /datum/id_trim/bit_avatar
 	icon_state = "card_black"
-/datum/id_trim/away/infobroker
+
+/datum/id_trim/infobroker
 	access = list(ACCESS_AWAY_GENERIC4, ACCESS_WEAPONS)
 	assignment = "Information Broker"
 
