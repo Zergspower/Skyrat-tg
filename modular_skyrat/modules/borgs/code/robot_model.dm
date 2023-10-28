@@ -374,6 +374,40 @@
 		"NiKO" = list(SKIN_ICON_STATE = "mmekacargo", SKIN_ICON = CYBORG_ICON_CARGO_TALL, SKIN_FEATURES = list(R_TRAIT_UNIQUEWRECK, R_TRAIT_UNIQUETIP, R_TRAIT_TALL), SKIN_HAT_OFFSET = 15)
 	)
 
+// SCIENCE
+/obj/item/robot_model/science
+	name = "Science"
+	basic_modules = list(
+		/obj/item/crowbar/cyborg,
+		/obj/item/assembly/flash/cyborg,
+		/obj/item/hand_labeler/cyborg,
+		/obj/item/extinguisher,
+	)
+	radio_channels = list(RADIO_CHANNEL_SCIENCE)
+	emag_modules = list(
+		/obj/item/jammer
+	)
+	hat_offset = 0
+	cyborg_base_icon = "science"
+	model_select_icon = "science"
+	canDispose = TRUE
+	borg_skins = list(
+		/// 32x32 Skins
+		"Default" = list(SKIN_ICON_STATE = "default", SKIN_ICON = CYBORG_ICON_SCIENCE),
+		"Eyebot" = list(SKIN_ICON_STATE = "eyebot", SKIN_ICON = CYBORG_ICON_SCIENCE),
+		"Zoomba" = list(SKIN_ICON_STATE = "zoomba", SKIN_ICON = CYBORG_ICON_SCIENCE, SKIN_FEATURES = list(R_TRAIT_UNIQUEWRECK, R_TRAIT_SMALL), SKIN_HAT_OFFSET = -13),
+		/// 64x32 Skins
+		"Borgi" = list(SKIN_ICON_STATE =  "borgi_sci", SKIN_ICON = CYBORG_ICON_SCIENCE_WIDE, SKIN_FEATURES = list(R_TRAIT_UNIQUEWRECK, R_TRAIT_WIDE, R_TRAIT_SMALL)),
+		"Drake" = list(SKIN_ICON_STATE =  "drake_sci", SKIN_ICON = CYBORG_ICON_SCIENCE_WIDE, SKIN_FEATURES = list(R_TRAIT_UNIQUEWRECK, R_TRAIT_WIDE)),
+		"Hound" = list(SKIN_ICON_STATE =  "hound_sci", SKIN_ICON = CYBORG_ICON_SCIENCE_WIDE, SKIN_FEATURES = list(R_TRAIT_UNIQUEWRECK, R_TRAIT_WIDE)),
+		"Darkhound" = list(SKIN_ICON_STATE =  "hounddark_sci", SKIN_ICON = CYBORG_ICON_SCIENCE_WIDE, SKIN_FEATURES = list(R_TRAIT_UNIQUEWRECK, R_TRAIT_WIDE)),
+		"Vale" = list(SKIN_ICON_STATE =  "vale_sci", SKIN_ICON = CYBORG_ICON_SCIENCE_WIDE, SKIN_FEATURES = list(R_TRAIT_UNIQUEWRECK, R_TRAIT_WIDE)),
+		/// 32x64 Skins
+		"Meka" = list(SKIN_ICON_STATE = "meka_sci", SKIN_ICON = CYBORG_ICON_SCIENCE_TALL, SKIN_FEATURES = list(R_TRAIT_UNIQUEWRECK, R_TRAIT_UNIQUETIP, R_TRAIT_TALL), SKIN_HAT_OFFSET = 15),
+		"K4T" = list(SKIN_ICON_STATE = "k4t_sci", SKIN_ICON = CYBORG_ICON_SCIENCE_TALL, SKIN_FEATURES = list(R_TRAIT_UNIQUEWRECK, R_TRAIT_UNIQUETIP, R_TRAIT_TALL), SKIN_HAT_OFFSET = 15),
+		"NiKA" = list(SKIN_ICON_STATE = "fmeka_sci", SKIN_ICON = CYBORG_ICON_SCIENCE_TALL, SKIN_FEATURES = list(R_TRAIT_UNIQUEWRECK, R_TRAIT_UNIQUETIP, R_TRAIT_TALL), SKIN_HAT_OFFSET = 15),
+		"NiKO" = list(SKIN_ICON_STATE = "mmeka_sci", SKIN_ICON = CYBORG_ICON_SCIENCE_TALL, SKIN_FEATURES = list(R_TRAIT_UNIQUEWRECK, R_TRAIT_UNIQUETIP, R_TRAIT_TALL), SKIN_HAT_OFFSET = 15)
+	)
 
 //SYNDICATE
 /obj/item/robot_model/syndicatejack

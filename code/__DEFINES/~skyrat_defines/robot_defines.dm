@@ -47,6 +47,10 @@
 #define CYBORG_ICON_SERVICE_WIDE 'modular_skyrat/modules/borgs/icons/widerobot_serv.dmi'
 #define CYBORG_ICON_SERVICE_TALL 'modular_skyrat/modules/borgs/icons/tallrobot_serv.dmi'
 
+#define CYBORG_ICON_SCIENCE 'modular_skyrat/modules/borgs/icons/robots_science.dmi'
+#define CYBORG_ICON_SCIENCE_WIDE 'modular_skyrat/modules/borgs/icons/widerobot_science.dmi'
+#define CYBORG_ICON_SCIENCE_TALL 'modular_skyrat/modules/borgs/icons/tallrobot_science.dmi'
+
 #define CYBORG_ICON_MINING 'modular_skyrat/modules/borgs/icons/robots_mine.dmi'
 #define CYBORG_ICON_MINING_WIDE 'modular_skyrat/modules/borgs/icons/widerobot_mine.dmi'
 #define CYBORG_ICON_MINING_TALL 'modular_skyrat/modules/borgs/icons/tallrobot_mine.dmi'
