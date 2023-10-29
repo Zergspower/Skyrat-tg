@@ -150,3 +150,16 @@
 	category = list(
 		RND_CATEGORY_MECHFAB_CYBORG + RND_SUBCATEGORY_MECHFAB_CYBORG_CHASSIS
 	)
+
+// Science Borgo Optional modules
+
+/datum/design/xenoarch_tools
+	name = "Xenoarch Tools"
+	id = "Xenoarch_module"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/xenoarch_tools
+	materials = list(/datum/material/iron=HALF_SHEET_MATERIAL_AMOUNT, /datum/material/glass=HALF_SHEET_MATERIAL_AMOUNT)
+	construction_time = 40
+	category = list(RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ALL)
+
+// Science Borgo Upgrades

@@ -382,14 +382,23 @@
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/hand_labeler/cyborg,
 		/obj/item/extinguisher,
+		/obj/item/storage/bag/xeno, // xenobio
+		/obj/item/borg/apparatus/beaker,
+		/obj/item/biopsy_tool, // cytology
+		/obj/item/reagent_containers/dropper, // cytology
+		/obj/item/reagent_containers/syringe,// cytology
+		/obj/item/multitool/circuit, // circuitry
+		/obj/item/multitool/cyborg, // circuitry
+
 	)
 	radio_channels = list(RADIO_CHANNEL_SCIENCE)
 	emag_modules = list(
 		/obj/item/jammer
 	)
 	hat_offset = 0
-	cyborg_base_icon = "science"
+	cyborg_base_icon = "default"
 	model_select_icon = "science"
+	model_select_alternate_icon = 'modular_skyrat/modules/borgs/icons/screen_cyborg.dmi'
 	canDispose = TRUE
 	borg_skins = list(
 		/// 32x32 Skins

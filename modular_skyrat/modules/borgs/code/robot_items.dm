@@ -598,6 +598,7 @@
 			"Standard" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "robot"),
 			"Medical" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "medical"),
 			"Cargo" = image(icon = CYBORG_ICON_CARGO, icon_state = "cargoborg"),
+			"Science" = image(icon = CYBORG_ICON_SCIENCE, icon_state = "default"),
 			"Engineer" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "engineer"),
 			"Security" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "sec"),
 			"Service" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "service_f"),
@@ -620,6 +621,8 @@
 				model = new /obj/item/robot_model/medical
 			if("Cargo")
 				model = new /obj/item/robot_model/cargo
+			if("Science")
+				model = new /obj/item/robot_model/science
 			if("Engineer")
 				model = new /obj/item/robot_model/engineering
 			if("Security")
