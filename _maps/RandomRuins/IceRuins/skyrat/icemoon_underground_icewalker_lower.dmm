@@ -159,6 +159,18 @@
 	},
 /turf/open/floor/wood/icemoon,
 /area/ruin/unpowered/primitive_catgirl_den)
+"cT" = (
+/obj/structure/closet/crate/wooden/storage_barrel,
+/obj/item/seeds/watermelon,
+/obj/item/seeds/watermelon,
+/obj/item/seeds/grass,
+/obj/item/seeds/grass,
+/obj/item/seeds/lavaland/polypore,
+/obj/item/seeds/lavaland/polypore,
+/obj/item/seeds/lavaland/ember,
+/obj/item/seeds/lavaland/ember,
+/turf/open/misc/asteroid/snow/icemoon,
+/area/ruin/unpowered/primitive_catgirl_den)
 "cW" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -492,7 +504,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/machinery/smartfridge/drying_rack,
+/obj/machinery/smartfridge/drying/rack,
 /turf/open/floor/stone/icemoon,
 /area/ruin/unpowered/primitive_catgirl_den)
 "lZ" = (
@@ -1324,7 +1336,7 @@
 /turf/open/misc/dirt/icemoon,
 /area/ruin/unpowered/primitive_catgirl_den)
 "Hi" = (
-/obj/machinery/smartfridge/drying_rack,
+/obj/machinery/smartfridge/drying/rack,
 /turf/open/misc/dirt/icemoon,
 /area/ruin/unpowered/primitive_catgirl_den)
 "Hv" = (
@@ -1873,6 +1885,7 @@
 /obj/item/seeds/tower{
 	pixel_y = -3
 	},
+/obj/item/seeds/glowshroom,
 /obj/item/seeds/poppy,
 /obj/item/seeds/reishi,
 /obj/item/seeds/reishi,
@@ -1920,6 +1933,11 @@
 /obj/item/ammo_casing/arrow,
 /obj/item/ammo_casing/arrow,
 /obj/item/ammo_casing/arrow,
+/turf/open/misc/dirt/icemoon,
+/area/ruin/unpowered/primitive_catgirl_den)
+"VZ" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/machinery/smartfridge/drying/rack,
 /turf/open/misc/dirt/icemoon,
 /area/ruin/unpowered/primitive_catgirl_den)
 "WM" = (
@@ -2476,7 +2494,7 @@ jw
 ZJ
 ZJ
 Ug
-oJ
+cT
 pa
 pa
 oJ
@@ -3601,7 +3619,7 @@ gY
 wM
 eS
 pa
-Ug
+VZ
 oJ
 oJ
 sS

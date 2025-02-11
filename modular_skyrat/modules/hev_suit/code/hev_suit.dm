@@ -79,7 +79,7 @@
 	inhand_icon_state = "syndicate-orange"
 	armor_type = /datum/armor/space_hev_suit
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	cell = /obj/item/stock_parts/cell/hyper
+	cell = /obj/item/stock_parts/power_store/cell/hyper
 	slowdown = 0 //I am not gimping doctor freeman
 	actions_types = list(/datum/action/item_action/hev_toggle, /datum/action/item_action/hev_toggle_notifs, /datum/action/item_action/toggle_helmet, /datum/action/item_action/toggle_spacesuit)
 	resistance_flags = LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF|INDESTRUCTIBLE|FREEZE_PROOF
@@ -99,7 +99,6 @@
 	var/user_old_bruteloss
 	var/user_old_fireloss
 	var/user_old_toxloss
-	var/user_old_cloneloss
 	var/user_old_oxyloss
 
 	///Lots of sound vars.
@@ -417,7 +416,6 @@
 	user_old_bruteloss = current_user.getBruteLoss()
 	user_old_fireloss = current_user.getFireLoss()
 	user_old_toxloss = current_user.getToxLoss()
-	user_old_cloneloss = current_user.getCloneLoss()
 	user_old_oxyloss = current_user.getOxyLoss()
 	RegisterSignal(current_user, COMSIG_MOB_RUN_ARMOR, PROC_REF(process_hit))
 	playsound(src, armor_sound, 50)
@@ -430,7 +428,6 @@
 	var/new_bruteloss = current_user.getBruteLoss()
 	var/new_fireloss = current_user.getFireLoss()
 	var/new_toxloss = current_user.getToxLoss()
-	var/new_cloneloss = current_user.getCloneLoss()
 	var/new_oxyloss = current_user.getOxyLoss()
 	var/use_power_this_hit = FALSE
 	if(current_user.getBruteLoss() > (new_bruteloss + HEV_DAMAGE_POWER_USE_THRESHOLD))
@@ -439,12 +436,9 @@
 		use_power_this_hit = TRUE
 	if(current_user.getToxLoss() > (new_toxloss + HEV_DAMAGE_POWER_USE_THRESHOLD))
 		use_power_this_hit = TRUE
-	if(current_user.getCloneLoss() > (new_cloneloss + HEV_DAMAGE_POWER_USE_THRESHOLD))
-		use_power_this_hit = TRUE
 	user_old_bruteloss = new_bruteloss
 	user_old_fireloss = new_fireloss
 	user_old_toxloss = new_toxloss
-	user_old_cloneloss = new_cloneloss
 	user_old_oxyloss = new_oxyloss
 	state_health()
 	if(use_power_this_hit)
@@ -562,7 +556,6 @@
 	var/new_bruteloss = current_user.getBruteLoss()
 	var/new_fireloss = current_user.getFireLoss()
 	var/new_toxloss = current_user.getToxLoss()
-	var/new_cloneloss = current_user.getCloneLoss()
 	var/new_oxyloss = current_user.getOxyLoss()
 	var/new_stamloss = current_user.getStaminaLoss()
 
@@ -601,14 +594,6 @@
 			healing_current_cooldown = world.time + health_static_cooldown
 			send_message("TOXIN MEDICAL ATTENTION ADMINISTERED", HEV_COLOR_BLUE)
 			send_hev_sound(antitoxin_sound)
-		return
-
-	if(new_cloneloss)
-		if(use_hev_power(HEV_POWERUSE_HEAL))
-			current_user.adjustCloneLoss(-heal_amount)
-			healing_current_cooldown = world.time + health_static_cooldown
-			send_message("MEDICAL ATTENTION ADMINISTERED", HEV_COLOR_BLUE)
-			send_hev_sound(antidote_sound)
 		return
 
 /obj/item/clothing/suit/space/hev_suit/proc/process_wound(carbon, wound, bodypart)
@@ -787,7 +772,7 @@
 	armor_type = /datum/armor/hev_suit_pcv
 	flags_inv = null
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	cell = /obj/item/stock_parts/cell/super
+	cell = /obj/item/stock_parts/power_store/cell/super
 	actions_types = list(/datum/action/item_action/hev_toggle, /datum/action/item_action/hev_toggle_notifs)
 	resistance_flags = FIRE_PROOF|ACID_PROOF|FREEZE_PROOF
 	clothing_flags = SNUG_FIT
@@ -858,9 +843,11 @@
 	acid_static_cooldown = PCV_COOLDOWN_ACID
 	suit_name = "PCV MARK II"
 
-/obj/item/clothing/suit/space/hev_suit/pcv/AltClick(mob/living/user)
-	reskin_obj(user)
+/obj/item/clothing/suit/space/hev_suit/pcv/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
+	if(!current_skin)
+		context[SCREENTIP_CONTEXT_ALT_LMB] = "Reskin"
+		return CONTEXTUAL_SCREENTIP_SET
 
 #undef HEV_COLOR_GREEN
 #undef HEV_COLOR_RED

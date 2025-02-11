@@ -40,6 +40,8 @@ Behavior that's still missing from this component that original food items had t
 	var/volume = 50
 	///The flavortext for taste (haha get it flavor text)
 	var/list/tastes
+	///Whether to tell the examiner that this is edible or not.
+	var/show_examine = TRUE
 
 /datum/component/edible/Initialize(
 	list/initial_reagents,
@@ -55,6 +57,7 @@ Behavior that's still missing from this component that original food items had t
 	datum/callback/on_consume,
 	datum/callback/check_liked,
 	reagent_purity = 0.5,
+	show_examine = TRUE,
 )
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -70,12 +73,13 @@ Behavior that's still missing from this component that original food items had t
 	src.on_consume = on_consume
 	src.tastes = string_assoc_list(tastes)
 	src.check_liked = check_liked
+	src.show_examine = show_examine
 
 	setup_initial_reagents(initial_reagents, reagent_purity)
 
 /datum/component/edible/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
-	RegisterSignals(parent, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(UseByAnimal))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(UseByAnimal))
 	RegisterSignal(parent, COMSIG_ATOM_CHECKPARTS, PROC_REF(OnCraft))
 	RegisterSignal(parent, COMSIG_ATOM_CREATEDBY_PROCESSING, PROC_REF(OnProcessed))
 	RegisterSignal(parent, COMSIG_FOOD_INGREDIENT_ADDED, PROC_REF(edible_ingredient_added))
@@ -187,7 +191,7 @@ Behavior that's still missing from this component that original food items had t
 	// add newly passed in reagents
 	setup_initial_reagents(initial_reagents)
 
-/datum/component/edible/Destroy(force, silent)
+/datum/component/edible/Destroy(force)
 	after_eat = null
 	on_consume = null
 	check_liked = null
@@ -212,10 +216,11 @@ Behavior that's still missing from this component that original food items had t
 	SIGNAL_HANDLER
 
 	var/atom/owner = parent
-
+	if(!show_examine)
+		return
 	if(foodtypes)
 		var/list/types = bitfield_to_list(foodtypes, FOOD_FLAGS)
-		examine_list += span_notice("It is [lowertext(english_list(types))].")
+		examine_list += span_notice("It is [LOWER_TEXT(english_list(types))].")
 
 	var/quality = get_perceived_food_quality(user)
 	if(quality > 0)
@@ -251,7 +256,7 @@ Behavior that's still missing from this component that original food items had t
 	if(!(food_flags & FOOD_IN_CONTAINER))
 		switch(bitecount)
 			if(0)
-				// pass
+				pass()
 			if(1)
 				examine_list += span_notice("[owner] was bitten by someone!")
 			if(2, 3)
@@ -263,6 +268,16 @@ Behavior that's still missing from this component that original food items had t
 		examine_list += span_notice("Reagent purities:")
 		for(var/datum/reagent/reagent as anything in owner.reagents.reagent_list)
 			examine_list += span_notice("- [reagent.name] [reagent.volume]u: [round(reagent.purity * 100)]% pure")
+
+	if(!HAS_TRAIT(user, TRAIT_REMOTE_TASTING))
+		return
+	var/fraction = min(bite_consumption / owner.reagents.total_volume, 1)
+	checkLiked(fraction, user)
+	if (!owner.reagents.get_reagent_amount(/datum/reagent/consumable/salt))
+		examine_list += span_notice("It could use a little more Sodium Chloride...")
+	if (isliving(user))
+		var/mob/living/living_user = user
+		living_user.taste(owner.reagents)
 
 /datum/component/edible/proc/UseFromHand(obj/item/source, mob/living/M, mob/living/user)
 	SIGNAL_HANDLER
@@ -513,13 +528,13 @@ Behavior that's still missing from this component that original food items had t
 /datum/component/edible/proc/apply_buff(mob/eater)
 	var/buff
 	var/recipe_complexity = get_recipe_complexity()
-	if(recipe_complexity == 0)
+	if(recipe_complexity <= 0)
 		return
 	var/obj/item/food/food = parent
 	if(!isnull(food.crafted_food_buff))
 		buff = food.crafted_food_buff
 	else
-		buff = pick_weight(GLOB.food_buffs[recipe_complexity])
+		buff = pick_weight(GLOB.food_buffs[min(recipe_complexity, FOOD_COMPLEXITY_5)])
 	if(!isnull(buff))
 		var/mob/living/living_eater = eater
 		var/atom/owner = parent
@@ -570,18 +585,23 @@ Behavior that's still missing from this component that original food items had t
 	food_quality = min(food_quality, FOOD_QUALITY_TOP)
 	var/atom/owner = parent
 	var/timeout_mod = owner.reagents.get_average_purity(/datum/reagent/consumable) * 2 // mood event duration is 100% at average purity of 50%
-	var/event = GLOB.food_quality_events[food_quality]
-	gourmand.add_mood_event("quality_food", event, timeout_mod)
+	var/datum/mood_event/event = GLOB.food_quality_events[food_quality]
+	event = new event.type
+	event.timeout *= timeout_mod
+	gourmand.add_mood_event("quality_food", event)
 	gourmand.adjust_disgust(-5 + -2 * food_quality * fraction)
 	var/quality_label = GLOB.food_quality_description[food_quality]
 	to_chat(gourmand, span_notice("That's \an [quality_label] meal."))
 
 /// Get the complexity of the crafted food
 /datum/component/edible/proc/get_recipe_complexity()
+	var/list/extra_complexity = list(0)
+	SEND_SIGNAL(parent, COMSIG_FOOD_GET_EXTRA_COMPLEXITY, extra_complexity)
+	var/complexity_to_add = extra_complexity[1]
 	if(!HAS_TRAIT(parent, TRAIT_FOOD_CHEF_MADE) || !istype(parent, /obj/item/food))
-		return 0 // It is factory made. Soulless.
+		return complexity_to_add // It is factory made. Soulless.
 	var/obj/item/food/food = parent
-	return food.crafting_complexity
+	return food.crafting_complexity + complexity_to_add
 
 /// Get food quality adjusted according to eater's preferences
 /datum/component/edible/proc/get_perceived_food_quality(mob/living/carbon/human/eater)
@@ -629,6 +649,7 @@ Behavior that's still missing from this component that original food items had t
 ///Delete the item when it is fully eaten
 /datum/component/edible/proc/On_Consume(mob/living/eater, mob/living/feeder)
 	SEND_SIGNAL(parent, COMSIG_FOOD_CONSUMED, eater, feeder)
+	SEND_SIGNAL(eater, COMSIG_LIVING_FINISH_EAT, parent, feeder)
 
 	on_consume?.Invoke(eater, feeder)
 	if (QDELETED(parent)) // might be destroyed by the callback

@@ -4,13 +4,14 @@
 /datum/quirk/spacer_born
 	name = "Spacer"
 	desc = "You were born in space, and have never known the comfort of a planet's gravity. Your body has adapted to this. \
-		You are more comfortable in zero and artifical gravity and are more resistant to the effects of space, \
+		You are more comfortable in zero and artificial gravity and are more resistant to the effects of space, \
 		but travelling to a planet's surface for an extended period of time will make you feel sick."
 	gain_text = span_notice("You feel at home in space.")
 	lose_text = span_danger("You feel homesick.")
 	icon = FA_ICON_USER_ASTRONAUT
 	value = 7
 	quirk_flags = QUIRK_CHANGES_APPEARANCE //SKYRAT EDIT CHANGE - ORIGINAL: quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_CHANGES_APPEARANCE
+	medical_record_text = "Patient is well-adapted to non-terrestrial environments."
 	mail_goodies = list(
 		/obj/item/storage/pill_bottle/ondansetron,
 		/obj/item/reagent_containers/pill/gravitum,
@@ -41,7 +42,6 @@
 	// Yes, it's assumed for planetary maps that you start at gravity sickness.
 	check_z(quirk_holder, skip_timers = TRUE)
 
-/datum/quirk/spacer_born/add_unique(client/client_source)
 	// drift slightly faster through zero G
 	quirk_holder.inertia_move_delay *= 0.8
 

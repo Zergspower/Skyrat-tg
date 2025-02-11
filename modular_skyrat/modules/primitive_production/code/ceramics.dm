@@ -127,12 +127,15 @@
 	icon_state = "clay_cup"
 	custom_materials = null
 
+/obj/item/stack/sheet/mineral/stone/five
+	amount = 5
+
 /obj/item/ceramic/brick
-	name = "ceramic brick"
-	desc = "A dense block of clay, ready to be fired into a brick!"
+	name = "clay bricks"
+	desc = "A few block of clay, ready to be fired into bricks!"
 	icon = 'modular_skyrat/modules/primitive_production/icons/prim_fun.dmi'
-	icon_state = "clay_brick"
-	forge_item = /obj/item/stack/sheet/mineral/clay
+	icon_state = "claybricks"
+	forge_item = /obj/item/stack/sheet/mineral/stone/five
 
 /obj/structure/throwing_wheel
 	name = "throwing wheel"
@@ -214,7 +217,7 @@
 		return
 	switch(user_input)
 		if("Create")
-			var/creation_choice = tgui_input_list(user, "What you like to create?", "Creation Choice", list("Cup", "Plate", "Bowl", "Tray", "Brick"))
+			var/creation_choice = tgui_input_list(user, "What you like to create?", "Creation Choice", list("Cup", "Plate", "Bowl", "Tray", "Bricks"))
 			if(!creation_choice)
 				return
 			switch(creation_choice)
@@ -226,7 +229,7 @@
 					use_clay(/obj/item/ceramic/bowl, user)
 				if("Tray")
 					use_clay(/obj/item/ceramic/tray, user)
-				if("Brick")
+				if("Bricks")
 					use_clay(/obj/item/ceramic/brick, user)
 		if("Remove")
 			if(!do_after(user, spinning_speed, target = src))

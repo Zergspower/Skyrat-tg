@@ -1,7 +1,7 @@
 /datum/disease/chronic_illness
 	name = "Hereditary Manifold Sickness"
 	max_stages = 5
-	spread_text = "Unspread Illness"
+	spread_text = "Non-communicable disease"
 	spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 	disease_flags = CHRONIC
 	infectable_biotypes = MOB_ORGANIC | MOB_MINERAL | MOB_ROBOTIC
@@ -14,6 +14,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "A disease discovered in an Interdyne laboratory caused by subjection to timesteam correction technology."
 	severity = DISEASE_SEVERITY_UNCURABLE
+	bypasses_immunity = TRUE
 
 /datum/disease/chronic_illness/stage_act(seconds_per_tick, times_fired)
 	. = ..()
@@ -64,8 +65,8 @@
 				to_chat(affected_mob, span_danger("[pick("You feel as though your atoms are accelerating in place.", "You feel like you're being torn apart!")]"))
 				affected_mob.emote("scream")
 				need_mob_update += affected_mob.adjustBruteLoss(10, updating_health = FALSE)
-				if(need_mob_update)
-					affected_mob.updatehealth()
+			if(need_mob_update)
+				affected_mob.updatehealth()
 		if(5)
 			switch(rand(1,2))
 				if(1)

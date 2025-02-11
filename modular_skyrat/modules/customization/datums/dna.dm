@@ -18,13 +18,13 @@ GLOBAL_LIST_INIT(identity_block_lengths, list(
  * The same rules of the above also apply here, with the exception that this is for the unique_features string variable
  * (commonly abbreviated with uf) and its blocks. Both ui and uf have a standard block length of 3 ASCII characters.
  */
-GLOBAL_LIST_INIT(features_block_lengths, list(
+/* GLOBAL_LIST_INIT(features_block_lengths, list(
 		"[DNA_MUTANT_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
 		"[DNA_MUTANT_COLOR_2_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
 		"[DNA_MUTANT_COLOR_3_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
 		"[DNA_ETHEREAL_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
 		"[DNA_SKIN_COLOR_BLOCK]" = DNA_BLOCK_SIZE_COLOR,
-	))
+	)) */
 
 /**
  * A list of numbers that keeps track of where ui blocks start in the unique_identity string variable of the dna datum.
@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(total_uf_len_by_block)
 /proc/populate_total_uf_len_by_block()
 	GLOB.total_uf_len_by_block = list()
 	var/total_block_len = 1
-	for(var/blocknumber in 1 to GLOB.dna_total_feature_blocks)
+	for(var/blocknumber in 1 to SSaccessories.dna_total_feature_blocks)
 		GLOB.total_uf_len_by_block += total_block_len
 		total_block_len += GET_UF_BLOCK_LEN(blocknumber)
 
@@ -56,16 +56,6 @@ GLOBAL_LIST_EMPTY(total_uf_len_by_block)
 	var/list/list/body_markings = list()
 	///Current body size, used for proper re-sizing and keeping track of that
 	var/current_body_size = BODY_SIZE_NORMAL
-
-/datum/dna/proc/initialize_dna(newblood_type, skip_index = FALSE)
-	if(newblood_type)
-		blood_type = newblood_type
-	unique_enzymes = generate_unique_enzymes()
-	unique_identity = generate_unique_identity()
-	if(!skip_index) //I hate this
-		generate_dna_blocks()
-	mutant_bodyparts = species.get_random_mutant_bodyparts(features)
-	unique_features = generate_unique_features()
 
 /datum/dna/proc/generate_unique_features()
 	var/list/data = list()
@@ -90,9 +80,9 @@ GLOBAL_LIST_EMPTY(total_uf_len_by_block)
 		data += sanitize_hexcolor(features["skin_color"], include_crunch = FALSE)
 	else
 		data += random_string(DNA_BLOCK_SIZE_COLOR, GLOB.hex_characters)
-	for(var/key in GLOB.genetic_accessories)
-		if(mutant_bodyparts[key] && (mutant_bodyparts[key][MUTANT_INDEX_NAME] in GLOB.genetic_accessories[key]))
-			var/list/accessories_for_key = GLOB.genetic_accessories[key]
+	for(var/key in SSaccessories.genetic_accessories)
+		if(mutant_bodyparts[key] && (mutant_bodyparts[key][MUTANT_INDEX_NAME] in SSaccessories.genetic_accessories[key]))
+			var/list/accessories_for_key = SSaccessories.genetic_accessories[key]
 			data += construct_block(accessories_for_key.Find(mutant_bodyparts[key][MUTANT_INDEX_NAME]), accessories_for_key.len)
 			var/colors_to_randomize = DNA_BLOCKS_PER_FEATURE-1
 			for(var/color in mutant_bodyparts[key][MUTANT_INDEX_COLOR_LIST])
@@ -137,22 +127,22 @@ GLOBAL_LIST_EMPTY(total_uf_len_by_block)
 				set_uni_feature_block(blocknumber, sanitize_hexcolor(features["ethcolor"], include_crunch = FALSE))
 			if(DNA_SKIN_COLOR_BLOCK)
 				set_uni_feature_block(blocknumber, sanitize_hexcolor(features["skin_color"], include_crunch = FALSE))
-	else if(blocknumber <= DNA_MANDATORY_COLOR_BLOCKS+(GLOB.genetic_accessories.len*DNA_BLOCKS_PER_FEATURE))
+	else if(blocknumber <= DNA_MANDATORY_COLOR_BLOCKS+(SSaccessories.genetic_accessories.len*DNA_BLOCKS_PER_FEATURE))
 		var/block_index = blocknumber - DNA_MANDATORY_COLOR_BLOCKS
 		var/block_zero_index = block_index-1
 		var/bodypart_index = (block_zero_index/DNA_BLOCKS_PER_FEATURE)+1
 		var/color_index = block_zero_index%DNA_BLOCKS_PER_FEATURE
-		var/key = GLOB.genetic_accessories[bodypart_index]
+		var/key = SSaccessories.genetic_accessories[bodypart_index]
 		if(mutant_bodyparts[key])
 			var/list/color_list = mutant_bodyparts[key][MUTANT_INDEX_COLOR_LIST]
 			if(color_index && color_index <= color_list.len)
 				set_uni_feature_block(blocknumber, sanitize_hexcolor(color_list[color_index], include_crunch = FALSE))
 			else
-				var/list/accessories_for_key = GLOB.genetic_accessories[key]
+				var/list/accessories_for_key = SSaccessories.genetic_accessories[key]
 				if(mutant_bodyparts[key][MUTANT_INDEX_NAME] in accessories_for_key)
 					set_uni_feature_block(blocknumber, construct_block(mutant_bodyparts.Find(mutant_bodyparts[key][MUTANT_INDEX_NAME]), accessories_for_key.len))
 	else
-		var/block_index = blocknumber - (DNA_MANDATORY_COLOR_BLOCKS+(GLOB.genetic_accessories.len*DNA_BLOCKS_PER_FEATURE))
+		var/block_index = blocknumber - (DNA_MANDATORY_COLOR_BLOCKS+(SSaccessories.genetic_accessories.len*DNA_BLOCKS_PER_FEATURE))
 		var/block_zero_index = block_index-1
 		var/zone_index = (block_zero_index/DNA_BLOCKS_PER_MARKING_ZONE)+1
 		var/zone = GLOB.marking_zones[zone_index]
@@ -186,67 +176,14 @@ GLOBAL_LIST_EMPTY(total_uf_len_by_block)
 	holder.maptext_height = 32 * features["body_size"] // Adjust runechat height
 	current_body_size = features["body_size"]
 
-/mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE, list/override_features, list/override_mutantparts, list/override_markings, retain_features = FALSE, retain_mutantparts = FALSE)
-	if(QDELETED(src))
-		CRASH("You're trying to change your species post deletion, this is a recipe for madness")
-	if(isnull(mrace))
-		CRASH("set_species called without a species to set to")
-	if(!has_dna())
-		return
-
-	var/datum/species/new_race
-	if(ispath(mrace))
-		new_race = new mrace
-	else if(istype(mrace))
-		if(QDELING(mrace))
-			CRASH("someone is calling set_species() and is passing it a qdeling species datum, this is VERY bad, stop it")
-		new_race = mrace
-	else
-		CRASH("set_species called with an invalid mrace [mrace]")
-
-	death_sound = new_race.death_sound
-
-	var/datum/species/old_species = dna.species
-	dna.species = new_race
-
-	if (old_species.properly_gained)
-		old_species.on_species_loss(src, new_race, pref_load)
-
-	//BODYPARTS AND FEATURES - We need to instantiate the list with compatible mutant parts so we don't break things
-
-	if(override_mutantparts && override_mutantparts.len)
-		for(var/feature in dna.mutant_bodyparts)
-			override_mutantparts[feature] = dna.mutant_bodyparts[feature]
-		dna.mutant_bodyparts = override_mutantparts
-
-	if(override_markings && override_markings.len)
-		for(var/feature in dna.body_markings)
-			override_markings[feature] = dna.body_markings[feature]
-		dna.body_markings = override_markings
-
-	if(override_features && override_features.len)
-		for(var/feature in dna.features)
-			override_features[feature] = dna.features[feature]
-		dna.features = override_features
-	//END OF BODYPARTS AND FEATURES
-
-	apply_customizable_dna_features_to_species()
-	dna.unique_features = dna.generate_unique_features()
-
-	dna.update_body_size()
-
-	dna.species.on_species_gain(src, old_species, pref_load)
-	log_mob_tag("TAG: [tag] SPECIES: [key_name(src)] \[[mrace]\]")
-
-
 /mob/living/carbon/proc/apply_customizable_dna_features_to_species()
 	if(!has_dna())
 		CRASH("[src] does not have DNA")
 	dna.species.body_markings = dna.body_markings.Copy()
 	var/list/bodyparts_to_add = dna.mutant_bodyparts.Copy()
 	for(var/key in bodyparts_to_add)
-		if(GLOB.sprite_accessories[key] && bodyparts_to_add[key] && bodyparts_to_add[key][MUTANT_INDEX_NAME])
-			var/datum/sprite_accessory/SP = GLOB.sprite_accessories[key][bodyparts_to_add[key][MUTANT_INDEX_NAME]]
+		if(SSaccessories.sprite_accessories[key] && bodyparts_to_add[key] && bodyparts_to_add[key][MUTANT_INDEX_NAME])
+			var/datum/sprite_accessory/SP = SSaccessories.sprite_accessories[key][bodyparts_to_add[key][MUTANT_INDEX_NAME]]
 			if(!SP?.factual)
 				bodyparts_to_add -= key
 				continue
@@ -273,13 +210,13 @@ GLOBAL_LIST_EMPTY(total_uf_len_by_block)
 	if(HAS_TRAIT(src, TRAIT_SHAVED))
 		set_facial_hairstyle("Shaved", update = FALSE)
 	else
-		var/style = GLOB.facial_hairstyles_list[deconstruct_block(get_uni_identity_block(structure, DNA_FACIAL_HAIRSTYLE_BLOCK), GLOB.facial_hairstyles_list.len)]
+		var/style = SSaccessories.facial_hairstyles_list[deconstruct_block(get_uni_identity_block(structure, DNA_FACIAL_HAIRSTYLE_BLOCK), SSaccessories.facial_hairstyles_list.len)]
 		set_facial_hairstyle(style, update = FALSE)
 
 	if(HAS_TRAIT(src, TRAIT_BALD))
 		set_hairstyle("Bald", update = FALSE)
 	else
-		var/style = GLOB.hairstyles_list[deconstruct_block(get_uni_identity_block(structure, DNA_HAIRSTYLE_BLOCK), GLOB.hairstyles_list.len)]
+		var/style = SSaccessories.hairstyles_list[deconstruct_block(get_uni_identity_block(structure, DNA_HAIRSTYLE_BLOCK), SSaccessories.hairstyles_list.len)]
 		set_hairstyle(style, update = FALSE)
 
 	var/features = dna.unique_features
@@ -295,9 +232,6 @@ GLOBAL_LIST_EMPTY(total_uf_len_by_block)
 		dna.features["skin_color"] = sanitize_hexcolor(get_uni_feature_block(features, DNA_SKIN_COLOR_BLOCK))
 
 	if(icon_update)
-		if(mutcolor_update)
-			update_body(is_creating = TRUE)
-		else
-			update_body()
+		update_body(is_creating = mutcolor_update)
 		if(mutations_overlay_update)
 			update_mutations_overlay()

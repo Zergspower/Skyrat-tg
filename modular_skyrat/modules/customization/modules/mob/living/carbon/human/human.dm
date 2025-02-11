@@ -1,9 +1,6 @@
 //	This DMI holds our radial icons for the 'hide mutant parts' verb
 #define HIDING_RADIAL_DMI 'modular_skyrat/modules/customization/modules/mob/living/carbon/human/MOD_sprite_accessories/icons/radial.dmi'
 
-/mob/living/carbon/human
-	var/static/list/possible_genitals = list(ORGAN_SLOT_PENIS, ORGAN_SLOT_TESTICLES, ORGAN_SLOT_VAGINA, ORGAN_SLOT_BREASTS, ORGAN_SLOT_ANUS)
-
 /mob/living/carbon/human/Topic(href, href_list)
 	. = ..()
 
@@ -11,10 +8,10 @@
 		switch(href_list["lookup_info"])
 			if("genitals")
 				var/list/line = list()
-				for(var/genital in possible_genitals)
+				for(var/genital in GLOB.possible_genitals)
 					if(!dna.species.mutant_bodyparts[genital])
 						continue
-					var/datum/sprite_accessory/genital/G = GLOB.sprite_accessories[genital][dna.species.mutant_bodyparts[genital][MUTANT_INDEX_NAME]]
+					var/datum/sprite_accessory/genital/G = SSaccessories.sprite_accessories[genital][dna.species.mutant_bodyparts[genital][MUTANT_INDEX_NAME]]
 					if(!G)
 						continue
 					if(G.is_hidden(src))
@@ -58,6 +55,9 @@
 
 /mob/living/carbon/human/species/dwarf
 	race = /datum/species/dwarf
+
+/mob/living/carbon/human/species/ghoul
+	race = /datum/species/ghoul
 
 /mob/living/carbon/human/species/roundstartslime
 	race = /datum/species/jelly/roundstartslime

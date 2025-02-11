@@ -6,6 +6,8 @@
 	cooldown_time = 20 SECONDS
 	convert_damage = FALSE
 	die_with_shapeshifted_form = FALSE
+	button_icon = 'icons/mob/actions/actions_ecult.dmi'
+	button_icon_state = "lock_ascension"
 	possible_shapes = list(
 		/mob/living/basic/heretic_summon/ash_spirit,
 		/mob/living/basic/heretic_summon/raw_prophet/ascended,
@@ -26,7 +28,7 @@
 	monster.melee_damage_lower = max((monster.melee_damage_lower * 2), 40)
 	monster.melee_damage_upper = monster.melee_damage_upper / 2
 	monster.transform *= 1.5
-	monster.AddElement(/datum/element/wall_smasher, strength_flag = ENVIRONMENT_SMASH_RWALLS)
+	monster.AddElement(/datum/element/wall_tearer)
 
 /datum/action/cooldown/spell/shapeshift/eldritch/ascension/do_unshapeshift(mob/living/caster)
 	. = ..()

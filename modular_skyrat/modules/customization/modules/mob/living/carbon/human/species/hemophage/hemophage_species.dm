@@ -12,15 +12,11 @@
 		TRAIT_NOBREATH,
 		TRAIT_OXYIMMUNE,
 		TRAIT_VIRUSIMMUNE,
-		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_LITERATE,
 		TRAIT_DRINKS_BLOOD,
 		TRAIT_USES_SKINTONES,
 	)
 	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC
-	default_mutant_bodyparts = list(
-		"legs" = "Normal Legs"
-	)
 	exotic_bloodtype = "U"
 	mutantheart = /obj/item/organ/internal/heart/hemophage
 	mutantliver = /obj/item/organ/internal/liver/hemophage
@@ -32,6 +28,13 @@
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	veteran_only = TRUE
 
+/datum/species/hemophage/allows_food_preferences()
+	return FALSE
+
+/datum/species/hemophage/get_default_mutant_bodyparts()
+	return list(
+		"legs" = list("Normal Legs", FALSE),
+	)
 
 /datum/species/hemophage/check_roundstart_eligible()
 	if(check_holidays(HALLOWEEN))
@@ -39,12 +42,10 @@
 
 	return ..()
 
-
 /datum/species/hemophage/on_species_gain(mob/living/carbon/human/new_hemophage, datum/species/old_species, pref_load)
 	. = ..()
 	to_chat(new_hemophage, HEMOPHAGE_SPAWN_TEXT)
 	new_hemophage.update_body()
-	new_hemophage.set_safe_hunger_level()
 
 
 /datum/species/hemophage/get_species_description()

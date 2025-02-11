@@ -22,7 +22,7 @@
 	. = ..()
 	UnregisterSignal(source, COMSIG_LIVING_UNARMED_ATTACK)
 
-/// If we're targetting an airlock, open it
+/// If we're targeting an airlock, open it
 /datum/element/door_pryer/proc/on_attack(mob/living/basic/attacker, atom/target, proximity_flag)
 	SIGNAL_HANDLER
 	if(!proximity_flag || !istype(target, /obj/machinery/door/airlock))
@@ -35,11 +35,12 @@
 		attacker.balloon_alert(attacker, "busy!")
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
-	if (airlock_target.locked || airlock_target.welded || airlock_target.seal)
-		if (!attacker.combat_mode)
-			airlock_target.balloon_alert(attacker, "it's sealed!")
-			return COMPONENT_CANCEL_ATTACK_CHAIN
+	if (attacker.combat_mode)
 		return // Attack the door
+
+	if (airlock_target.locked || airlock_target.welded || airlock_target.seal)
+		airlock_target.balloon_alert(attacker, "it's sealed!")
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	INVOKE_ASYNC(src, PROC_REF(open_door), attacker, airlock_target)
 	return COMPONENT_CANCEL_ATTACK_CHAIN

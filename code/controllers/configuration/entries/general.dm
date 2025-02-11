@@ -115,9 +115,8 @@
 /// log attack messages
 /datum/config_entry/flag/log_attack
 
-/datum/config_entry/flag/log_subtler // log subtler emotes //SKYRAT EDIT ADDITION
-
-/datum/config_entry/flag/log_econ // log economy actions
+// log subtler emotes
+/datum/config_entry/flag/log_subtler  //SKYRAT EDIT ADDITION
 
 /// log emotes
 /datum/config_entry/flag/log_emote
@@ -188,13 +187,13 @@
 
 /// minimum time between voting sessions (deciseconds, 10 minute default)
 /datum/config_entry/number/vote_delay
-	default = 6000
+	default = 10 MINUTES
 	integer = FALSE
 	min_val = 0
 
 /// length of voting period (deciseconds, default 1 minute)
 /datum/config_entry/number/vote_period
-	default = 600
+	default = 1 MINUTES
 	integer = FALSE
 	min_val = 0
 
@@ -317,7 +316,7 @@
 /datum/config_entry/string/banappeals
 
 /datum/config_entry/string/wikiurl
-	default = "https://wiki.skyrat13.tk/w/index.php" //SKYRAT EDIT - Original: "http://www.tgstation13.org/wiki"
+	default = "https://wiki.skyrat13.space/index.php" //SKYRAT EDIT - Original: "http://www.tgstation13.org/wiki"
 
 /datum/config_entry/string/forumurl
 	default = "http://tgstation13.org/phpBB/index.php"
@@ -451,10 +450,13 @@
 
 /datum/config_entry/flag/irc_first_connection_alert // do we notify the irc channel when somebody is connecting for the first time?
 
+/datum/config_entry/string/ipintel_base
+	default = "check.getipintel.net"
+
 /datum/config_entry/string/ipintel_email
 
 /datum/config_entry/string/ipintel_email/ValidateAndSet(str_val)
-	return str_val != "ch@nge.me" && ..()
+	return str_val != "ch@nge.me" && (!length(str_val) || findtext(str_val, "@")) && ..()
 
 /datum/config_entry/number/ipintel_rating_bad
 	default = 1
@@ -462,18 +464,26 @@
 	min_val = 0
 	max_val = 1
 
-/datum/config_entry/number/ipintel_save_good
-	default = 12
-	integer = FALSE
+/datum/config_entry/flag/ipintel_reject_rate_limited
+	default = FALSE
+
+/datum/config_entry/flag/ipintel_reject_bad
+	default = FALSE
+
+/datum/config_entry/flag/ipintel_reject_unknown
+	default = FALSE
+
+/datum/config_entry/number/ipintel_rate_minute
+	default = 15
 	min_val = 0
 
-/datum/config_entry/number/ipintel_save_bad
-	default = 1
-	integer = FALSE
+/datum/config_entry/number/ipintel_cache_length
+	default = 7
 	min_val = 0
 
-/datum/config_entry/string/ipintel_domain
-	default = "check.getipintel.net"
+/datum/config_entry/number/ipintel_exempt_playtime_living
+	default = 5
+	min_val = 0
 
 /datum/config_entry/flag/aggressive_changelog
 
@@ -642,6 +652,9 @@
 /datum/config_entry/flag/reopen_roundstart_suicide_roles_command_report
 
 /datum/config_entry/flag/auto_profile
+
+/datum/config_entry/number/profiler_interval
+	default = 300 SECONDS
 
 /datum/config_entry/number/drift_dump_threshold
 	default = 4 SECONDS

@@ -28,8 +28,8 @@
 /obj/structure/antfarm/Initialize(mapload)
 	. = ..()
 	var/turf/src_turf = get_turf(src)
-	if(!istype(get_turf(src), /turf/open/misc/asteroid/basalt))
-		src_turf.balloon_alert_to_viewers("must be on basalt")
+	if(!src_turf.GetComponent(/datum/component/simple_farm))
+		src_turf.balloon_alert_to_viewers("must be on farmable surface")
 		return INITIALIZE_HINT_QDEL
 
 	for(var/obj/structure/antfarm/found_farm in range(2, get_turf(src)))
@@ -72,17 +72,24 @@
 	if(istype(attacking_item, /obj/item/food))
 		qdel(attacking_item)
 		balloon_alert(user, "food has been placed")
+		user.mind.adjust_experience(/datum/skill/primitive, 5)
 		ant_chance++
+		if(prob(user.mind.get_skill_modifier(/datum/skill/primitive, SKILL_PROBS_MODIFIER)))
+			ant_chance++
 		return
 
 	if(istype(attacking_item, /obj/item/storage/bag/plants))
 		balloon_alert(user, "feeding the ants")
+		var/skill_modifier = user.mind.get_skill_modifier(/datum/skill/primitive, SKILL_SPEED_MODIFIER)
 		for(var/obj/item/food/selected_food in attacking_item.contents)
-			if(!do_after(user, 1 SECONDS, src))
+			if(!do_after(user, 1 SECONDS * skill_modifier, src))
 				return
 
 			qdel(selected_food)
+			user.mind.adjust_experience(/datum/skill/primitive, 5)
 			ant_chance++
+			if(prob(user.mind.get_skill_modifier(/datum/skill/primitive, SKILL_PROBS_MODIFIER)))
+				ant_chance++
 
 		return
 

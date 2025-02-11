@@ -1,5 +1,14 @@
+// THIS IS A SKYRAT UI FILE
 import { useBackend } from '../backend';
-import { Button, Collapsible, Icon, NoticeBox, Section, Stack, Box } from '../components';
+import {
+  Box,
+  Button,
+  Collapsible,
+  Icon,
+  NoticeBox,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 
 class Interaction {
@@ -19,8 +28,8 @@ class LewdSlot {
   name;
 }
 
-export const InteractionMenu = (props, context) => {
-  const { act, data } = useBackend<Interaction>(context);
+export const InteractionMenu = (props) => {
+  const { act, data } = useBackend<Interaction>();
   const {
     categories = [],
     interactions,
@@ -39,17 +48,15 @@ export const InteractionMenu = (props, context) => {
         {(block_interact && <NoticeBox>Unable to Interact</NoticeBox>) || (
           <NoticeBox>Able to Interact</NoticeBox>
         )}
-        <Stack fill vertical>
+        <Stack vertical>
           <Section key="interactions">
             {categories.map((category) => (
               <Collapsible key={category} title={category}>
-                <Section fill vertical>
-                  <Box mt={0.2} grow>
+                <Section fill>
+                  <Box mt={0.2}>
                     {interactions[category].map((interaction) => (
                       <Button
                         key={interaction}
-                        margin={0}
-                        padding={0}
                         width="150.5px"
                         lineHeight={1.75}
                         disabled={block_interact}
@@ -71,58 +78,60 @@ export const InteractionMenu = (props, context) => {
               </Collapsible>
             ))}
           </Section>
+          {lewd_slots.length > 0 ? (
+            <Section key="item_slots" title={'Lewd Slots'}>
+              <Stack fill>
+                {lewd_slots.map((element: LewdSlot) => {
+                  return (
+                    <Stack.Item key={element.name}>
+                      <Button
+                        onClick={() =>
+                          act('remove_lewd_item', {
+                            item_slot: element.name,
+                            selfref: ref_self,
+                            userref: ref_user,
+                          })
+                        }
+                        color="pink"
+                        tooltip={element.name}
+                      >
+                        <Box
+                          style={{
+                            width: '32px',
+                            height: '32px',
+                            margin: '0.5em 0',
+                          }}
+                        >
+                          {element.img ? (
+                            <img
+                              src={'data:image/png;base64,' + element.img}
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                              }}
+                            />
+                          ) : (
+                            <Icon
+                              name="eye-slash"
+                              size={2}
+                              ml={0}
+                              mt={0.75}
+                              style={{
+                                textAlign: 'center',
+                              }}
+                            />
+                          )}
+                        </Box>
+                      </Button>
+                    </Stack.Item>
+                  );
+                })}
+              </Stack>
+            </Section>
+          ) : (
+            ''
+          )}
         </Stack>
-        {lewd_slots.length > 0 ? (
-          <Section key="item_slots" title={'Lewd Slots'}>
-            <Stack fill>
-              {lewd_slots.map((element: LewdSlot) => {
-                return (
-                  <Stack.Item key={element.name}>
-                    <Button
-                      onClick={() =>
-                        act('remove_lewd_item', {
-                          item_slot: element.name,
-                          selfref: ref_self,
-                          userref: ref_user,
-                        })
-                      }
-                      tooltip={element.name}>
-                      <Box
-                        style={{
-                          'width': '32px',
-                          'height': '32px',
-                          'margin': '0.5em 0',
-                        }}>
-                        {element.img ? (
-                          <img
-                            src={'data:image/png;base64,' + element.img}
-                            style={{
-                              '-ms-interpolation-mode': 'nearest-neighbor',
-                              'width': '100%',
-                              'height': '100%',
-                            }}
-                          />
-                        ) : (
-                          <Icon
-                            name="eye-slash"
-                            size={2}
-                            ml={0}
-                            mt={0.75}
-                            style={{
-                              'text-align': 'center',
-                            }}
-                          />
-                        )}
-                      </Box>
-                    </Button>
-                  </Stack.Item>
-                );
-              })}
-            </Stack>
-          </Section>
-        ) : (
-          ''
-        )}
       </Window.Content>
     </Window>
   );

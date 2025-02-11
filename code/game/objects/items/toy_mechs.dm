@@ -53,6 +53,7 @@
 /obj/item/toy/mecha/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/series, /obj/item/toy/mecha, "Mini-Mecha action figures")
+	AddElement(/datum/element/toy_talk)
 	combat_health = max_combat_health
 	switch(special_attack_type)
 		if(SPECIAL_ATTACK_DAMAGE)
@@ -95,7 +96,7 @@
 			return FALSE
 
 		//dead men tell no tales, incapacitated men fight no fights
-		if(attacker_controller.incapacitated())
+		if(attacker_controller.incapacitated)
 			return FALSE
 		//if the attacker_controller isn't next to the attacking toy (and doesn't have telekinesis), the battle ends
 		if(!in_range(attacker, attacker_controller) && !(attacker_controller.dna.check_mutation(/datum/mutation/human/telekinesis)))
@@ -105,7 +106,7 @@
 
 		//if it's PVP and the opponent is not next to the defending(src) toy (and doesn't have telekinesis), the battle ends
 		if(opponent)
-			if(opponent.incapacitated())
+			if(opponent.incapacitated)
 				return FALSE
 			if(!in_range(src, opponent) && !(opponent.dna.check_mutation(/datum/mutation/human/telekinesis)))
 				opponent.visible_message(span_notice("[opponent.name] separates from [src], ending the battle."), \
@@ -263,12 +264,8 @@
 	if(wins || losses)
 		. += span_notice("This toy has [wins] wins, and [losses] losses.")
 
-/**
- * Override the say proc if they're mute
- */
-/obj/item/toy/mecha/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null, message_range = 7, datum/saymode/saymode = null)
-	if(!quiet)
-		. = ..()
+/obj/item/toy/mecha/can_speak(allow_mimes)
+	return !quiet && ..()
 
 /**
  * The 'master' proc of the mech battle. Processes the entire battle's events and makes sure it start and finishes correctly.
@@ -609,7 +606,7 @@
 
 /obj/item/toy/mecha/deathripley/super_special_attack(obj/item/toy/mecha/victim)
 	playsound(src, 'sound/weapons/sonic_jackhammer.ogg', 20, TRUE)
-	if(victim.combat_health < combat_health) //Instantly kills the other mech if it's health is below our's.
+	if(victim.combat_health < combat_health) //Instantly kills the other mech if its health is below ours.
 		say("EXECUTE!!")
 		victim.combat_health = 0
 	else //Otherwise, just deal one damage.

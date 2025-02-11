@@ -152,7 +152,7 @@
 			"cost" = pack.get_cost(),
 			"orderer" = order.orderer,
 			"reason" = order.reason,
-			"id" = order.id
+			"id" = order.id,
 		))
 	data["amount_by_name"] = amount_by_name
 
@@ -177,7 +177,8 @@
 			"id" = pack,
 			"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
 			"goody" = P.goody,
-			"access" = P.access
+			"access" = P.access,
+			"contraband" = P.contraband,
 		))
 	return data
 
@@ -206,7 +207,7 @@
 		var/mob/living/carbon/human/human = user
 		name = human.get_authentification_name()
 		rank = human.get_assignment(hand_first = TRUE)
-	else if(issilicon(user))
+	else if(HAS_SILICON_ACCESS(user))
 		name = user.real_name
 		rank = "Silicon"
 
@@ -259,7 +260,16 @@
 				applied_coupon = coupon_check
 				break
 
-		var/datum/supply_order/order = new(pack = pack ,orderer = name, orderer_rank = rank, orderer_ckey = ckey, reason = reason, paying_account = account, coupon = applied_coupon, charge_on_purchase = TRUE) //SKYRAT EDIT CHANGE - ORIGINAL: var/datum/supply_order/order = new(pack = pack ,orderer = name, orderer_rank = rank, orderer_ckey = ckey, reason = reason, paying_account = account, coupon = applied_coupon)
+		var/datum/supply_order/order = new(
+			pack = pack ,
+			orderer = name,
+			orderer_rank = rank,
+			orderer_ckey = ckey,
+			reason = reason,
+			paying_account = account,
+			coupon = applied_coupon,
+			charge_on_purchase = TRUE, // SKYRAT EDIT ADDITION
+		)
 		working_list += order
 
 	if(self_paid)
@@ -280,13 +290,14 @@
 			continue
 		if(order.department_destination)
 			say("Only the department that ordered this item may cancel it.")
-			return
+			return FALSE
 		if(order.applied_coupon)
 			say("Coupon refunded.")
 			order.applied_coupon.forceMove(get_turf(src))
 		SSshuttle.shopping_list -= order
-		. = TRUE
-		break
+		qdel(order)
+		return TRUE
+	return FALSE
 /**
  * maps the ordename displayed on the ui to its supply pack id
  * * order_name - the name of the order
@@ -319,7 +330,7 @@
 			else
 				//create the paper from the SSshuttle.shopping_list
 				if(length(SSshuttle.shopping_list))
-					var/obj/item/paper/requisition_paper = new(get_turf(src))
+					var/obj/item/paper/requisition/requisition_paper = new(get_turf(src))
 					requisition_paper.name = "requisition form - [station_time_timestamp()]"
 					var/requisition_text = "<h2>[station_name()] Supply Requisition</h2>"
 					requisition_text += "<hr/>"

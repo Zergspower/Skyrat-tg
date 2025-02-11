@@ -32,7 +32,7 @@
 	var/move_delay = FALSE
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
-	if(opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
+	if(opened || move_delay || user.incapacitated || !isturf(loc) || !has_gravity(loc))
 		return
 	move_delay = TRUE
 	var/oldloc = loc
@@ -50,16 +50,15 @@
 	if(!.)
 		return FALSE
 
-	alerted = null
+	LAZYINITLIST(alerted)
 	var/do_alert = (COOLDOWN_FINISHED(src, alert_cooldown) && (locate(/mob/living) in contents))
 	if(!do_alert)
-
 		return TRUE
+
+	alerted.Cut() // just in case we runtimed and the list didn't get cleared in after_open
 	// Cache the list before we open the box.
-	alerted = viewers(7, src)
-	// There are no mobs to alert? clear the list & prevent further action after opening the box
-	if(!(locate(/mob/living) in alerted))
-		alerted = null
+	for(var/mob/living/alerted_mob in viewers(7, src))
+		alerted += alerted_mob
 
 	return TRUE
 
@@ -73,10 +72,11 @@
 	for(var/mob/living/alerted_mob as anything in alerted)
 		if(alerted_mob.stat != CONSCIOUS || alerted_mob.is_blind())
 			continue
-		if(!alerted_mob.incapacitated(IGNORE_RESTRAINTS))
+		if(!INCAPACITATED_IGNORING(alerted_mob, INCAPABLE_RESTRAINTS))
 			alerted_mob.face_atom(src)
 		alerted_mob.do_alert_animation()
 
+	alerted.Cut()
 	playsound(loc, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
 /// Does the MGS ! animation

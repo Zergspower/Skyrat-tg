@@ -20,10 +20,12 @@
 
 /mob/living/basic/pet/penguin/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/cultist_pet)
+	AddElement(/datum/element/wears_collar)
 	AddElement(/datum/element/ai_retaliate)
 	AddElement(/datum/element/ai_flee_while_injured)
 	AddElement(/datum/element/pet_bonus, "honks happily!")
-	AddElement(/datum/element/waddling)
+	AddElementTrait(TRAIT_WADDLING, INNATE_TRAIT, /datum/element/waddling)
 	if(!can_lay_eggs)
 		return
 	AddComponent(\
@@ -84,7 +86,7 @@
 
 /datum/ai_controller/basic_controller/penguin
 	blackboard = list(
-		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic,
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 	)
 
 	ai_traits = STOP_MOVING_WHEN_PULLED
@@ -178,7 +180,7 @@
 
 /datum/ai_controller/basic_controller/penguin/baby
 	blackboard = list(
-		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic,
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 		BB_FIND_MOM_TYPES = list(/mob/living/basic/pet/penguin),
 		BB_IGNORE_MOM_TYPES = list(/mob/living/basic/pet/penguin/baby),
 	)
@@ -196,4 +198,10 @@
 /mob/living/basic/pet/penguin/baby/permanent
 	can_grow_up = FALSE
 
+/mob/living/basic/pet/penguin/emperor/snowdin
+	minimum_survivable_temperature = ICEBOX_MIN_TEMPERATURE
+	gold_core_spawnable = NO_SPAWN
 
+/mob/living/basic/pet/penguin/baby/permanent/snowdin
+	minimum_survivable_temperature = ICEBOX_MIN_TEMPERATURE
+	gold_core_spawnable = NO_SPAWN

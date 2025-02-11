@@ -56,11 +56,14 @@
 	name = "brass spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon_state = "ratvarian_spear"
-	embedding = list("max_damage_mult" = 15, "armour_block" = 80)
+	embed_type = /datum/embed_data/spear/brass
 	throwforce = 36
 	force = 25
 	armour_penetration = 24
 
+/datum/embed_data/spear/brass
+	impact_pain_mult = parent_type::impact_pain_mult + 8
+	remove_pain_mult = parent_type::remove_pain_mult + 8
 
 /obj/item/clockwork/weapon/brass_battlehammer
 	name = "brass battle-hammer"
@@ -146,7 +149,7 @@
 	to_chat(target, span_brass("[src] glows, indicating the next attack will disrupt electronics of the target."))
 
 
-/obj/item/gun/ballistic/bow/clockwork
+/obj/item/gun/ballistic/bow/clockwork // SKYRAT TODO - Make Arrow icon independent from sprite
 	name = "brass bow"
 	desc = "A bow made from brass and other components that you can't quite understand. It glows with a deep energy and frabricates arrows by itself."
 	icon = 'modular_skyrat/modules/clock_cult/icons/weapons/clockwork_weapons.dmi'
@@ -168,11 +171,10 @@
 	AddElement(/datum/element/clockwork_description, "Firing from brass tiles will halve the time that it takes to recharge a bolt.")
 	AddElement(/datum/element/clockwork_pickup)
 
-/obj/item/gun/ballistic/bow/clockwork/afterattack(atom/target, mob/living/user, flag, params, passthrough)
+/obj/item/gun/ballistic/bow/clockwork/try_fire_gun(atom/target, mob/living/user, params)
 	if(!drawn || !chambered)
 		to_chat(user, span_notice("[src] must be drawn to fire a shot!"))
-		return
-
+		return FALSE
 	return ..()
 
 /obj/item/gun/ballistic/bow/clockwork/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)

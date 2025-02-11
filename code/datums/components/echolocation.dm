@@ -1,14 +1,14 @@
 /datum/component/echolocation
 	/// Radius of our view.
 	var/echo_range = 4
-	/// Time between echolocations.
-	var/cooldown_time = 2 SECONDS
+	/// Time between echolocations. IMPORTANT!! The effective time in local and the effective time in live are very different. The second is noticeably slower,
+	var/cooldown_time = 1 SECONDS
 	/// Time for the image to start fading out.
-	var/image_expiry_time = 1.5 SECONDS
+	var/image_expiry_time = 0.7 SECONDS
 	/// Time for the image to fade in.
-	var/fade_in_time = 0.5 SECONDS
+	var/fade_in_time = 0.2 SECONDS
 	/// Time for the image to fade out and delete itself.
-	var/fade_out_time = 0.5 SECONDS
+	var/fade_out_time = 0.3 SECONDS
 	/// Are images static? If yes, spawns them on the turf and makes them not change location. Otherwise they change location and pixel shift with the original.
 	var/images_are_static = TRUE
 	/// With mobs that have this echo group in their echolocation receiver trait, we share echo images.
@@ -17,9 +17,7 @@
 	var/blocking_trait
 	/// Ref of the client color we give to the echolocator.
 	var/client_color
-	/// Associative list of world.time when created to a list of the images.
-	var/list/images = list()
-	/// Associative list of world.time when created to a list of receivers.
+	/// Associative list of receivers to lists of atoms they are rendering (those atoms are associated to data of the image and time they were rendered at).
 	var/list/receivers = list()
 	/// All the saved appearances, keyed by icon-icon_state.
 	var/static/list/saved_appearances = list()
@@ -30,11 +28,11 @@
 	/// A matrix that turns everything except #ffffff into pure blackness, used for our images (the outlines are #ffffff).
 	var/static/list/black_white_matrix = list(85, 85, 85, 0, 85, 85, 85, 0, 85, 85, 85, 0, 0, 0, 0, 1, -254, -254, -254, 0)
 	/// A matrix that turns everything into pure white.
-	var/static/list/white_matrix = list(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 0, 0, 0, 1, 0, -0, 0, 0)
+	var/static/list/white_matrix = list(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 0, 0, 0, 1, 0, 0, 0, 0)
 	/// Cooldown for the echolocation.
 	COOLDOWN_DECLARE(cooldown_last)
 
-/datum/component/echolocation/Initialize(echo_range, cooldown_time, image_expiry_time, fade_in_time, fade_out_time, images_are_static, blocking_trait, echo_group, echo_icon, color_path)
+/datum/component/echolocation/Initialize(echo_range, cooldown_time, image_expiry_time, fade_in_time, fade_out_time, images_are_static, blocking_trait, echo_group, echo_icon, color_path, use_echo = TRUE, show_own_outline = FALSE, personal_color = "#ffffff") // SKYRAT EDIT CHANGE - ORIGINAL: /datum/component/echolocation/Initialize(echo_range, cooldown_time, image_expiry_time, fade_in_time, fade_out_time, images_are_static, blocking_trait, echo_group, echo_icon = "echo", color_path)
 	. = ..()
 	var/mob/living/echolocator = parent
 	if(!istype(echolocator))
@@ -57,23 +55,34 @@
 		src.images_are_static = images_are_static
 	if(!isnull(blocking_trait))
 		src.blocking_trait = blocking_trait
+	// SKYRAT ADDITION START: echolocation
+	src.show_own_outline = show_own_outline
+	src.echo_color = personal_color
+	// SKYRAT EDIT ADDITION END
 	if(ispath(color_path))
 		client_color = echolocator.add_client_colour(color_path)
 	src.echo_group = echo_group || REF(src)
 	echolocator.add_traits(list(TRAIT_ECHOLOCATION_RECEIVER, TRAIT_TRUE_NIGHT_VISION), echo_group) //so they see all the tiles they echolocated, even if they are in the dark
 	echolocator.become_blind(ECHOLOCATION_TRAIT)
-	echolocator.overlay_fullscreen("echo", /atom/movable/screen/fullscreen/echo, echo_icon)
+	// SKYRAT EDIT ADDITION START
+	if (use_echo) // add constructor toggle to not use the eye overlay
+		echolocator.overlay_fullscreen("echo", /atom/movable/screen/fullscreen/echo, echo_icon)
+	// SKYRAT EDIT ADDITION END
 	START_PROCESSING(SSfastprocess, src)
 
-/datum/component/echolocation/Destroy(force, silent)
+/datum/component/echolocation/Destroy(force)
 	STOP_PROCESSING(SSfastprocess, src)
 	var/mob/living/echolocator = parent
 	QDEL_NULL(client_color)
 	echolocator.remove_traits(list(TRAIT_ECHOLOCATION_RECEIVER, TRAIT_TRUE_NIGHT_VISION), echo_group)
 	echolocator.cure_blind(ECHOLOCATION_TRAIT)
 	echolocator.clear_fullscreen("echo")
-	for(var/timeframe in images)
-		delete_images(timeframe)
+	for(var/mob/living/echolocate_receiver as anything in receivers)
+		if(!echolocate_receiver.client)
+			continue
+		for(var/atom/rendered_atom as anything in receivers[echolocate_receiver])
+			echolocate_receiver.client.images -= receivers[echolocate_receiver][rendered_atom]["image"]
+		receivers -= list(echolocate_receiver)
 	return ..()
 
 /datum/component/echolocation/process()
@@ -83,7 +92,7 @@
 	echolocate()
 
 /datum/component/echolocation/proc/echolocate()
-	if(!COOLDOWN_FINISHED(src, cooldown_last))
+	if(stall || !COOLDOWN_FINISHED(src, cooldown_last)) // SKYRAT EDIT CHANGE - ORIGINAL: if(!COOLDOWN_FINISHED(src, cooldown_last))
 		return
 	COOLDOWN_START(src, cooldown_last, cooldown_time)
 	var/mob/living/echolocator = parent
@@ -100,13 +109,11 @@
 	if(!length(filtered))
 		return
 	var/current_time = "[world.time]"
-	images[current_time] = list()
-	receivers[current_time] = list()
 	for(var/mob/living/viewer in filtered)
 		if(blocking_trait && HAS_TRAIT(viewer, blocking_trait))
 			continue
-		if(HAS_TRAIT_FROM(viewer, TRAIT_ECHOLOCATION_RECEIVER, echo_group))
-			receivers[current_time] += viewer
+		if(HAS_TRAIT_FROM(viewer, TRAIT_ECHOLOCATION_RECEIVER, echo_group) && isnull(receivers[viewer]))
+			receivers[viewer] = list()
 	for(var/atom/filtered_atom as anything in filtered)
 		show_image(saved_appearances["[filtered_atom.icon]-[filtered_atom.icon_state]"] || generate_appearance(filtered_atom), filtered_atom, current_time)
 	addtimer(CALLBACK(src, PROC_REF(fade_images), current_time), image_expiry_time)
@@ -121,15 +128,29 @@
 	if(images_are_static)
 		final_image.pixel_x = input.pixel_x
 		final_image.pixel_y = input.pixel_y
-	if(HAS_TRAIT_FROM(input, TRAIT_ECHOLOCATION_RECEIVER, echo_group)) //mark other echolocation with full white
-		final_image.color = white_matrix
-	images[current_time] += final_image
-	for(var/mob/living/echolocate_receiver as anything in receivers[current_time])
-		if(echolocate_receiver == input)
+	// SKYRAT ADDITION START: echolocation (show outlines on self)
+	if(HAS_TRAIT_FROM(input, TRAIT_ECHOLOCATION_RECEIVER, echo_group)) //mark other echolocation with full white, except ourselves
+		var/datum/component/echolocation/located_component = input.GetComponent(/datum/component/echolocation)
+		var/mob/living/echolocator = parent
+		if(located_component)
+			final_image.color = located_component.echo_color
+		else if(input != echolocator)
+			final_image.color = white_matrix
+	// SKYRAT EDIT ADDITION END
+	var/list/fade_ins = list(final_image)
+	for(var/mob/living/echolocate_receiver as anything in receivers)
+		if(echolocate_receiver == input && !show_own_outline) // SKYRAT EDIT CHANGE - ORIGINAL: if(echolocate_receiver == input)
 			continue
-		if(echolocate_receiver.client)
-			echolocate_receiver.client.images += final_image
-	animate(final_image, alpha = 255, time = fade_in_time)
+		if(receivers[echolocate_receiver][input])
+			var/previous_image = receivers[echolocate_receiver][input]["image"]
+			fade_ins |= previous_image
+			receivers[echolocate_receiver][input] = list("image" = previous_image, "time" = current_time)
+		else
+			if(echolocate_receiver.client)
+				echolocate_receiver.client.images += final_image
+			receivers[echolocate_receiver][input] = list("image" = final_image, "time" = current_time)
+	for(var/image_echo in fade_ins)
+		animate(image_echo, alpha = 255, time = fade_in_time)
 
 /datum/component/echolocation/proc/generate_appearance(atom/input)
 	var/use_outline = TRUE
@@ -137,7 +158,6 @@
 	copied_appearance.appearance = input
 	if(istype(input, /obj/machinery/door/airlock)) //i hate you
 		copied_appearance.cut_overlays()
-		copied_appearance.icon = 'icons/obj/doors/airlocks/station/public.dmi'
 		copied_appearance.icon_state = "closed"
 	else if(danger_turfs[input.type])
 		copied_appearance.icon = 'icons/turf/floors.dmi'
@@ -155,18 +175,23 @@
 	return copied_appearance
 
 /datum/component/echolocation/proc/fade_images(from_when)
-	for(var/image_echo in images[from_when])
+	var/fade_outs = list()
+	for(var/mob/living/echolocate_receiver as anything in receivers)
+		for(var/atom/rendered_atom as anything in receivers[echolocate_receiver])
+			if(receivers[echolocate_receiver][rendered_atom]["time"] <= from_when)
+				fade_outs |= receivers[echolocate_receiver][rendered_atom]["image"]
+	for(var/image_echo in fade_outs)
 		animate(image_echo, alpha = 0, time = fade_out_time)
 	addtimer(CALLBACK(src, PROC_REF(delete_images), from_when), fade_out_time)
 
 /datum/component/echolocation/proc/delete_images(from_when)
-	for(var/mob/living/echolocate_receiver as anything in receivers[from_when])
-		if(!echolocate_receiver.client)
-			continue
-		for(var/image_echo in images[from_when])
-			echolocate_receiver.client.images -= image_echo
-	images -= from_when
-	receivers -= from_when
+	for(var/mob/living/echolocate_receiver as anything in receivers)
+		for(var/atom/rendered_atom as anything in receivers[echolocate_receiver])
+			if(receivers[echolocate_receiver][rendered_atom]["time"] <= from_when && echolocate_receiver.client)
+				echolocate_receiver.client.images -= receivers[echolocate_receiver][rendered_atom]["image"]
+				receivers[echolocate_receiver] -= rendered_atom
+		if(!length(receivers[echolocate_receiver]))
+			receivers -= echolocate_receiver
 
 /atom/movable/screen/fullscreen/echo
 	icon_state = "echo"

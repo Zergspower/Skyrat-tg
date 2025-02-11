@@ -5,7 +5,7 @@
 // simultaneously is an annoying distraction.
 /obj/item/uplink
 	name = "station bounced radio"
-	icon = 'icons/obj/radio.dmi'
+	icon = 'icons/obj/devices/voice.dmi'
 	icon_state = "radio"
 	inhand_icon_state = "radio"
 	worn_icon_state = "radio"
@@ -14,7 +14,7 @@
 	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
 	dog_fashion = /datum/dog_fashion/back
 
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	throw_speed = 3
 	throw_range = 7
@@ -52,7 +52,7 @@
 
 /obj/item/uplink/nuclear/debug
 	name = "debug nuclear uplink"
-	uplink_flag = UPLINK_NUKE_OPS
+	uplink_flag = UPLINK_ALL_SYNDIE_OPS
 
 /obj/item/uplink/nuclear/debug/Initialize(mapload, owner, tc_amount = 9000, datum/uplink_handler/uplink_handler_override = null)
 	. = ..()
@@ -67,6 +67,10 @@
 	. = ..()
 	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
 	hidden_uplink.allow_restricted = FALSE
+
+///A subtype used for lone ops, with some of the stuff they shouldn't/can't access removed from purchase.
+/obj/item/uplink/loneop
+	uplink_flag = UPLINK_LONE_OP
 
 /obj/item/uplink/clownop
 	uplink_flag = UPLINK_CLOWN_OPS
@@ -110,12 +114,12 @@
 
 // Multitool uplink
 ////obj/item/multitool/uplink/Initialize(mapload, owner, tc_amount = 20, datum/uplink_handler/uplink_handler_override = null) //ORIGINAL
-/obj/item/multitool/uplink/Initialize(mapload, owner, tc_amount = 35, datum/uplink_handler/uplink_handler_override = null) //SKYRAT EDIT CHANGE
+/obj/item/multitool/uplink/Initialize(mapload, owner, tc_amount = 35, datum/uplink_handler/uplink_handler_override = null) //SKYRAT EDIT CHANGE. Original tc_amount = 20
 	. = ..()
 	AddComponent(/datum/component/uplink, owner, FALSE, TRUE, UPLINK_TRAITORS, tc_amount)
 
 // Pen uplink
 ///obj/item/pen/uplink/Initialize(mapload, owner, tc_amount = 20, datum/uplink_handler/uplink_handler_override = null) //ORIGINAL
-/obj/item/pen/uplink/Initialize(mapload, owner, tc_amount = 35, datum/uplink_handler/uplink_handler_override = null) //SKYRAT EDIT CHANGE
+/obj/item/pen/uplink/Initialize(mapload, owner, tc_amount = 35, datum/uplink_handler/uplink_handler_override = null) //SKYRAT EDIT CHANGE. Original tc_amount = 20
 	. = ..()
 	AddComponent(/datum/component/uplink, owner, TRUE, FALSE, UPLINK_TRAITORS, tc_amount)

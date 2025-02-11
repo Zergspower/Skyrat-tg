@@ -4,29 +4,40 @@
 	product_ads = "Crack capitalist skulls!;Beat some heads in!;Don't forget - harm is good!;Your weapons are right here.;Handcuffs!;Freeze, scumbag!;Don't tase me bro!;Tase them, bro.;Why not have a donut?"
 	icon = 'modular_skyrat/modules/sec_haul/icons/vending/vending.dmi'
 	products = list(
-		/obj/item/restraints/handcuffs = 8,
-		/obj/item/restraints/handcuffs/cable/zipties = 12,
-		/obj/item/grenade/flashbang = 6,
-		/obj/item/assembly/flash/handheld = 8,
+		/obj/item/restraints/handcuffs = 18,
+		/obj/item/restraints/handcuffs/cable/zipties = 22,
+		/obj/item/grenade/flashbang = 16,
+		/obj/item/assembly/flash/handheld = 18,
 		/obj/item/food/donut/plain = 12,
-		/obj/item/storage/box/evidence = 6,
-		/obj/item/flashlight/seclite = 6,
-		/obj/item/restraints/legcuffs/bola/energy = 10,
+		/obj/item/storage/box/evidence = 16,
+		/obj/item/flashlight/seclite = 16,
+		/obj/item/restraints/legcuffs/bola/energy = 20,
+		/obj/item/clothing/gloves/tackler/security = 5,
+		/obj/item/ammo_box/advanced/s12gauge/bean = 2,
+	)
+	contraband = list(
+		/obj/item/clothing/glasses/sunglasses = 2,
+		/obj/item/storage/fancy/donut_box = 2,
+		/obj/item/ammo_box/magazine/m9mm = 4,
 	)
 	premium = list(
-		/obj/item/storage/belt/security/webbing = 4,
-		/obj/item/storage/belt/security/webbing/peacekeeper = 4,
+		/obj/item/storage/belt/security/webbing = 5,
+		/obj/item/storage/belt/security/webbing/peacekeeper = 5,
 		/obj/item/coin/antagtoken = 1,
 		/obj/item/clothing/head/helmet/blueshirt = 3,
 		/obj/item/clothing/suit/armor/vest/blueshirt = 3,
-		/obj/item/clothing/gloves/tackler/security = 5,
 		/obj/item/grenade/stingbang = 5,
-		/obj/item/watertank/pepperspray = 2
+		/obj/item/watertank/pepperspray = 2,
+		/obj/item/storage/belt/holster/energy = 4,
+		/obj/item/storage/box/holobadge = 1,
+		/obj/item/ammo_box/magazine/m9mm/rubber = 12,
+		/obj/item/ammo_box/magazine/m9mm/ihdf = 12,
+		/obj/item/ammo_box/c10mm/speedloader/rubber = 12,
+		/obj/item/ammo_box/advanced/s12gauge/frangible = 2,
 	)
-	refill_canister = /obj/item/vending_refill/security_peacekeeper
 
-/obj/item/vending_refill/security_peacekeeper
-	icon_state = "refill_sec"
+/obj/item/vending_refill/security
+	machine_name = "Armadyne Peacekeeper Equipment Vendor"
 
 /obj/machinery/vending/wardrobe/sec_wardrobe
 	name = "\improper Peacekeeper Outfitting Station"
@@ -47,6 +58,10 @@
 					/obj/item/storage/backpack/duffelbag/sec = 5,
 					/obj/item/clothing/under/rank/security/officer = 10,
 					/obj/item/clothing/under/rank/security/officer/skirt = 10,
+					/obj/item/clothing/under/rank/security/peacekeeper/skirt = 10,
+					/obj/item/clothing/under/rank/security/peacekeeper/shortskirt = 10,
+					/obj/item/clothing/under/rank/security/peacekeeper/miniskirt = 10,
+					/obj/item/clothing/under/rank/security/peacekeeper/jumpsuit = 10,
 					/obj/item/clothing/under/rank/security/peacekeeper = 10,
 					/obj/item/clothing/under/rank/security/skyrat/utility = 3,
 					/obj/item/clothing/shoes/jackboots/sec = 10,
@@ -57,16 +72,16 @@
 					/obj/item/clothing/head/hats/warden/police/patrol = 5,
 					/obj/item/clothing/head/costume/ushanka/sec = 10,
 					/obj/item/clothing/gloves/color/black/security = 10,
+					/obj/item/clothing/head/helmet/sec/futuristic = 5,
 					)
 	premium = list( /obj/item/clothing/under/rank/security/officer/formal = 3,
 					/obj/item/clothing/suit/jacket/officer/blue = 3,
 					/obj/item/clothing/head/beret/sec/navyofficer = 3)
-	refill_canister = /obj/item/vending_refill/wardrobe/peacekeeper_wardrobe
 	payment_department = ACCOUNT_SEC
 	light_color = COLOR_MODERATE_BLUE
 
-/obj/item/vending_refill/wardrobe/peacekeeper_wardrobe
-	machine_name = "Peacekeeper outfitting station"
+/obj/item/vending_refill/wardrobe/sec_wardrobe
+	machine_name = "Peacekeeper Outfitting Station"
 
 //List for the old one, for when its mapped in; curates it nicely, adds /redsec to the items, and also prevents some conflicts with the above vendor
 /obj/machinery/vending/wardrobe/sec_wardrobe/red

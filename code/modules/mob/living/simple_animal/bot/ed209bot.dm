@@ -2,6 +2,7 @@
 	name = "\improper ED-209 Security Robot"
 	desc = "A security robot. He looks less than thrilled."
 	icon_state = "ed209"
+	light_color = "#f84e4e"
 	density = TRUE
 	health = 100
 	maxHealth = 100
@@ -41,10 +42,10 @@
 	var/list/targets = list()
 	for(var/mob/living/carbon/nearby_carbon in view(7, src)) //Let's find us a target
 		var/threatlevel = 0
-		if(nearby_carbon.incapacitated())
+		if(nearby_carbon.incapacitated)
 			continue
-		threatlevel = nearby_carbon.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
-		if(threatlevel < 4 )
+		threatlevel = nearby_carbon.assess_threat(judgement_criteria)
+		if(threatlevel < THREAT_ASSESS_DANGEROUS)
 			continue
 		var/dst = get_dist(src, nearby_carbon)
 		if(dst <= 1 || dst > 7)

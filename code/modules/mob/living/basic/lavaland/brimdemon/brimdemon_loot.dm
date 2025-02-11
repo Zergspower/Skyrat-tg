@@ -8,7 +8,7 @@
 	var/static/list/comic_phrases = list("BOOM", "BANG", "KABLOW", "KAPOW", "OUCH", "BAM", "KAPOW", "WHAM", "POW", "KABOOM")
 
 /obj/item/crusher_trophy/brimdemon_fang/effect_desc()
-	return "mark detonation creates visual and audiosensory effects on the target"
+	return "mark detonation to create visual and audiosensory effects at the target"
 
 /obj/item/crusher_trophy/brimdemon_fang/on_mark_detonation(mob/living/target, mob/living/user)
 	target.balloon_alert_to_viewers("[pick(comic_phrases)]!")
@@ -53,4 +53,4 @@
 	if(!COOLDOWN_FINISHED(src, ore_sensing_cooldown))
 		return
 	COOLDOWN_START(src, ore_sensing_cooldown, cooldown)
-	mineral_scan_pulse(get_turf(src), range)
+	mineral_scan_pulse(get_turf(src), range, src)

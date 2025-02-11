@@ -6,7 +6,7 @@
 	/// A list of possible guns to spawn.
 	var/list/guns
 	/// Do we fan out the items spawned for a natural effect?
-	var/fan_out_items = TRUE
+	var/fan_out_items = FALSE
 	/// How many mags per gun do we spawn, if it takes magazines.
 	var/mags_to_spawn = 3
 	/// Do we want to angle it so that it is horizontal?
@@ -17,15 +17,18 @@
 	. = ..()
 
 	if(guns)
-		var/current_offset = -10
+		var/gun_count = 0
 		var/offset_percent = 20 / guns.len
 		for(var/gun in guns) // 11/20/21: Gun spawners now spawn 1 of each gun in it's list no matter what, so as to reduce the RNG of the armory stock.
 			var/obj/item/gun/spawned_gun = new gun(loc)
 
 			if(vertical_guns)
 				spawned_gun.place_on_rack()
-				spawned_gun.pixel_x = current_offset
-				current_offset += offset_percent
+				spawned_gun.pixel_x = -10 + (offset_percent * gun_count)
+			else if (fan_out_items)
+				spawned_gun.pixel_x = spawned_gun.pixel_y = ((!(gun_count%2)*gun_count/2)*-1)+((gun_count%2)*(gun_count+1)/2*1)
+
+			gun_count++
 
 			if(istype(spawned_gun, /obj/item/gun/ballistic))
 				var/obj/item/gun/ballistic/spawned_ballistic_gun = spawned_gun
@@ -34,6 +37,12 @@
 					spawned_box.name = "ammo box - [spawned_ballistic_gun.name]"
 					for(var/i in 1 to mags_to_spawn)
 						new spawned_ballistic_gun.spawn_magazine_type (spawned_box)
+
+			if(istype(spawned_gun, /obj/item/gun/microfusion))
+				var/obj/item/gun/microfusion/spawned_microfusion_gun = spawned_gun
+				var/obj/item/storage/box/ammo_box/microfusion/armory/spawned_box = new(loc)
+				for(var/i in 1 to mags_to_spawn)
+					new spawned_microfusion_gun.cell_type (spawned_box)
 
 /obj/effect/spawner/armory_spawn/shotguns
 	guns = list(
@@ -64,10 +73,21 @@
 	name = "microfusion cell container"
 	desc = "A box filled with microfusion cells."
 
-/obj/item/storage/box/ammo_box/microfusion/PopulateContents()
-	new /obj/item/stock_parts/cell/microfusion(src)
-	new /obj/item/stock_parts/cell/microfusion(src)
-	new /obj/item/stock_parts/cell/microfusion(src)
+/obj/item/storage/box/ammo_box/microfusion/armory/PopulateContents()
+	new /obj/item/storage/pouch/ammo(src)
+
+/obj/item/storage/box/ammo_box/microfusion/full/PopulateContents()
+	new /obj/item/storage/pouch/ammo(src)
+	new /obj/item/stock_parts/power_store/cell/microfusion(src)
+	new /obj/item/stock_parts/power_store/cell/microfusion(src)
+	new /obj/item/stock_parts/power_store/cell/microfusion(src)
+
+/obj/item/storage/box/ammo_box/microfusion/bagless
+
+/obj/item/storage/box/ammo_box/microfusion/bagless/PopulateContents()
+	new /obj/item/stock_parts/power_store/cell/microfusion(src)
+	new /obj/item/stock_parts/power_store/cell/microfusion(src)
+	new /obj/item/stock_parts/power_store/cell/microfusion(src)
 
 /obj/effect/spawner/armory_spawn/centcom_rifles
 	guns = list(

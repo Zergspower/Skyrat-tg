@@ -26,6 +26,9 @@
 
 	return FALSE
 
+/datum/sprite_accessory/horns/none
+	name = SPRITE_ACCESSORY_NONE
+	icon_state = "none"
 
 /datum/sprite_accessory/horns/angler
 	default_color = DEFAULT_SECONDARY
@@ -64,6 +67,10 @@
 /datum/sprite_accessory/horns/big/antlers
 	name = "Antlers"
 	icon_state = "antlers"
+
+/datum/sprite_accessory/horns/big/wideantlers
+	name = "Antlers (Palmated)"
+	icon_state = "wideantlers"
 
 /datum/sprite_accessory/horns/big/impala
 	name = "Impala"

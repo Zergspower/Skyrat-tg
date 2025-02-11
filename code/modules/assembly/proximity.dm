@@ -134,7 +134,7 @@
 		. += "prox_scanning"
 		attached_overlays += "prox_scanning"
 
-/obj/item/assembly/prox_sensor/ui_status(mob/user)
+/obj/item/assembly/prox_sensor/ui_status(mob/user, datum/ui_state/state)
 	if(is_secured(user))
 		return ..()
 	return UI_CLOSE
@@ -154,7 +154,7 @@
 	data["sensitivity"] = sensitivity
 	return data
 
-/obj/item/assembly/prox_sensor/ui_act(action, params)
+/obj/item/assembly/prox_sensor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return

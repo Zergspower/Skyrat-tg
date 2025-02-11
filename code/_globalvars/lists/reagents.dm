@@ -36,10 +36,10 @@ GLOBAL_LIST_INIT(reagent_containers, list(
 		/obj/item/reagent_containers/pill/patch/style
 	)),
 	// SKYRAT EDIT ADDITION START
-	CAT_HYPOS = list(
-		/obj/item/reagent_containers/cup/vial/small,
-		/obj/item/reagent_containers/cup/vial/large,
-	),
+	CAT_HYPOS = typecacheof(list(
+		/obj/item/reagent_containers/cup/vial/small/style,
+		/obj/item/reagent_containers/cup/vial/large/style,
+	)),
 	CAT_DARTS = typecacheof(list(
 		/obj/item/reagent_containers/syringe/smartdart
 	)),
@@ -58,13 +58,11 @@ GLOBAL_LIST_INIT(chemical_reagents_list, init_chemical_reagent_list())
 GLOBAL_LIST(chemical_reactions_results_lookup_list)
 /// list of all reagents that are parent types used to define a bunch of children - but aren't used themselves as anything.
 GLOBAL_LIST(fake_reagent_blacklist)
-/// Turfs metalgen cant touch
+/// Turfs metalgen can't touch
 GLOBAL_LIST_INIT(blacklisted_metalgen_types, typecacheof(list(
 	/turf/closed/indestructible, //indestructible turfs should be indestructible, metalgen transmutation to plasma allows them to be destroyed
 	/turf/open/indestructible
 )))
-/// Names of human readable reagents used by plumbing UI.
-GLOBAL_LIST_INIT(chemical_name_list, init_chemical_name_list())
 /// Map of reagent names to its datum path
 GLOBAL_LIST_INIT(name2reagent, build_name2reagentlist())
 
@@ -80,16 +78,6 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagentlist())
 		reagent_list[path] = target_object
 
 	return reagent_list
-
-/// Creates an list which is indexed by reagent name . used by plumbing reaction chamber and chemical filter UI
-/proc/init_chemical_name_list()
-	var/list/name_list = list()
-
-	for(var/X in GLOB.chemical_reagents_list)
-		var/datum/reagent/Reagent = GLOB.chemical_reagents_list[X]
-		name_list += Reagent.name
-
-	return sort_list(name_list)
 
 /**
  * Chemical Reactions - Initialises all /datum/chemical_reaction into a list
@@ -196,7 +184,19 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagentlist())
 /// Builds map of reagent name to its datum path
 /proc/build_name2reagentlist()
 	. = list()
-	for (var/datum/reagent/R as anything in subtypesof(/datum/reagent))
-		var/name = initial(R.name)
+
+	//build map with keys stored separately
+	var/list/name_to_reagent = list()
+	var/list/only_names = list()
+	for (var/datum/reagent/reagent as anything in GLOB.chemical_reagents_list)
+		var/name = initial(reagent.name)
 		if (length(name))
-			.[ckey(name)] = R
+			name_to_reagent[name] = reagent
+			only_names += name
+
+	//sort keys
+	only_names = sort_list(only_names)
+
+	//build map with sorted keys
+	for(var/name as anything in only_names)
+		.[name] = name_to_reagent[name]

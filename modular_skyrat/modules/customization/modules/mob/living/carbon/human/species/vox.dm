@@ -7,7 +7,6 @@
 	inherent_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,
 		TRAIT_CAN_STRIP,
-		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_LITERATE,
 		TRAIT_MUTANT_COLORS,
 	)
@@ -17,12 +16,6 @@
 	mutantbrain = /obj/item/organ/internal/brain/vox
 	breathid = "n2"
 	mutant_bodyparts = list()
-	default_mutant_bodyparts = list(
-		"tail" = "Vox Tail",
-		"legs" = DIGITIGRADE_LEGS,
-		"snout" = "Vox Snout",
-		"spines" = ACC_RANDOM
-	)
 	payday_modifier = 1.0
 	outfit_important_for_life = /datum/outfit/vox
 	species_language_holder = /datum/language_holder/vox
@@ -40,16 +33,26 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/mutant/vox,
 	)
 	custom_worn_icons = list(
-		LOADOUT_ITEM_HEAD = VOX_HEAD_ICON,
-		LOADOUT_ITEM_MASK = VOX_MASK_ICON,
-		LOADOUT_ITEM_SUIT = VOX_SUIT_ICON,
-		LOADOUT_ITEM_UNIFORM = VOX_UNIFORM_ICON,
-		LOADOUT_ITEM_HANDS =  VOX_HANDS_ICON,
-		LOADOUT_ITEM_SHOES = VOX_FEET_ICON,
-		LOADOUT_ITEM_GLASSES = VOX_EYES_ICON,
-		LOADOUT_ITEM_BELT = VOX_BELT_ICON,
-		LOADOUT_ITEM_MISC = VOX_BACK_ICON,
-		LOADOUT_ITEM_EARS = VOX_EARS_ICON
+		OFFSET_HEAD = VOX_HEAD_ICON,
+		OFFSET_FACEMASK = VOX_MASK_ICON,
+		OFFSET_SUIT = VOX_SUIT_ICON,
+		OFFSET_UNIFORM = VOX_UNIFORM_ICON,
+		OFFSET_GLOVES =  VOX_HANDS_ICON,
+		OFFSET_SHOES = VOX_FEET_ICON,
+		OFFSET_GLASSES = VOX_EYES_ICON,
+		OFFSET_BELT = VOX_BELT_ICON,
+		OFFSET_BACK = VOX_BACK_ICON,
+		OFFSET_EARS = VOX_EARS_ICON
+	)
+
+	meat = /obj/item/food/meat/slab/chicken/human //item file in teshari module
+
+/datum/species/vox/get_default_mutant_bodyparts()
+	return list(
+		"tail" = list("Vox Tail", FALSE),
+		"legs" = list(DIGITIGRADE_LEGS,FALSE),
+		"snout" = list("Vox Snout", FALSE),
+		"spines" = list("Vox Bands", TRUE),
 	)
 
 /datum/species/vox/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only)
@@ -59,21 +62,12 @@
 	else
 		give_important_for_life(equipping)
 
-/datum/species/vox/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_vox_name()
-
-	var/randname = vox_name()
-
-	if(lastname)
-		randname += " [lastname]"
-
-	return randname
-
-/datum/species/vox/randomize_features(mob/living/carbon/human/human_mob)
-	human_mob.dna.features["mcolor"] = pick("#77DD88", "#77DDAA", "#77CCDD", "#77DDCC")
-	human_mob.dna.features["mcolor2"] = pick("#EEDD88", "#EECC88")
-	human_mob.dna.features["mcolor3"] = pick("#222222", "#44EEFF", "#44FFBB", "#8844FF", "#332233")
+/datum/species/vox/randomize_features()
+	var/list/features = ..()
+	features["mcolor"] = pick("#77DD88", "#77DDAA", "#77CCDD", "#77DDCC")
+	features["mcolor2"] = pick("#EEDD88", "#EECC88")
+	features["mcolor3"] = pick("#222222", "#44EEFF", "#44FFBB", "#8844FF", "#332233")
+	return features
 
 /datum/species/vox/get_random_body_markings(list/passed_features)
 	var/name = pick(list("Vox", "Vox Hive", "Vox Nightling", "Vox Heart", "Vox Tiger"))
@@ -85,7 +79,7 @@
 
 /datum/species/vox/get_custom_worn_icon(item_slot, obj/item/item)
 	// snowflakey but vox legs weird.
-	if(item_slot == LOADOUT_ITEM_SHOES)
+	if(item_slot == OFFSET_SHOES)
 		var/obj/item/bodypart/leg = bodypart_overrides[BODY_ZONE_L_LEG] || bodypart_overrides[BODY_ZONE_R_LEG]
 		if(initial(leg?.limb_id) != "digitigrade")
 			// normal legs, use normal human shoes

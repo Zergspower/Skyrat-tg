@@ -64,13 +64,14 @@
 // INVISIBILITY PRIORITIES
 
 #define INVISIBILITY_PRIORITY_ADMIN 100
-#define INVISIBILITY_PRIORITY_BASIC_ANTI_INVISIBILITY 1
+#define INVISIBILITY_PRIORITY_TURRET_COVER 20
+#define INVISIBILITY_PRIORITY_BASIC_ANTI_INVISIBILITY 10
 #define INVISIBILITY_PRIORITY_NONE 0
 
 //------------------------
 // INVISIBILITY SOURCE IDS
 // Though don't feel the need to add one here if you have a simple effect that
-// gets added and/or removed in only one place near eachother in the code.
+// gets added and/or removed in only one place near each other in the code.
 
 #define INVISIBILITY_SOURCE_INVISIMIN "invisimin"
 #define INVISIBILITY_SOURCE_STEALTHMODE "stealthmode"

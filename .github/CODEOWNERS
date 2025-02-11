@@ -1,12 +1,15 @@
 # This list auto requests reviews from the specified org members
 # when a PR that modifies the file in question is opened
-# This list is alphabetized by User -> Filename KEEP IT THAT WAY
-# In the event that multiple org members are to be informed of changes
-# to the same file or dir, add them to the end under Multiple Owners
+# This list is alphabetized by User -> Filename and separated into sections for Maintainers/Contributors KEEP IT THAT WAY
+# In the event that people are to be informed of changes
+# to the same file or dir, add them to the end of under Multiple Owners
 
-# GoldenAlpharex
-/modular_skyrat/ @GoldenAlpharex
-/tools/ @GoldenAlpharex
+# EspeciallyStrange
+code/modules/projectiles/ @projectkepler-ru
+code/modules/uplink/uplink_items/ @projectkepler-ru
+modular_skyrat/modules/cargo/ @projectkepler-ru
+modular_skyrat/modules/company_imports/ @projectkepler-ru
+modular_skyrat/modules/blueshield/ @projectkepler-ru
 
 # Jake Park
 /modular_skyrat/modules/apocolypse_of_scythes/ @jjpark-kb
@@ -39,11 +42,16 @@
 /modular_skyrat/modules/events/ @lessthnthree
 /modular_skyrat/modules/ices_events/ @lessthnthree
 
+# Waterpig
+/code/modules/surgery @Majkl-J
+/modular_skyrat/master_files/code/modules/surgery @Majkl-J
+/modular_skyrat/modules/synths @Majkl-J
+
 # Multiple Owners
 
 # Maptainers
-/_maps/ @Jolly-66 @KathrinBailey
+/_maps/ @Jolly-66 @KathrinBailey @projectkepler-ru
 
 # Expensive files that touching basically always cause performance problems
 ## Init times
-**/*_EXPENSIVE.dm @GoldenAlpharex
+**/*_EXPENSIVE.dm @Useroth

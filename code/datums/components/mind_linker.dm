@@ -60,18 +60,13 @@
 	src.speech_action_icon_state = speech_action_icon_state
 	src.speech_action_background_icon_state = speech_action_background_icon_state
 
-	/* ORIGINAL CODE
-	master_speech = new(src)
-	master_speech.Grant(owner)
-	*/ //ORIGINAL CODE END
-
 	//SKYRAT EDIT - NIFs
 	if(speech_action)
 		master_speech = new(src)
 		master_speech.Grant(owner)
 	//SKYRAT EDIT END
 
-/datum/component/mind_linker/Destroy(force, silent)
+/datum/component/mind_linker/Destroy(force)
 	for(var/mob/living/remaining_mob as anything in linked_mobs)
 		unlink_mob(remaining_mob)
 	linked_mobs.Cut()
@@ -95,19 +90,6 @@
 /datum/component/mind_linker/proc/link_mob(mob/living/to_link)
 	if(QDELETED(to_link) || to_link.stat == DEAD)
 		return FALSE
-
-	/* ORIGINAL CODE
-	if(HAS_TRAIT(to_link, TRAIT_MINDSHIELD)) // Mindshield implant - no dice
-		return FALSE
-	if(to_link.can_block_magic(MAGIC_RESISTANCE_MIND, charge_cost = 0))
-		return FALSE
-	*/ //ORIGINAL CODE END
-	//SKYRAT EDIT START
-	if(HAS_TRAIT(to_link, TRAIT_MINDSHIELD) && linking_protection) // Mindshield implant - no dice
-		return FALSE
-	if(to_link.can_block_magic(MAGIC_RESISTANCE_MIND, charge_cost = 0) && linking_protection)
-		return FALSE
-	//SKYRAT EDIT END
 	if(linked_mobs[to_link])
 		return FALSE
 
@@ -209,7 +191,7 @@
 	return ..()
 
 /datum/component/mind_linker/active_linking/link_mob(mob/living/to_link)
-	if(HAS_TRAIT(to_link, TRAIT_MINDSHIELD)) // Mindshield implant - no dice
+	if(HAS_MIND_TRAIT(to_link, TRAIT_UNCONVERTABLE)) // Protected mind, so they can't be added to the mindlink
 		return FALSE
 	if(to_link.can_block_magic(MAGIC_RESISTANCE_MIND, charge_cost = 0))
 		return FALSE
@@ -264,7 +246,6 @@
 	return ..() && (owner.stat != DEAD)
 
 /datum/action/innate/linked_speech/Activate()
-
 	var/datum/component/mind_linker/linker = target
 	var/mob/living/linker_parent = linker.parent
 
@@ -282,7 +263,8 @@
 	var/list/all_who_can_hear = assoc_to_keys(linker.linked_mobs) + linker_parent
 
 	for(var/mob/living/recipient as anything in all_who_can_hear)
-		to_chat(recipient, formatted_message)
+		var/avoid_highlighting = (recipient == owner) || (recipient == linker_parent)
+		to_chat(recipient, formatted_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = avoid_highlighting)
 
 	for(var/mob/recipient as anything in GLOB.dead_mob_list)
-		to_chat(recipient, "[FOLLOW_LINK(recipient, owner)] [formatted_message]")
+		to_chat(recipient, "[FOLLOW_LINK(recipient, owner)] [formatted_message]", type = MESSAGE_TYPE_RADIO)

@@ -7,6 +7,7 @@
 	max_temperature = 65000
 	max_integrity = 200
 	movedelay = 1.25
+	overclock_coeff = 1.25
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	lights_power = 7
 	step_energy_drain = 12 //slightly higher energy drain since you movin those wheels FAST
@@ -76,22 +77,26 @@
 /obj/item/mecha_parts/mecha_equipment/orebox_manager/get_snowflake_data()
 	var/list/contents = chassis.ore_box?.contents
 	var/list/contents_grouped = list()
-	for(var/obj/item/stack/ore/item as anything in contents)
+	for(var/atom/movable/item as anything in contents)
+		var/amount = 1
+		if(isstack(item))
+			var/obj/item/stack/stack = item
+			amount = stack.amount
 		if(isnull(contents_grouped[item.icon_state]))
 			var/ore_data = list()
 			ore_data["name"] = item.name
 			ore_data["icon"] = item.icon_state
-			ore_data["amount"] = item.amount
+			ore_data["amount"] = amount
 			contents_grouped[item.icon_state] = ore_data
 		else
-			contents_grouped[item.icon_state]["amount"] += item.amount
+			contents_grouped[item.icon_state]["amount"] += amount
 	var/list/data = list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_OREBOX_MANAGER,
 		"contents" = contents_grouped,
 		)
 	return data
 
-/obj/item/mecha_parts/mecha_equipment/orebox_manager/ui_act(action, list/params)
+/obj/item/mecha_parts/mecha_equipment/orebox_manager/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return TRUE

@@ -1,13 +1,11 @@
-
 /obj/item/kirbyplants
 	name = "potted plant"
-	//icon = 'icons/obj/fluff/flora/plants.dmi' // ORIGINAL
+	//icon = 'icons/obj/fluff/flora/plants.dmi' // SKYRAT EDIT - ORIGINAL
 	icon = 'modular_skyrat/modules/aesthetics/plants/plants.dmi' // SKYRAT EDIT CHANGE
 	icon_state = "plant-01"
 	base_icon_state = "plant-01"
 	desc = "A little bit of nature contained in a pot."
 	layer = ABOVE_MOB_LAYER
-	plane = GAME_PLANE_UPPER
 	w_class = WEIGHT_CLASS_HUGE
 	force = 10
 	throwforce = 13
@@ -73,7 +71,8 @@
 		generate_states()
 	var/current = random_plant_states.Find(icon_state)
 	var/next = WRAP(current+1,1,length(random_plant_states))
-	icon_state = random_plant_states[next]
+	base_icon_state = random_plant_states[next]
+	update_appearance(UPDATE_ICON)
 
 /obj/item/kirbyplants/proc/generate_states()
 	random_plant_states = list()
@@ -92,7 +91,7 @@
 
 /obj/item/kirbyplants/random/Initialize(mapload)
 	. = ..()
-	//icon = 'icons/obj/flora/plants.dmi' // ORIGINAL
+	//icon = 'icons/obj/flora/plants.dmi' // SKYRAT EDIT - ORIGINAL
 	icon = 'modular_skyrat/modules/aesthetics/plants/plants.dmi' //SKYRAT EDIT CHANGE
 	randomize_base_icon_state()
 

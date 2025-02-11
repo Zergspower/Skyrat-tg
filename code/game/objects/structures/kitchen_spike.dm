@@ -1,6 +1,6 @@
 #define MEATSPIKE_IRONROD_REQUIREMENT 4
 
-/obj/structure/kitchenspike_frame//SKYRAT EDIT - ICON OVERRIDEN BY AESTHETICS - SEE MODULE
+/obj/structure/kitchenspike_frame//SKYRAT EDIT - ICON OVERRIDDEN BY AESTHETICS - SEE MODULE
 	name = "meatspike frame"
 	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "spikeframe"
@@ -64,7 +64,58 @@
 		return
 	balloon_alert(user, "[MEATSPIKE_IRONROD_REQUIREMENT] rods needed!")
 
-/obj/structure/kitchenspike//SKYRAT EDIT - ICON OVERRIDEN BY AESTHETICS - SEE MODULE
+/obj/structure/kitchenspike_frame/examine(mob/user)
+	. = ..()
+	. += "It can be <b>welded</b> apart."
+	. += "You could attach <b>[MEATSPIKE_IRONROD_REQUIREMENT]</b> iron rods to it to create a <b>Meat Spike</b>."
+
+/obj/structure/kitchenspike_frame/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
+	if(isnull(held_item))
+		return NONE
+
+	var/message = ""
+	if(held_item.tool_behaviour == TOOL_WELDER)
+		message = "Deconstruct"
+	else if(held_item.tool_behaviour == TOOL_WRENCH)
+		message = "Bolt Down Frame"
+
+	if(!message)
+		return NONE
+	context[SCREENTIP_CONTEXT_LMB] = message
+	return CONTEXTUAL_SCREENTIP_SET
+
+/obj/structure/kitchenspike_frame/welder_act(mob/living/user, obj/item/tool)
+	if(!tool.tool_start_check(user, amount = 0))
+		return FALSE
+	to_chat(user, span_notice("You begin cutting \the [src] apart..."))
+	if(!tool.use_tool(src, user, 5 SECONDS, volume = 50))
+		return TRUE
+	visible_message(span_notice("[user] slices apart \the [src]."),
+		span_notice("You cut \the [src] apart with \the [tool]."),
+		span_hear("You hear welding."))
+	new /obj/item/stack/sheet/iron(loc, MEATSPIKE_IRONROD_REQUIREMENT)
+	qdel(src)
+	return TRUE
+
+/obj/structure/kitchenspike_frame/wrench_act(mob/living/user, obj/item/tool)
+	default_unfasten_wrench(user, tool)
+	return TRUE
+
+/obj/structure/kitchenspike_frame/attackby(obj/item/attacking_item, mob/user, params)
+	add_fingerprint(user)
+	if(!istype(attacking_item, /obj/item/stack/rods))
+		return ..()
+	var/obj/item/stack/rods/used_rods = attacking_item
+	if(used_rods.get_amount() >= MEATSPIKE_IRONROD_REQUIREMENT)
+		used_rods.use(MEATSPIKE_IRONROD_REQUIREMENT)
+		balloon_alert(user, "meatspike built")
+		var/obj/structure/new_meatspike = new /obj/structure/kitchenspike(loc)
+		transfer_fingerprints_to(new_meatspike)
+		qdel(src)
+		return
+	balloon_alert(user, "[MEATSPIKE_IRONROD_REQUIREMENT] rods needed!")
+
+/obj/structure/kitchenspike//SKYRAT EDIT - ICON OVERRIDDEN BY AESTHETICS - SEE MODULE
 	name = "meat spike"
 	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "spike"
@@ -125,6 +176,7 @@
 	m180.Turn(180)
 	animate(target, transform = m180, time = 3)
 	target.pixel_y = target.base_pixel_y + PIXEL_Y_OFFSET_LYING
+	ADD_TRAIT(target, TRAIT_MOVE_UPSIDE_DOWN, REF(src))
 
 /obj/structure/kitchenspike/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	if(buckled_mob != user)
@@ -142,7 +194,7 @@
 		span_notice("You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)"),\
 		span_hear("You hear a wet squishing noise.."))
 		buckled_mob.adjustBruteLoss(30)
-		if(!do_after(buckled_mob, 2 MINUTES, target = src))
+		if(!do_after(buckled_mob, 2 MINUTES, target = src, hidden = TRUE))
 			if(buckled_mob?.buckled)
 				to_chat(buckled_mob, span_warning("You fail to free yourself!"))
 			return
@@ -156,14 +208,14 @@
 	m180.Turn(180)
 	animate(buckled_mob, transform = m180, time = 3)
 	buckled_mob.pixel_y = buckled_mob.base_pixel_y + PIXEL_Y_OFFSET_LYING
+	REMOVE_TRAIT(buckled_mob, TRAIT_MOVE_UPSIDE_DOWN, REF(src))
 
-/obj/structure/kitchenspike/deconstruct(disassembled = TRUE)
+/obj/structure/kitchenspike/atom_deconstruct(disassembled = TRUE)
 	if(disassembled)
 		var/obj/structure/meatspike_frame = new /obj/structure/kitchenspike_frame(src.loc)
 		transfer_fingerprints_to(meatspike_frame)
 	else
 		new /obj/item/stack/sheet/iron(src.loc, 4)
 	new /obj/item/stack/rods(loc, MEATSPIKE_IRONROD_REQUIREMENT)
-	qdel(src)
 
 #undef MEATSPIKE_IRONROD_REQUIREMENT

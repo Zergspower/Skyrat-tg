@@ -6,10 +6,6 @@
 // Defines for whether an accessory should have one or three colors to choose for
 #define USE_ONE_COLOR		31
 #define USE_MATRIXED_COLORS	32
-// Defines for some extra inherent traits
-#define TRAIT_REVIVES_BY_HEALING "trait_revives_by_healing"
-#define TRAIT_ROBOTIC_DNA_ORGANS "trait_robotic_dna_organs"
-//Also.. yes for some reason specie traits and accessory defines are together
 
 //Defines for processing reagents, for synths, IPC's and Vox
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
@@ -36,6 +32,10 @@
 #define MUTANT_INDEX_NAME			"name"
 #define MUTANT_INDEX_COLOR_LIST		"color"
 #define MUTANT_INDEX_EMISSIVE_LIST	"emissive"
+
+// Defines for default mutant bodyparts indexes
+#define MUTANTPART_NAME 1
+#define MUTANTPART_CAN_RANDOMIZE 2
 
 // Defines for markings indexes
 #define MARKING_INDEX_COLOR 1
@@ -69,14 +69,14 @@
 
 //In inches
 #define PENIS_MIN_GIRTH PENIS_MIN_LENGTH
-#define PENIS_MAX_GIRTH 15
+#define PENIS_MAX_GIRTH 20
 #define PENIS_DEFAULT_GIRTH 5 // a lil big but not by much
 #define PENIS_MIN_LENGTH 1
-#define PENIS_MAX_LENGTH 20
+#define PENIS_MAX_LENGTH 36
 #define PENIS_DEFAULT_LENGTH 6 //still a lil long but not insane
 
 #define TESTICLES_MIN_SIZE 0
-#define TESTICLES_MAX_SIZE 3
+#define TESTICLES_MAX_SIZE 6
 
 #define SHEATH_NONE	"None"
 #define SHEATH_NORMAL "Sheath"

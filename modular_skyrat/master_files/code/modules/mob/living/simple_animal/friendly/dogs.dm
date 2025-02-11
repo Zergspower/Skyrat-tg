@@ -14,9 +14,21 @@
 	gender = MALE
 	can_be_held = FALSE
 	gold_core_spawnable = FRIENDLY_SPAWN
+	///can this mob breed?
+	var/can_breed = TRUE
 
 	/// List of possible dialogue options. This is both used by the AI and as an override when a sentient Markus speaks.
 	var/static/list/markus_speak = list("Borf!", "Boof!", "Bork!", "Bowwow!", "Burg?")
+
+/mob/living/basic/pet/dog/markus/Initialize(mapload)
+	. = ..()
+	if(!can_breed)
+		return
+	AddComponent(\
+		/datum/component/breed,\
+		can_breed_with = typecacheof(list(/mob/living/basic/pet/dog/corgi)),\
+		baby_path = /mob/living/basic/pet/dog/corgi/puppy,\
+	) // no mixed breed puppies sadly
 
 /mob/living/basic/pet/dog/markus/treat_message(message)
 	if(client)
@@ -71,9 +83,10 @@
 	ai_controller = /datum/ai_controller/basic_controller/dog/borgi
 	unsuitable_atmos_damage = 0
 	minimum_survivable_temperature = 0
+	can_breed = FALSE
 
 	// These lights enable when E-N is emagged
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_color = COLOR_RED
 	light_range = 2
 	light_power = 0.8
@@ -127,7 +140,7 @@
 
 	borgi.set_movement_target(target)
 	borgi.blackboard[BB_DOG_HARASS_TARGET] = WEAKREF(target)
-	borgi.queue_behavior(/datum/ai_behavior/basic_melee_attack/dog, BB_DOG_HARASS_TARGET, BB_PET_TARGETTING_DATUM)
+	borgi.queue_behavior(/datum/ai_behavior/basic_melee_attack/dog, BB_DOG_HARASS_TARGET, BB_PET_TARGETING_STRATEGY)
 
 /mob/living/basic/pet/dog/corgi/borgi/proc/on_attack_hand(datum/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -242,7 +255,11 @@
 	investigate_log("has been gibbed due to being emagged by [user].", INVESTIGATE_DEATHS)
 	visible_message(span_boldwarning("[user] swipes a card through [target]!"), span_notice("You overload [target]s internal reactor..."))
 
-	notify_ghosts("[user] has shortcircuited [target] to explode in 60 seconds!", source = target, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Borgi Emagged")
+	notify_ghosts("[user] has shortcircuited [target] to explode in 60 seconds!",
+		source = target,
+		notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		header = "Borgi Emagged",
+	)
 	addtimer(CALLBACK(src, PROC_REF(explode_imminent)), 50 SECONDS)
 
 	return TRUE
@@ -263,7 +280,7 @@
 		BB_DOG_HARASS_HARM = TRUE,
 		BB_VISION_RANGE = AI_DOG_VISION_RANGE,
 		BB_DOG_IS_SLOW = TRUE,
-		BB_PET_TARGETTING_DATUM = new /datum/targetting_datum/basic(),
+		BB_PET_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 	)
 
 	planning_subtrees = list(
@@ -293,7 +310,7 @@
 		if(!SPT_PROB(chance, seconds_per_tick))
 			return
 
-		controller.queue_behavior(/datum/ai_behavior/find_potential_targets, BB_BASIC_MOB_CURRENT_TARGET, BB_PET_TARGETTING_DATUM, BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION)
+		controller.queue_behavior(/datum/ai_behavior/find_potential_targets, BB_BASIC_MOB_CURRENT_TARGET, BB_PET_TARGETING_STRATEGY, BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION)
 		return
 
 	// Attack.
@@ -324,4 +341,39 @@
 	icon_state = "dobber"
 	icon_dead = "dobbydead"
 	icon_living = "dobber"
-	gender = MALE
+
+/mob/living/basic/pet/dog/pitbull
+	name = "\improper pitbull"
+	desc = "Lover of Blood. Hater of Toddlers"
+	icon = 'modular_skyrat/master_files/icons/mob/pets.dmi'
+	icon_state = "pitbull"
+	icon_dead = "pitbull_dead"
+	icon_living = "pitbull"
+	ai_controller = /datum/ai_controller/basic_controller/pitbull
+	can_be_held = FALSE //He's too big.
+
+/datum/ai_controller/basic_controller/pitbull
+	blackboard = list(
+		BB_ALWAYS_IGNORE_FACTION = TRUE,
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic/of_size/smaller,
+		BB_FLEE_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+	)
+
+	ai_movement = /datum/ai_movement/dumb
+	idle_behavior = /datum/idle_behavior/idle_dog
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/target_retaliate/to_flee,
+		/datum/ai_planning_subtree/flee_target/from_flee_key,
+		/datum/ai_planning_subtree/dog_harassment,
+		/datum/ai_planning_subtree/simple_find_target,
+		/datum/ai_planning_subtree/basic_melee_attack_subtree,
+		/datum/ai_planning_subtree/random_speech/dog,
+	)
+
+
+/mob/living/basic/pet/dog/pitbull/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/tiny_mob_hunter, MOB_SIZE_SMALL) //He eats anything that he sees as a toddler.
+	AddElement(/datum/element/footstep, footstep_type = FOOTSTEP_MOB_CLAW)
+
+

@@ -33,8 +33,8 @@
 		initial(underturf_path.icon),
 		initial(underturf_path.icon_state),
 		offset_spokesman = src,
-		layer = TURF_LAYER - 0.02,
-		plane = initial(underturf_path.plane))
+		layer = LOW_FLOOR_LAYER - 0.02,
+		plane = FLOOR_PLANE)
 	underlay_appearance.appearance_flags = RESET_ALPHA | RESET_COLOR
 	underlays += underlay_appearance
 
@@ -69,6 +69,9 @@
 	icon = 'modular_skyrat/modules/advanced_shuttles/icons/erokez.dmi'
 	icon_state = "floor1"
 
+/turf/open/floor/iron/shuttle/ferry/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
 /*
 *	EVAC
 */
@@ -85,6 +88,9 @@
 	name = "shuttle floor"
 	icon = 'modular_skyrat/modules/advanced_shuttles/icons/evac_shuttle.dmi'
 	icon_state = "floor"
+
+/turf/open/floor/iron/shuttle/evac/airless
+	initial_gas_mix = AIRLESS_ATMOS
 
 /*
 *	ARRIVALS
@@ -103,6 +109,9 @@
 	icon = 'modular_skyrat/modules/advanced_shuttles/icons/wagon.dmi'
 	icon_state = "floor"
 
+/turf/open/floor/iron/shuttle/arrivals/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
 /*
 *	CARGO
 */
@@ -119,6 +128,9 @@
 	name = "shuttle floor"
 	icon = 'modular_skyrat/modules/advanced_shuttles/icons/cargo.dmi'
 	icon_state = "floor"
+
+/turf/open/floor/iron/shuttle/cargo/airless
+	initial_gas_mix = AIRLESS_ATMOS
 
 /*
 *	MINING
@@ -207,8 +219,14 @@
 /turf/open/floor/iron/shuttle/exploration/flat
 	icon_state = "flat"
 
+/turf/open/floor/iron/shuttle/exploration/flat/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
 /turf/open/floor/iron/shuttle/exploration/textured_flat
 	icon_state = "flattexture"
+
+/turf/open/floor/iron/shuttle/exploration/textured_flat/airless
+	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/open/floor/iron/shuttle/exploration/equipmentrail1
 	icon_state = "rail1"
@@ -221,3 +239,6 @@
 
 /turf/open/floor/iron/shuttle/exploration/hazard
 	icon_state = "hazard"
+
+/turf/open/floor/iron/shuttle/exploration/hazard/airless
+	initial_gas_mix = AIRLESS_ATMOS

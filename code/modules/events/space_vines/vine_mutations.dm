@@ -72,11 +72,11 @@
 		return
 	if(prob(TOXICITY_MUTATION_PROB) && istype(crosser) && !isvineimmune(crosser))
 		to_chat(crosser, span_alert("You accidentally touch the vine and feel a strange sensation."))
-		crosser.adjustToxLoss(5) // SKYRAT EDIT CHANGE - Original: 20
+		crosser.adjustToxLoss(10) // SKYRAT EDIT CHANGE - Original: 20
 
 /datum/spacevine_mutation/toxicity/on_eat(obj/structure/spacevine/holder, mob/living/eater)
 	if(!isvineimmune(eater))
-		eater.adjustToxLoss(5) // SKYRAT EDIT CHANGE - Original: 20
+		eater.adjustToxLoss(10) // SKYRAT EDIT CHANGE - Original: 20
 
 /datum/spacevine_mutation/explosive  // JC IT'S A BOMB
 	name = "Explosive"
@@ -290,7 +290,7 @@
 
 	if(prob(THORN_MUTATION_CUT_PROB) && istype(crosser) && !isvineimmune(crosser))
 		var/mob/living/victim = crosser
-		victim.adjustBruteLoss(5) // SKYRAT EDIT CHANGE - Original: 15
+		victim.adjustBruteLoss(7) // SKYRAT EDIT CHANGE - Original: 15
 		to_chat(victim, span_danger("You cut yourself on the thorny vines."))
 
 /datum/spacevine_mutation/thorns/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/item, expected_damage)
@@ -305,7 +305,7 @@
 
 	if(prob(THORN_MUTATION_CUT_PROB) && istype(hitter) && !isvineimmune(hitter))
 		var/mob/living/victim = hitter
-		victim.adjustBruteLoss(5) // SKYRAT EDIT CHANGE - Original: 15
+		victim.adjustBruteLoss(7) // SKYRAT EDIT CHANGE - Original: 15
 		to_chat(victim, span_danger("You cut yourself on the thorny vines."))
 
 	return expected_damage
@@ -335,6 +335,7 @@
 //This specific mutation only covers floors instead of structures, items, mobs and cant tangle mobs
 /datum/spacevine_mutation/timid/on_birth(obj/structure/spacevine/holder)
 	SET_PLANE_IMPLICIT(holder, FLOOR_PLANE)
+	holder.layer = ABOVE_OPEN_TURF_LAYER
 	holder.light_state = PASS_LIGHT
 	holder.can_tangle = FALSE
 	return ..()

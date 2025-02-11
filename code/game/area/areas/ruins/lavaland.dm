@@ -45,6 +45,12 @@
 	area_flags = CULT_PERMITTED
 	ambience_index = AMBIENCE_SPOOKY
 
+/area/ruin/thelizardsgas_lavaland
+	name = "\improper The Lizard's Gas"
+	icon_state = "lizardgas"
+	sound_environment = SOUND_ENVIRONMENT_ROOM
+	ambient_buzz = 'sound/ambience/magma.ogg'
+
 //Syndicate lavaland base
 
 /area/ruin/syndicate_lava_base/engineering
@@ -92,7 +98,7 @@
 
 //ash walker nest
 /area/ruin/unpowered/ash_walkers
-	//SKYRAT EDIT ADDITION BEGIN - ASH WALKER MACHINES FIX
+	//SKYRAT EDIT ADDITION BEGIN - ASH WALKER MACHINES FIX //SKYRAT TODO - Fix this proper holy hell
 	always_unpowered = FALSE
 	power_equip = TRUE
 	//SKYRAT EDIT ADDITION END

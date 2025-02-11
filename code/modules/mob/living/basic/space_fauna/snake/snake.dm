@@ -13,6 +13,8 @@
 	melee_damage_upper = 6
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
+	//how many units of venom are injected in target per attack
+	var/venom_dose = 4
 
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
@@ -50,7 +52,7 @@
 	AddElement(/datum/element/swabable, CELL_LINE_TABLE_SNAKE, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 
 	AddElement(/datum/element/basic_eating, heal_amt = 2, food_types = edibles)
-	ai_controller.set_blackboard_key(BB_BASIC_FOODS, edibles)
+	ai_controller.set_blackboard_key(BB_BASIC_FOODS, typecacheof(edibles))
 
 	AddComponent(\
 		/datum/component/tameable,\
@@ -62,7 +64,7 @@
 	if(isnull(special_reagent))
 		special_reagent = /datum/reagent/toxin
 
-	AddElement(/datum/element/venomous, special_reagent, 4)
+	AddElement(/datum/element/venomous, special_reagent, venom_dose)
 
 /mob/living/basic/snake/befriend(mob/living/new_friend)
 	. = ..()
@@ -71,7 +73,7 @@
 /// Snakes are primarily concerned with getting those tasty, tasty mice, but aren't afraid to strike back at those who attack them
 /datum/ai_controller/basic_controller/snake
 	blackboard = list(
-		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic/not_friends/allow_items,
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends/allow_items,
 	)
 
 	ai_traits = STOP_MOVING_WHEN_PULLED

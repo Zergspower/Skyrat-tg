@@ -39,14 +39,6 @@
 	if(type_damage >=  50 && type_damage < 100)
 		target.adjust_disgust(1.5)
 
-/// Applies clone damage by thresholds
-/obj/projectile/energy/medical/proc/DamageClone(mob/living/target, type_damage, amount_healed, max_clone)
-	if(type_damage >= 50 && type_damage < 100 )
-		target.adjustCloneLoss((amount_healed * (max_clone * 0.5)))
-
-	if(type_damage >= 100)
-		target.adjustCloneLoss((amount_healed * max_clone))
-
 /// Checks to see if the patient is living.
 /obj/projectile/energy/medical/proc/IsLivingHuman(mob/living/target)
 	if(!istype(target, /mob/living/carbon/human))
@@ -75,7 +67,6 @@
 
 	DamageDisgust(target, target.getBruteLoss())
 	target.adjust_disgust(base_disgust)
-	DamageClone(target, target.getBruteLoss(), amount_healed, max_clone)
 	target.adjustBruteLoss(-amount_healed)
 
 /// Heals Burn swithout safety
@@ -85,7 +76,6 @@
 
 	DamageDisgust(target, target.getFireLoss())
 	target.adjust_disgust(base_disgust)
-	DamageClone(target, target.getFireLoss(), amount_healed, max_clone)
 	target.adjustFireLoss(-amount_healed)
 
 /// Heals Brute with safety
@@ -416,7 +406,7 @@
 		return
 
 	var/mob/living/carbon/wearer = target
-	var/obj/item/clothing/gown = new /obj/item/clothing/suit/toggle/labcoat/skyrat/hospitalgown/hardlight
+	var/obj/item/clothing/gown = new /obj/item/clothing/suit/toggle/labcoat/hospitalgown/hardlight
 
 	if(wearer.equip_to_slot_if_possible(gown, ITEM_SLOT_OCLOTHING, 1, 1, 1))
 		wearer.visible_message(span_notice("The [gown] covers [wearer] body"), span_notice("The [gown] wraps around your body, covering you"))
@@ -435,8 +425,15 @@
 	name = "salve globule"
 	icon_state = "glob_projectile"
 	shrapnel_type = /obj/item/mending_globule/hardlight
-	embedding = list("embed_chance" = 100, ignore_throwspeed_threshold = TRUE, "pain_mult" = 0, "jostle_pain_mult" = 0, "fall_chance" = 0)
+	embed_type = /datum/embed_data/salve_globule
 	damage = 0
+
+/datum/embed_data/salve_globule
+	embed_chance = 100
+	ignore_throwspeed_threshold = TRUE
+	pain_mult = 0
+	jostle_pain_mult = 0
+	fall_chance = 0
 
 /obj/projectile/energy/medical/utility/salve/on_hit(mob/living/target, blocked = 0, pierce_hit)
 	if(!IsLivingHuman(target)) //No using this on the dead or synths.
@@ -499,12 +496,12 @@
 	sparks.start()
 
 //Objects Used by medicells.
-/obj/item/clothing/suit/toggle/labcoat/skyrat/hospitalgown/hardlight
+/obj/item/clothing/suit/toggle/labcoat/hospitalgown/hardlight
 	name = "hardlight hospital gown"
 	desc = "A hospital gown made out of hardlight - you can barely feel it on your body, especially with all the anesthetics."
-	icon_state = "lgown"
+	greyscale_colors = "#B2D3CA#B2D3CA#B2D3CA#B2D3CA"
 
-/obj/item/clothing/suit/toggle/labcoat/skyrat/hospitalgown/hardlight/dropped(mob/user)
+/obj/item/clothing/suit/toggle/labcoat/hospitalgown/hardlight/dropped(mob/user)
 	. = ..()
 	var/mob/living/carbon/wearer = user
 
@@ -517,7 +514,7 @@
 /obj/item/mending_globule/hardlight
 	name = "salve globule"
 	desc = "A ball of regenerative synthetic plant matter, contained within a soft hardlight field."
-	embedding = list("embed_chance" = 100, ignore_throwspeed_threshold = TRUE, "pain_mult" = 0, "jostle_pain_mult" = 0, "fall_chance" = 0)
+	embed_type = /datum/embed_data/salve_globule
 	icon = 'modular_skyrat/modules/cellguns/icons/obj/guns/mediguns/misc.dmi'
 	icon_state = "globule"
 	heals_left = 40 //This means it'll be heaing 15 damage per type max.
@@ -548,13 +545,16 @@
 	icon_state = "hardlight_down"
 	base_icon_state = "hardlight"
 	max_integrity = 1
-	flags_1 = NODECONSTRUCT_1 //Made from nothing, can't deconstruct
 	build_stack_type = null //It would not be good if people could use this to farm materials.
 	var/deploy_time = 20 SECONDS //How long the roller beds lasts for without someone buckled to it.
 
 /obj/structure/bed/medical/medigun/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(check_bed)), deploy_time)
+
+// previously NO_DECONSTRUCTION
+/obj/structure/bed/medical/medigun/wrench_act_secondary(mob/living/user, obj/item/weapon)
+	return NONE
 
 /obj/structure/bed/medical/medigun/proc/check_bed() //Checks to see if anyone is buckled to the bed, if not the bed will qdel itself.
 	if(!has_buckled_mobs())
@@ -567,15 +567,15 @@
 	. = ..()
 	qdel(src)
 
-/obj/structure/bed/medical/medigun/MouseDrop(over_object, src_location, over_location)
-	if(over_object == usr && Adjacent(usr))
-		if(!ishuman(usr) || !usr.can_perform_action(src))
+/obj/structure/bed/medical/medigun/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	if(over == user && Adjacent(user))
+		if(!ishuman(user) || !user.can_perform_action(src))
 			return FALSE
 
 		if(has_buckled_mobs())
 			return FALSE
 
-		usr.visible_message(span_notice("[usr] deactivates \the [src]."), span_notice("You deactivate \the [src]."))
+		user.visible_message(span_notice("[user] deactivates \the [src]."), span_notice("You deactivate \the [src]."))
 		qdel(src)
 
 //Oppressive Force Relocation

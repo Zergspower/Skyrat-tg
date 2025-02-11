@@ -4,7 +4,7 @@
 	icon = 'icons/obj/weapons/guns/ammo.dmi'
 	icon_state = "s-casing"
 	worn_icon_state = "bullet"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
@@ -32,6 +32,12 @@
 	var/firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect
 	///pacifism check for boolet, set to FALSE if bullet is non-lethal
 	var/harmful = TRUE
+	///If set to true or false, this ammunition can or cannot misfire, regardless the gun can_misfire setting
+	var/can_misfire = null
+	///This is how much misfire probability is added to the gun when it fires this casing.
+	var/misfire_increment = 0
+	///If set, this casing will damage any gun it's fired from by the specified amount
+	var/integrity_damage = 0
 
 /obj/item/ammo_casing/spent
 	name = "spent bullet casing"

@@ -9,9 +9,9 @@
 	density = FALSE
 	circuit = /obj/item/circuitboard/machine/dish_drive
 	pass_flags = PASSTABLE
+	interaction_flags_click = ALLOW_SILICON_REACH
 	/// List of dishes the drive can hold
-	var/list/collectable_items = list(/obj/item/trash/waffles, // SKYRAT EDIT CHANGE - non-static list
-		/obj/item/trash/waffles,
+	var/list/collectable_items = list( // SKYRAT EDIT CHANGE - non static list
 		/obj/item/broken_bottle,
 		/obj/item/kitchen/fork,
 		/obj/item/plate,
@@ -22,8 +22,7 @@
 		/obj/item/trash/tray,
 	)
 	/// List of items the drive detects as trash
-	var/static/list/disposable_items = list(/obj/item/trash/waffles,
-		/obj/item/trash/waffles,
+	var/static/list/disposable_items = list(
 		/obj/item/broken_bottle,
 		/obj/item/plate_shard,
 		/obj/item/shard,
@@ -37,6 +36,7 @@
 	var/list/dish_drive_contents
 	/// Distance this is capable of sucking dishes up over. (2 + servo tier)
 	var/suck_distance = 0
+
 	var/binrange = 7 //SKYRAT EDIT ADDITION - SEC_HAUL
 
 	COOLDOWN_DECLARE(time_since_dishes)
@@ -83,7 +83,7 @@
 /obj/machinery/dish_drive/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	default_unfasten_wrench(user, tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/dish_drive/attackby(obj/item/dish, mob/living/user, params)
 	if(is_type_in_list(dish, collectable_items) && !user.combat_mode)
@@ -125,7 +125,6 @@
 		do_the_dishes()
 	if(!suction_enabled)
 		return
-
 	for(var/obj/item/dish in view(2 + suck_distance, src))
 		if(is_type_in_list(dish, collectable_items) && dish.loc != src && (!dish.reagents || !dish.reagents.total_volume) && (dish.contents.len < 1))
 			if(dish.Adjacent(src))
@@ -143,9 +142,9 @@
 	balloon_alert(user, "disposal signal sent")
 	do_the_dishes(TRUE)
 
-/obj/machinery/dish_drive/AltClick(mob/living/user)
-	if(user.can_perform_action(src, ALLOW_SILICON_REACH))
-		do_the_dishes(TRUE)
+/obj/machinery/dish_drive/click_alt(mob/living/user)
+	do_the_dishes(TRUE)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/dish_drive/proc/do_the_dishes(manual)
 	if(!LAZYLEN(dish_drive_contents))
@@ -161,9 +160,11 @@
 	var/disposed = 0
 	for(var/obj/item/dish in dish_drive_contents)
 		if(is_type_in_list(dish, disposable_items))
+			if(!use_energy(active_power_usage, force = FALSE))
+				say("Not enough energy to continue!")
+				break
 			LAZYREMOVE(dish_drive_contents, dish)
 			dish.forceMove(bin)
-			use_power(active_power_usage)
 			disposed++
 	if (disposed)
 		visible_message(span_notice("[src] [pick("whooshes", "bwooms", "fwooms", "pshooms")] and beams [disposed] stored item\s into the nearby [bin.name]."))

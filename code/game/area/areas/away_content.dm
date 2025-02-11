@@ -11,17 +11,23 @@ Unused icons for new areas are "awaycontent1" ~ "awaycontent30"
 	has_gravity = STANDARD_GRAVITY
 	ambience_index = AMBIENCE_AWAY
 	sound_environment = SOUND_ENVIRONMENT_ROOM
-	area_flags = NOTELEPORT|UNIQUE_AREA //SKYRAT EDIT CHANGE
+	area_flags = UNIQUE_AREA
 
-/area/awaymission/beach
-	name = "Beach"
-	icon_state = "away"
+/area/awaymission/museum
+	name = "Nanotrasen Museum"
+	icon_state = "awaycontent28"
+	sound_environment = SOUND_ENVIRONMENT_CONCERT_HALL
+
+/area/awaymission/museum/mothroachvoid
 	static_lighting = FALSE
-	base_lighting_alpha = 255
-	base_lighting_color = "#FFFFCC"
-	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
-	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
+	base_lighting_alpha = 200
+	base_lighting_color = "#FFF4AA"
+	sound_environment = SOUND_ENVIRONMENT_PLAIN
+	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
+
+/area/awaymission/museum/cafeteria
+	name = "Nanotrasen Museum Cafeteria"
+	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/awaymission/errorroom
 	name = "Super Secret Room"

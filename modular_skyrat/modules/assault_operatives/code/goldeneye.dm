@@ -182,7 +182,7 @@ SUBSYSTEM_DEF(goldeneye)
 /atom/movable/screen/alert/status_effect/goldeneye_pinpointer
 	name = "Target Integrated Pinpointer"
 	desc = "Even stealthier than a normal implant, it points to a selected GoldenEye keycard."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/devices/tracker.dmi'
 	icon_state = "pinon"
 
 /datum/status_effect/goldeneye_pinpointer
@@ -235,7 +235,7 @@ SUBSYSTEM_DEF(goldeneye)
 	if(here.z != there.z)
 		linked_alert.icon_state = "pinonnull"
 		return
-	if(!get_dist_euclidian(here,there))
+	if(!get_dist_euclidean(here,there))
 		linked_alert.icon_state = "pinondirect"
 		return
 	linked_alert.setDir(get_dir(here, there))

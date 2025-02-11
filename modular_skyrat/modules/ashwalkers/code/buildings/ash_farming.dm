@@ -17,10 +17,11 @@
 	//now lets register the signals
 	RegisterSignal(atom_parent, COMSIG_ATOM_ATTACKBY, PROC_REF(check_attack))
 	RegisterSignal(atom_parent, COMSIG_ATOM_EXAMINE, PROC_REF(check_examine))
+	RegisterSignal(atom_parent, COMSIG_QDELETING, PROC_REF(delete_farm))
 
 /datum/component/simple_farm/Destroy(force, silent)
 	//lets not hard del
-	UnregisterSignal(atom_parent, list(COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_EXAMINE))
+	UnregisterSignal(atom_parent, list(COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_EXAMINE, COMSIG_QDELETING))
 	atom_parent = null
 	return ..()
 
@@ -39,9 +40,13 @@
 			return
 
 		locate_farm = new(get_turf(atom_parent))
+		user.mind.adjust_experience(/datum/skill/primitive, 5)
 		locate_farm.pixel_x = pixel_shift[1]
 		locate_farm.pixel_y = pixel_shift[2]
 		locate_farm.layer = atom_parent.layer + 0.1
+		if(ismovable(atom_parent))
+			var/atom/movable/movable_parent = atom_parent
+			locate_farm.glide_size = movable_parent.glide_size
 		attacking_item.forceMove(locate_farm)
 		locate_farm.planted_seed = attacking_item
 		locate_farm.attached_atom = atom_parent
@@ -53,7 +58,18 @@
  * check_examine is meant to listen for the COMSIG_ATOM_EXAMINE signal, where it will put additional information in the examine
  */
 /datum/component/simple_farm/proc/check_examine(datum/source, mob/user, list/examine_list)
-	examine_list += span_notice("You are able to plant seeds here!")
+	examine_list += span_notice("<br>You are able to plant seeds here!")
+
+/**
+ * delete_farm is meant to be called when the parent of this component has been deleted-- thus deleting the ability to grow the simple farm
+ * it will delete the farm that can be found on the turf of the parent of this component
+ */
+/datum/component/simple_farm/proc/delete_farm()
+	SIGNAL_HANDLER
+
+	var/obj/structure/simple_farm/locate_farm = locate() in get_turf(atom_parent)
+	if(locate_farm)
+		qdel(locate_farm)
 
 /obj/structure/simple_farm
 	name = "simple farm"
@@ -66,10 +82,17 @@
 	var/atom/attached_atom
 	///the seed that is held within
 	var/obj/item/seeds/planted_seed
+	/// The amount of worms we're storing
+	var/stored_worms = 0
+	/// the farm level we're at
+	var/farm_level = SKILL_LEVEL_NONE
+
 	///the max amount harvested from the plants
 	var/max_harvest = 3
 	///the cooldown amount between each harvest
 	var/harvest_cooldown = 1 MINUTES
+	///the extra potency applied to the seed
+	var/bonus_potency = 0
 	//the cooldown between each harvest
 	COOLDOWN_DECLARE(harvest_timer)
 
@@ -96,10 +119,10 @@
 /obj/structure/simple_farm/examine(mob/user)
 	. = ..()
 	. += span_notice("<br>[src] will be ready for harvest in [DisplayTimeText(COOLDOWN_TIMELEFT(src, harvest_timer))]")
-	if(max_harvest < 6)
-		. += span_notice("<br>You can use sinew or worm fertilizer to lower the time between each harvest!")
-	if(harvest_cooldown > 30 SECONDS)
-		. += span_notice("You can use goliath hides or worm fertilizer to increase the amount dropped per harvest!")
+	if(farm_level < SKILL_LEVEL_LEGENDARY)
+		. += span_notice("<br>You can use <b>worm fertilizer</b> to increase the level of the farm.")
+	if(stored_worms < 5)
+		. += span_notice("<br>You can use <b>worms</b> to increase the performance of the farm.")
 
 /obj/structure/simple_farm/process(seconds_per_tick)
 	update_appearance()
@@ -132,6 +155,7 @@
 
 	COOLDOWN_START(src, harvest_timer, harvest_cooldown)
 	create_harvest()
+	user.mind.adjust_experience(/datum/skill/primitive, 5)
 	update_appearance()
 	return ..()
 
@@ -143,81 +167,87 @@
 		Destroy()
 		return
 
-	//if its sinew, lower the cooldown
-	else if(istype(attacking_item, /obj/item/stack/sheet/sinew))
-		var/obj/item/stack/sheet/sinew/use_item = attacking_item
-
-		if(!use_item.use(1))
-			return
-
-		decrease_cooldown(user)
-		return
-
-	//if its goliath hide, increase the amount dropped
-	else if(istype(attacking_item, /obj/item/stack/sheet/animalhide/goliath_hide))
-		var/obj/item/stack/sheet/animalhide/goliath_hide/use_item = attacking_item
-
-		if(!use_item.use(1))
-			return
-
-		increase_yield(user)
-		return
-
-	else if(istype(attacking_item, /obj/item/worm_fertilizer))
-
-		if(!decrease_cooldown(user, silent = TRUE) && !increase_yield(user, silent = TRUE))
-			balloon_alert(user, "plant is already fully upgraded")
-
-		else
-			balloon_alert(user, "plant was upgraded")
-			qdel(attacking_item)
-
-		return
-
+	//if its a bag, harvest
 	else if(istype(attacking_item, /obj/item/storage/bag/plants))
 		if(!COOLDOWN_FINISHED(src, harvest_timer))
 			return
 
 		COOLDOWN_START(src, harvest_timer, harvest_cooldown)
 		create_harvest(attacking_item, user)
+		user.mind.adjust_experience(/datum/skill/primitive, 15)
 		update_appearance()
+		return
+
+	//if its fertilizer, boost our level
+	else if(istype(attacking_item, /obj/item/stack/worm_fertilizer))
+		user.mind.adjust_experience(/datum/skill/primitive, 5)
+		if(farm_level >= SKILL_LEVEL_LEGENDARY)
+			balloon_alert(user, "farm already max level!")
+			return
+
+		var/obj/item/stack/worm_fertilizer/fertilizer = attacking_item
+		if(!fertilizer.use(1))
+			return
+
+		balloon_alert(user, "increased farm level")
+		farm_level++
+		return
+
+	//if its worms, increase our worms
+	else if(istype(attacking_item, /obj/item/food/bait/worm))
+		user.mind.adjust_experience(/datum/skill/primitive, 5)
+		if(stored_worms >= 5)
+			balloon_alert(user, "plant already full on worms!")
+			return
+
+		balloon_alert(user, "applied worm")
+		qdel(attacking_item)
+		stored_worms++
 		return
 
 	return ..()
 
-/**
- * a proc that will increase the amount of items the crop could produce (at a maximum of 6, from base of 3)
- */
-/obj/structure/simple_farm/proc/increase_yield(mob/user, var/silent = FALSE)
-	if(max_harvest >= 6)
-		if(!silent)
-			balloon_alert(user, "plant is at maximum yield")
+/obj/structure/simple_farm/proc/increase_level(new_level)
+	while(new_level > farm_level)
+		farm_level++
+		switch(farm_level)
+			if(SKILL_LEVEL_NOVICE)
+				//you figure out the weird red color these apples have doesnt make them inedible
+				max_harvest += 1
+				bonus_potency += 10
 
-		return FALSE
+			if(SKILL_LEVEL_APPRENTICE)
+				//hey these plants are the most ripe at this time in the season
+				max_harvest += 1
 
-	max_harvest++
+			if(SKILL_LEVEL_JOURNEYMAN)
+				//HEY, LADDERS EXIST, GO GET THOSE TREETOP FRUITS
+				harvest_cooldown -= 10 SECONDS
+				bonus_potency += 10
 
-	if(!silent)
-		balloon_alert_to_viewers("plant will have increased yield")
+			if(SKILL_LEVEL_EXPERT)
+				//oh so THATS why im getting mold on produce
+				max_harvest += 1
 
-	return TRUE
+			if(SKILL_LEVEL_MASTER)
+				//you realize you can let some frogs eat pests for you
+				harvest_cooldown -= 10 SECONDS
+				bonus_potency += 10
 
-/**
- * a proc that will decrease the amount of time it takes to be ready for harvest (at a maximum of 30 seconds, from a base of 1 minute)
- */
-/obj/structure/simple_farm/proc/decrease_cooldown(mob/user, var/silent = FALSE)
-	if(harvest_cooldown <= 30 SECONDS)
-		if(!silent)
-			balloon_alert(user, "already at maximum growth speed!")
+			if(SKILL_LEVEL_LEGENDARY)
+				//the PLANTS know who's their TENDER
+				var/static/list/color_matrix_were_rich = list(
+					1.5, 1, 0, 0,
+					1.5, 1, 0, 0,
+					0, 0, 0.5, 0,
+					0, 0, 0, 1,
+					0, 0, 0, 0
+				)
+				add_atom_colour(color_matrix_were_rich, FIXED_COLOUR_PRIORITY)
+				bonus_potency += 20
+				harvest_cooldown -= 15 SECONDS
+				balloon_alert_to_viewers("[src] gains a golden glow!")
 
-		return FALSE
-
-	harvest_cooldown -= 10 SECONDS
-
-	if(!silent)
-		balloon_alert_to_viewers("plant will grow faster")
-
-	return TRUE
 
 /**
  * used during the component so that it can move when its attached atom moves
@@ -240,32 +270,51 @@
 	if(!planted_seed)
 		return
 
-	for(var/i in 1 to rand(1, max_harvest))
-		var/obj/creating_obj
-
-		if(prob(15) && length(planted_seed.mutatelist))
-			var/obj/item/seeds/choose_seed = pick(planted_seed.mutatelist)
-			creating_obj = initial(choose_seed.product)
-
-			if(!creating_obj)
-				creating_obj = choose_seed
-
-			var/created_special = new creating_obj(get_turf(src))
-
-			plant_bag?.atom_storage?.attempt_insert(created_special, user, TRUE)
-
-			balloon_alert_to_viewers("something special drops!")
+	var/lower_cap = rand(1, max_harvest)
+	for(var/i in 0 to stored_worms)
+		if(prob(15))
 			continue
+		lower_cap = max(1, lower_cap - 1)
 
-		creating_obj = planted_seed.product
+	if(farm_level >= SKILL_LEVEL_LEGENDARY)
+		lower_cap = 1
 
-		if(!creating_obj)
-			creating_obj = planted_seed.type
+	for(var/i in lower_cap to max_harvest)
+		var/obj/item/seeds/seed
+		if(prob(15) && length(planted_seed.mutatelist))
+			var/type = pick(planted_seed.mutatelist)
+			seed = new type
+			balloon_alert_to_viewers("something special drops!")
+		else
+			seed = new planted_seed.type(null)
 
-		var/created_harvest = new creating_obj(get_turf(src))
+		//we're ASHIE GAMING, we do not concern ourselves with such puny concepts as purity
+		seed.endurance = 100
+		seed.lifespan = 100
+		seed.instability = 0
+		//also that
+		seed.yield = 5 + max_harvest
 
-		plant_bag?.atom_storage?.attempt_insert(created_harvest, user, TRUE)
+		seed.potency = 50 + bonus_potency
+		if(stored_worms)
+			seed.potency += stored_worms * 4
 
-/turf/open/misc/asteroid/basalt/Initialize(mapload)
+		var/harvest_type = seed.product || seed.type
+		var/harvest = new harvest_type(get_turf(src), seed)
+		plant_bag?.atom_storage?.attempt_insert(harvest, user, TRUE)
+
+/turf/open/misc/asteroid/basalt/getDug()
 	. = ..()
 	AddComponent(/datum/component/simple_farm)
+
+/turf/open/misc/asteroid/basalt/refill_dug()
+	. = ..()
+	qdel(GetComponent(/datum/component/simple_farm))
+
+/turf/open/misc/asteroid/snow/getDug()
+	. = ..()
+	AddComponent(/datum/component/simple_farm)
+
+/turf/open/misc/asteroid/snow/refill_dug()
+	. = ..()
+	qdel(GetComponent(/datum/component/simple_farm))

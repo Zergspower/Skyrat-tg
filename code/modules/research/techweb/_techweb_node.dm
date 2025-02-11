@@ -24,8 +24,8 @@
 	var/list/design_ids = list()
 	/// CALCULATED FROM OTHER NODE'S PREREQUISITIES. Associated list id = TRUE
 	var/list/unlock_ids = list()
-	/// Associative list, path = list(point type = point_value)
-	var/list/boost_item_paths = list()
+	/// List of items you need to deconstruct to unlock this node.
+	var/list/required_items_to_unlock = list()
 	/// Boosting this will autounlock this node
 	var/autounlock_by_boost = TRUE
 	/// The points cost to research the node, type = amount
@@ -40,6 +40,8 @@
 	var/list/experiments_to_unlock = list()
 	/// Whether or not this node should show on the wiki
 	var/show_on_wiki = TRUE
+	/// Hidden Mech nodes unlocked when mech fabricator emaged.
+	var/illegal_mech_node = FALSE
 
 /datum/techweb_node/error_node
 	id = "ERROR"
@@ -88,10 +90,20 @@
 		var/list/boostlist = host.boosted_nodes[id]
 		for(var/booster in boostlist)
 			if(actual_costs[booster])
-				var/delta = max(0, actual_costs[booster] - 250)
-				actual_costs[booster] -= min(boostlist[booster], delta)
+				actual_costs[booster] = max(actual_costs[booster] - boostlist[booster], 0)
 
 	return actual_costs
+
+/datum/techweb_node/proc/is_free(datum/techweb/host)
+	var/list/costs = get_price(host)
+	var/total_points = 0
+
+	for(var/point_type in costs)
+		total_points += costs[point_type]
+
+	if(total_points == 0)
+		return TRUE
+	return FALSE
 
 /datum/techweb_node/proc/price_display(datum/techweb/TN)
 	return techweb_point_display_generic(get_price(TN))

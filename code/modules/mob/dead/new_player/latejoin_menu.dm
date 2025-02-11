@@ -35,7 +35,7 @@ GLOBAL_DATUM_INIT(latejoin_menu, /datum/latejoin_menu, new)
 		ui.open()
 
 /datum/latejoin_menu/proc/scream_at_player(mob/dead/new_player/player)
-	if(istype(player) && !player.jobs_menu_mounted)
+	if(!player.jobs_menu_mounted)
 		to_chat(player, span_notice("If the late join menu isn't showing, hold CTRL while clicking the join button!"))
 
 /datum/latejoin_menu/ui_data(mob/user)
@@ -80,6 +80,8 @@ GLOBAL_DATUM_INIT(latejoin_menu, /datum/latejoin_menu, new)
 			)
 
 			if(job_availability != JOB_AVAILABLE)
+				if (job_datum.job_flags & JOB_HIDE_WHEN_EMPTY)
+					continue
 				job_data["unavailable_reason"] = get_job_unavailable_error_message(job_availability, job_datum.title)
 
 			if(job_datum.total_positions < 0)
@@ -95,6 +97,7 @@ GLOBAL_DATUM_INIT(latejoin_menu, /datum/latejoin_menu, new)
 
 /datum/latejoin_menu/ui_static_data(mob/user)
 	var/list/departments = list()
+	var/mob/dead/new_player/owner = user
 
 	for(var/datum/job_department/department as anything in SSjob.joinable_departments)
 		var/list/department_jobs = list()
@@ -107,6 +110,8 @@ GLOBAL_DATUM_INIT(latejoin_menu, /datum/latejoin_menu, new)
 		for(var/datum/job/job_datum as anything in department.department_jobs)
 			//Jobs under multiple departments should only be displayed if this is their first department or the command department
 			if(LAZYLEN(job_datum.departments_list) > 1 && job_datum.departments_list[1] != department.type && !(job_datum.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND))
+				continue
+			if((job_datum.job_flags & JOB_HIDE_WHEN_EMPTY) && owner.IsJobUnavailable(job_datum.title, latejoin = TRUE) != JOB_AVAILABLE)
 				continue
 
 			var/list/job_data = list(
@@ -185,7 +190,6 @@ GLOBAL_DATUM_INIT(latejoin_menu, /datum/latejoin_menu, new)
 				return TRUE
 
 			owner.vote_on_poll_handler(poll, params)
-
 			return TRUE
 
 /// Gives the user a random job that they can join as, and prompts them if they'd actually like to keep it, rerolling if not. Cancellable by the user.

@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 /datum/sm_delam/proc/can_select(obj/machinery/power/supermatter_crystal/sm)
 	return FALSE
 
-#define ROUNDCOUNT_ENGINE_JUST_EXPLODED 0
+#define ROUNDCOUNT_ENGINE_JUST_EXPLODED -1
 
 /// Called when the count down has been finished, do the nasty work.
 /// [/obj/machinery/power/supermatter_crystal/proc/count_down]
@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 	if (sm.is_main_engine)
 		SSpersistence.delam_highscore = SSpersistence.rounds_since_engine_exploded
 		SSpersistence.rounds_since_engine_exploded = ROUNDCOUNT_ENGINE_JUST_EXPLODED
-		for (var/obj/machinery/incident_display/sign as anything in GLOB.map_delamination_counters)
+		for (var/obj/machinery/incident_display/sign as anything in GLOB.map_incident_displays)
 			sign.update_delam_count(ROUNDCOUNT_ENGINE_JUST_EXPLODED)
 	qdel(sm)
 
@@ -61,13 +61,11 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 			alert_sound_to_playing('modular_skyrat/master_files/sound/effects/reactor/meltdown.ogg', override_volume = TRUE)
 			alert_sound_to_playing('sound/effects/alert.ogg', override_volume = TRUE)
 			// SKYRAT EDIT END
-			playsound(sm, 'sound/misc/bloblarm.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 		if(SUPERMATTER_EMERGENCY)
 			// SKYRAT EDIT ADDITION
 			alert_sound_to_playing('modular_skyrat/master_files/sound/effects/reactor/core_overheating.ogg', override_volume = TRUE)
 			alert_sound_to_playing('sound/misc/notice1.ogg', override_volume = TRUE)
 			// SKYRAT EDIT END
-			playsound(sm, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_DANGER)
 			playsound(sm, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_WARNING)
@@ -85,12 +83,12 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 	SEND_SIGNAL(sm, COMSIG_SUPERMATTER_DELAM_ALARM)
 	return TRUE
 
-/// Called when a supermatter switches it's strategy from another one to us.
+/// Called when a supermatter switches its strategy from another one to us.
 /// [/obj/machinery/power/supermatter_crystal/proc/set_delam]
 /datum/sm_delam/proc/on_select(obj/machinery/power/supermatter_crystal/sm)
 	return
 
-/// Called when a supermatter switches it's strategy from us to something else.
+/// Called when a supermatter switches its strategy from us to something else.
 /// [/obj/machinery/power/supermatter_crystal/proc/set_delam]
 /datum/sm_delam/proc/on_deselect(obj/machinery/power/supermatter_crystal/sm)
 	return

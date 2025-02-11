@@ -16,8 +16,14 @@
 /datum/hallucination/station_message/shuttle_dock
 
 /datum/hallucination/station_message/shuttle_dock/start()
-	priority_announce("[SSshuttle.emergency || "The Emergency Shuttle"] has docked with the station. You have 3 minutes to board the Emergency Shuttle.", \
-		null, ANNOUNCER_SHUTTLEDOCK, ANNOUNCEMENT_TYPE_PRIORITY, players = list(hallucinator))
+	priority_announce(
+					text = "[SSshuttle.emergency] has docked with the station. You have [DisplayTimeText(SSshuttle.emergency_dock_time)] to board the emergency shuttle.",
+					title = "Emergency Shuttle Arrival",
+					sound = ANNOUNCER_SHUTTLEDOCK,
+					sender_override = "Emergency Shuttle Uplink Alert",
+					players = list(hallucinator),
+					color_override = "orange",
+				)
 	return ..()
 
 /datum/hallucination/station_message/malf_ai
@@ -34,11 +40,26 @@
 	/// This is gross and will probably easily be outdated in some time but c'est la vie.
 	/// Maybe if someone datumizes heretic paths or something this can be improved
 	var/static/list/ascension_bodies = list(
-		"Fear the blaze, for the Ashlord, %FAKENAME% has ascended! The flames shall consume all!",
-		"Master of blades, the Torn Champion's disciple, %FAKENAME% has ascended! Their steel is that which will cut reality in a maelstom of silver!",
-		"Ever coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, %FAKENAME% has ascended! Fear the ever twisting hand!",
-		"Fear the decay, for the Rustbringer, %FAKENAME% has ascended! None shall escape the corrosion!",
-		"The nobleman of void %FAKENAME% has arrived, stepping along the Waltz that ends worlds!",
+		list(
+			"text" = "Fear the blaze, for the Ashlord, %FAKENAME% has ascended! The flames shall consume all!",
+			"sound" = 'sound/ambience/antag/heretic/ascend_blade.ogg',
+		),
+		list(
+			"text" = "Master of blades, the Torn Champion's disciple, %FAKENAME% has ascended! Their steel is that which will cut reality in a maelstom of silver!",
+			"sound" = 'sound/ambience/antag/heretic/ascend_blade.ogg',
+		),
+		list(
+			"text" = "Ever coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, %FAKENAME% has ascended! Fear the ever twisting hand!",
+			"sound" = 'sound/ambience/antag/heretic/ascend_flesh.ogg',
+		),
+		list(
+			"text" = "Fear the decay, for the Rustbringer, %FAKENAME% has ascended! None shall escape the corrosion!",
+			"sound" = 'sound/ambience/antag/heretic/ascend_rust.ogg',
+		),
+		list(
+			"text" = "The nobleman of void %FAKENAME% has arrived, stepping along the Waltz that ends worlds!",
+			"sound" = 'sound/ambience/antag/heretic/ascend_void.ogg',
+		)
 	)
 
 /datum/hallucination/station_message/heretic/start()
@@ -47,9 +68,15 @@
 	if(!totally_real_heretic)
 		return FALSE
 
-	var/message_with_name = pick(ascension_bodies)
-	message_with_name = replacetext(message_with_name, "%FAKENAME%", totally_real_heretic.real_name)
-	priority_announce("[generate_heretic_text()] [message_with_name] [generate_heretic_text()]","[generate_heretic_text()]", ANNOUNCER_SPANOMALIES, players = list(hallucinator))
+	var/list/fake_ascension = pick(ascension_bodies)
+	var/announcement_text = replacetext(fake_ascension["text"], "%FAKENAME%", totally_real_heretic.real_name)
+	priority_announce(
+		text = "[generate_heretic_text()] [announcement_text] [generate_heretic_text()]",
+		title = "[generate_heretic_text()]",
+		sound = fake_ascension["sound"],
+		players = list(hallucinator),
+		color_override = "pink",
+	)
 	return ..()
 
 /datum/hallucination/station_message/cult_summon
@@ -65,10 +92,13 @@
 	var/area/fake_summon_area_type = pick(GLOB.the_station_areas - hallucinator_area.type)
 	var/area/fake_summon_area = GLOB.areas_by_type[fake_summon_area_type]
 
-	priority_announce("Figments from an eldritch god are being summoned by [totally_real_cult_leader.real_name] \
-		into [fake_summon_area] from an unknown dimension. Disrupt the ritual at all costs!", \
-		"Central Command Higher Dimensional Affairs", \
-		sound = 'sound/ambience/antag/bloodcult/bloodcult_scribe.ogg', has_important_message = TRUE, players = list(hallucinator))
+	priority_announce(
+		text = "Figments from an eldritch god are being summoned by [totally_real_cult_leader.real_name] into [fake_summon_area] from an unknown dimension. Disrupt the ritual at all costs!",
+		title = "[command_name()] Higher Dimensional Affairs",
+		sound = 'sound/ambience/antag/bloodcult/bloodcult_scribe.ogg',
+		has_important_message = TRUE,
+		players = list(hallucinator),
+	)
 	return ..()
 
 /datum/hallucination/station_message/meteors

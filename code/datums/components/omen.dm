@@ -17,7 +17,7 @@
 	/// Base damage from negative events. Cursed take 25% of this damage.
 	var/damage_mod = 1
 
-/datum/component/omen/Initialize(obj/vessel, incidents_left = 1, luck_mod, damage_mod)
+/datum/component/omen/Initialize(obj/vessel, incidents_left, luck_mod, damage_mod)
 	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -30,6 +30,8 @@
 		src.luck_mod = luck_mod
 	if(!isnull(damage_mod))
 		src.damage_mod = damage_mod
+
+	ADD_TRAIT(parent, TRAIT_CURSED, SMITE_TRAIT)
 
 /**
  * This is a omen eat omen world! The stronger omen survives.
@@ -50,6 +52,7 @@
 
 /datum/component/omen/Destroy(force)
 	var/mob/living/person = parent
+	REMOVE_TRAIT(person, TRAIT_CURSED, SMITE_TRAIT)
 	to_chat(person, span_nicegreen("You feel a horrible omen lifted off your shoulders!"))
 
 	if(vessel)
@@ -140,12 +143,12 @@
 			return
 
 		for(var/obj/machinery/light/evil_light in the_turf)
-			if((evil_light.status == LIGHT_BURNED || evil_light.status == LIGHT_BROKEN) || (HAS_TRAIT(living_guy, TRAIT_SHOCKIMMUNE))) // we cant do anything :( // Why in the world is there no get_siemens_coeff proc???
+			if((evil_light.status == LIGHT_BURNED || evil_light.status == LIGHT_BROKEN) || (HAS_TRAIT(living_guy, TRAIT_SHOCKIMMUNE))) // we can't do anything :( // Why in the world is there no get_siemens_coeff proc???
 				to_chat(living_guy, span_warning("[evil_light] sparks weakly for a second."))
 				do_sparks(2, FALSE, evil_light) // hey maybe it'll ignite them
 				return
 
-			to_chat(living_guy, span_warning("[evil_light] glows ominously...")) // omenously
+			to_chat(living_guy, span_warning("[evil_light] glows ominously...")) // ominously
 			evil_light.visible_message(span_boldwarning("[evil_light] suddenly flares brightly and sparks!"))
 			evil_light.break_light_tube(skip_sound_and_sparks = FALSE)
 			do_sparks(number = 4, cardinal_only = FALSE, source = evil_light)
@@ -305,6 +308,7 @@
  * While it lasts, parent gets a cursed aura filter.
  */
 /datum/component/omen/bible
+	incidents_left = 1
 
 /datum/component/omen/bible/RegisterWithParent()
 	. = ..()

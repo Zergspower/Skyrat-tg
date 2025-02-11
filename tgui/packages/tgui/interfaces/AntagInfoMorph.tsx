@@ -1,5 +1,7 @@
-import { BlockQuote, Stack } from '../components';
+import { BlockQuote, Stack } from 'tgui-core/components';
+
 import { Window } from '../layouts';
+import { Rules } from './AntagInfoRules'; // SKYRAT EDIT ADDITION
 
 const goodstyle = {
   color: 'lightgreen',
@@ -13,7 +15,7 @@ const noticestyle = {
   color: 'lightblue',
 };
 
-export const AntagInfoMorph = (props, context) => {
+export const AntagInfoMorph = (props) => {
   return (
     <Window width={620} height={170} theme="abductor">
       <Window.Content>
@@ -48,6 +50,11 @@ export const AntagInfoMorph = (props, context) => {
               </span>{' '}
             </BlockQuote>
           </Stack.Item>
+          {/* SKYRAT EDIT ADDITION START */}
+          <Stack.Item>
+            <Rules />
+          </Stack.Item>
+          {/* SKYRAT EDIT ADDITION END */}
         </Stack>
       </Window.Content>
     </Window>

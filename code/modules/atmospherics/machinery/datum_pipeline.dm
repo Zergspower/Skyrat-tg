@@ -49,13 +49,13 @@
 	reconcile_air()
 	//Only react if the mix has changed, and don't keep updating if it hasn't
 	update = air.react(src)
-	CalculateGasmixColor(air)
+	//CalculateGasmixColor(air) // SKYRAT EDIT REMOVAL - Pipe gas visuals removed // SKYRAT TODO - Look into this
 
 /datum/pipeline/proc/set_air(datum/gas_mixture/new_air)
 	if(new_air == air)
 		return
 	air = new_air
-	CalculateGasmixColor(air)
+	//CalculateGasmixColor(air) // SKYRAT EDIT REMOVAL - Pipe gas visuals removed
 
 ///Preps a pipeline for rebuilding, insterts it into the rebuild queue
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
@@ -96,7 +96,7 @@
 	while(possible_expansions.len)
 		for(var/obj/machinery/atmospherics/borderline in possible_expansions)
 			var/list/result = borderline.pipeline_expansion(src)
-			if(!(result && result.len))
+			if(!result?.len)
 				possible_expansions -= borderline
 				continue
 			for(var/obj/machinery/atmospherics/considered_device in result)
@@ -131,7 +131,7 @@
 
 	/**
 	 *  For a machine to properly "connect" to a pipeline and share gases,
-	 *  the pipeline needs to acknowledge a gas mixture as it's member.
+	 *  the pipeline needs to acknowledge a gas mixture as its member.
 	 *  This is currently handled by the other_airs list in the pipeline datum.
 	 *
 	 *	Other_airs itself is populated by gas mixtures through the parents list that each machineries have.
@@ -325,11 +325,9 @@
 	if(gas_visuals[icon_file])
 		return gas_visuals[icon_file]
 
-	var/obj/effect/abstract/new_overlay = new
+	var/obj/effect/abstract/gas_visual/new_overlay = new
 	new_overlay.icon = icon_file
-	new_overlay.appearance_flags = RESET_COLOR | KEEP_APART
-	new_overlay.vis_flags = VIS_INHERIT_ICON_STATE | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
-	new_overlay.color = gasmix_color
+	new_overlay.ChangeColor(gasmix_color)
 
 	gas_visuals[icon_file] = new_overlay
 	return new_overlay
@@ -337,8 +335,8 @@
 /// Called when the gasmix color has changed and the gas visuals need to be updated.
 /datum/pipeline/proc/UpdateGasVisuals()
 	for(var/icon/source as anything in gas_visuals)
-		var/obj/effect/abstract/overlay = gas_visuals[source]
-		animate(overlay, time=5, color=gasmix_color)
+		var/obj/effect/abstract/gas_visual/overlay = gas_visuals[source]
+		overlay.ChangeColor(gasmix_color)
 
 /// After updating, this proc handles looking at the new gas mixture and blends the colors together according to percentage of the gas mix.
 /datum/pipeline/proc/CalculateGasmixColor(datum/gas_mixture/source)
@@ -350,7 +348,7 @@
 		var/gas_weight = air.gases[gas_path][MOLES]
 		if(!gas_weight)
 			continue
-		var/gas_color = RGBtoHSV(initial(gas_path.primary_color))
+		var/gas_color = initial(gas_path.primary_color)
 		current_weight += gas_weight
 		if(!current_color)
 			current_color = gas_color
@@ -358,15 +356,34 @@
 			current_color = BlendHSV(current_color, gas_color, gas_weight / current_weight)
 
 	if(!current_color)
-		current_color = "#000000"
+		current_color = COLOR_BLACK
 	else
 		// Empty weight is prety much arbitrary, just tuned to make the color change from black reasonably quickly without hitting max color immediately
 		var/empty_weight = (air.volume * 1.5 - current_weight) / 10
 		if(empty_weight > 0)
-			current_color = BlendHSV("#000000", current_color, current_weight / (empty_weight + current_weight))
-
-	current_color = HSVtoRGB(current_color)
+			current_color = BlendHSV(COLOR_BLACK, current_color, current_weight / (empty_weight + current_weight))
 
 	if(gasmix_color != current_color)
 		gasmix_color = current_color
 		UpdateGasVisuals()
+
+/obj/effect/abstract/gas_visual
+	appearance_flags  = RESET_COLOR | KEEP_APART
+	vis_flags = VIS_INHERIT_ICON_STATE | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+	var/current_color
+	var/color_filter
+
+/obj/effect/abstract/gas_visual/Initialize(mapload)
+	. = ..()
+	color_filter = filter(type="color", color="white")
+	filters += color_filter
+	color_filter = filters[filters.len]
+	if(current_color)
+		animate(color_filter, color=current_color, time=5)
+
+/obj/effect/abstract/gas_visual/proc/ChangeColor(new_color)
+	current_color = new_color
+	if(isnull(color_filter))
+		// Called before init
+		return
+	animate(color_filter, time=5, color=new_color)

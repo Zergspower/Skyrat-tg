@@ -94,7 +94,6 @@
 	new /obj/item/clothing/head/utility/hardhat/red(src)
 	new /obj/item/crowbar/large/emergency(src)
 
-
 /*
  * Tool Closet
  */
@@ -185,14 +184,3 @@
 	new /obj/item/clothing/under/color/black(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/head/utility/bomb_hood/white(src)
-
-/*
- * Ammunition
- */
-/obj/structure/closet/ammunitionlocker
-	name = "ammunition locker"
-
-/obj/structure/closet/ammunitionlocker/PopulateContents()
-	..()
-	for(var/i in 1 to 8)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)

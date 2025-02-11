@@ -2,10 +2,9 @@
 	name = "Revival"
 	desc = "An experimental surgical procedure which involves reconstruction and reactivation of the patient's brain even long after death. \
 		The body must still be able to sustain life."
-	requires_bodypart_type = NONE
 	possible_locs = list(BODY_ZONE_CHEST)
 	target_mobtypes = list(/mob/living)
-	surgery_flags = SURGERY_REQUIRE_RESTING | SURGERY_REQUIRE_LIMB | SURGERY_MORBID_CURIOSITY
+	surgery_flags = SURGERY_REQUIRE_RESTING | SURGERY_MORBID_CURIOSITY
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/retract_skin,
@@ -14,6 +13,19 @@
 		/datum/surgery_step/incise,
 		/datum/surgery_step/revive,
 		/datum/surgery_step/close,
+	)
+
+/datum/surgery/revival/mechanic
+	name = "Full System Reboot"
+	requires_bodypart_type = BODYTYPE_ROBOTIC
+	steps = list(
+		/datum/surgery_step/mechanic_open,
+		/datum/surgery_step/open_hatch,
+		/datum/surgery_step/mechanic_unwrench,
+		/datum/surgery_step/prepare_electronics,
+		/datum/surgery_step/revive,
+		/datum/surgery_step/mechanic_wrench,
+		/datum/surgery_step/mechanic_close,
 	)
 
 /datum/surgery/revival/can_start(mob/user, mob/living/target)
@@ -75,7 +87,7 @@
 		span_notice("[user] prepares to shock [target]'s brain with [tool]."),
 		span_notice("[user] prepares to shock [target]'s brain with [tool]."),
 	)
-	target.notify_ghost_cloning("Someone is trying to zap your brain.", source = target)
+	target.notify_revival("Someone is trying to zap your brain.", source = target)
 
 /datum/surgery_step/revive/play_preop_sound(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(tool, /obj/item/shockpaddles))
@@ -92,8 +104,10 @@
 		span_notice("[user] send a powerful shock to [target]'s brain with [tool]..."),
 	)
 	target.grab_ghost()
-	target.adjustOxyLoss(-50, 0)
-	target.updatehealth()
+	target.adjustOxyLoss(-50)
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = target
+		carbon_target.set_heartattack(FALSE)
 	if(target.revive())
 		on_revived(user, target)
 		return TRUE
@@ -129,6 +143,7 @@
 /datum/surgery/revival/carbon
 	possible_locs = list(BODY_ZONE_HEAD)
 	target_mobtypes = list(/mob/living/carbon)
+	surgery_flags = parent_type::surgery_flags | SURGERY_REQUIRE_LIMB
 
 /datum/surgery/revival/carbon/is_valid_target(mob/living/carbon/patient)
 	var/obj/item/organ/internal/brain/target_brain = patient.get_organ_slot(ORGAN_SLOT_BRAIN)

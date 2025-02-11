@@ -1,6 +1,5 @@
 //SR Security
 #define SECHUD_CORRECTIONS_OFFICER "hudcorrectionsofficer"
-#define SECHUD_SECURITY_MEDIC "hudsecuritymedic"
 //SR Departmental Guards
 #define SECHUD_ENGINEERING_GUARD "hudengineeringguard"
 #define SECHUD_ORDERLY "hudorderly"
@@ -28,3 +27,4 @@
 //SR Misc
 #define SECHUD_BARBER "hudbarber"
 #define SECHUD_SCRAMBLED "hudscrambled"
+#define SECHUD_TELECOMMS_SPECIALIST "hudtelecommsspecialist"

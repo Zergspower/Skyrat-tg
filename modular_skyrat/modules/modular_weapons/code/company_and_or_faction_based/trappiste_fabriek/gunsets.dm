@@ -23,7 +23,13 @@
 	name = "Trappiste 'Wespe' gunset"
 
 	weapon_to_spawn = /obj/item/gun/ballistic/automatic/pistol/sol/no_mag
-	extra_to_spawn = /obj/item/ammo_box/magazine/c35sol_pistol
+	extra_to_spawn = /obj/item/ammo_box/magazine/c35sol_pistol/starts_empty
+
+/obj/item/storage/toolbox/guncase/skyrat/pistol/trappiste_small_case/eland
+	name = "Trappiste 'Eland' gunset"
+
+	weapon_to_spawn = /obj/item/gun/ballistic/revolver/sol
+	extra_to_spawn = /obj/item/ammo_box/c35sol/incapacitator
 
 // Gunset for the Skild heavy pistol
 
@@ -32,3 +38,11 @@
 
 	weapon_to_spawn = /obj/item/gun/ballistic/automatic/pistol/trappiste/no_mag
 	extra_to_spawn = /obj/item/ammo_box/magazine/c585trappiste_pistol
+
+// Gunset for the Takbok Revolver
+
+/obj/item/storage/toolbox/guncase/skyrat/pistol/trappiste_small_case/takbok
+	name = "Trappiste 'Takbok' gunset"
+
+	weapon_to_spawn = /obj/item/gun/ballistic/revolver/takbok
+	extra_to_spawn = /obj/item/ammo_box/c585trappiste
